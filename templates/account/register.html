@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+    
+        function register() {  
+            let alert_ = $('#alert')
+            alert_.removeClass('alert-danger')
+            alert_[0].innerHTML=''
+        
+            let input_ = document.getElementById("register_otp_mobile")
+            let y = input_.value;
+            let regexp=RegExp(/^[0-9]{10}$/)
+            if(regexp.test(y)==false){
+                input_.style.borderColor='red'
+                return
+            }
+            let x = document.getElementById("myDIV");
+            x.style.display = "block";
+            input_.style.borderColor='green'
+            let abc = $('#register_otp_mobile_submit')[0]
+            abc.style.color='black'
+            abc.style.padding = '0px 13px'
+            abc.disabled=true
+            let time=30
+            login_otp_setinterval_id = setInterval(() => {
+                abc.innerHTML=time
+                time-=1
+        
+            }, 1000);
+            let b = setTimeout(() => {
+                clearInterval(login_otp_setinterval_id)
+                abc.innerHTML='Resend OTP';
+                abc.disabled=false
+                
+            }, 30000);
+            $.post('/account/sendmobileotp/',{'mobileNumber':y}).done(()=>{
+                
+            }).fail(()=>{
+                let alert_ = $('#alert')
+                alert_.addClass('alert-danger')
+                alert_[0].innerHTML='Account already exists'
+                clearInterval(login_otp_setinterval_id)
+                abc.innerHTML='Resend OTP';
+                abc.disabled=false
+            })
+        }
+        function verify_mobile_otp() {  
+            let alert_ = $('#alert')
+            alert_.removeClass('alert-danger')
+            alert_[0].innerHTML=''
+        
+            let input_ = document.getElementById("register_otp_mobile")
+            let y = input_.value;
+            let input_otp = document.getElementById("register_otp_input")
+            let z = input_otp.value;
+            console.log(input_otp)
+            let regexp=RegExp(/^\d{5}$/)
+            if(regexp.test(z)==false){
+                input_otp.style.borderColor='red'
+                return
+            }
+            input_otp.style.borderColor='yellow'
+            $.post('/account/verifymobileotp/',{'mobileNumber':y,'otp':z}).done(()=>{
+                input_otp.style.borderColor='green'
+                let alert_ = $('#register_otp_helper')
+                alert_[0].innerHTML=''
+                let sb= document.getElementById('register_submit_button')
+                sb.disabled=false
+            }).fail(()=>{
+                let alert_ = $('#register_otp_helper')
+                alert_[0].innerHTML='Invalid OTP'
+                input_otp.style.borderColor='red'
+            })
+        }
+        </script>
+        
+    <meta charset="UTF-8">
+    <title>Register Account</title>
+    <link rel="icon" href="/static/staticfiles/favicon.ico"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/staticfiles/css/style.css">
+    <link rel="stylesheet" href="/static/staticfiles/css/responsive.css">
+    <link rel="stylesheet" href="/static/staticfiles/css/Login.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.0.0/mdb.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>Register as a seller | Seventh Square Seller</title>
+</head>
+<body>
+    {% include "styles.html" %}
+    {% include "navigation.html" %}
+    <div id='alert' style="text-align: center;"></div>
+    {%if message is not None%}
+    <div class="alert alert-{{color}} text-center" style="margin:0">
+        <strong>{{message}}</strong>
+    </div>
+    {%endif%}
+    <section class="background sec-small" style="height:initial;">
+        <div class="row film-small" style="margin:auto;justify-content: center;">
+            <div class="col-6" id="login-pic">
+                <img class="d-none d-lg-block" src="/static/staticfiles/img/Login.png" style="width: 90%;margin: auto;">
+            </div>            
+            <div class="col-12 col-md-6 ">
+                <br/>
+                <form class="text-center" method="POST" action="/account/register/" >
+                    {%csrf_token%}
+                    <h1 class="text-capitalize text-center"
+                        style="margin-bottom: 5px; letter-spacing: 2px; font-weight: bold;font-family: 'Voga Medium'; font-size: 48px;">
+                        Register</h1>
+                    <h1 class="text-capitalize text-center"
+                        style="font-family: 'Voga Medium'; letter-spacing: 2px; font-style: normal; font-weight: 500;">
+                        Your Seller Account</h1>
+                        
+                            <span id='register_mobile_helper' class='text-danger float-left p-1'></span><br/>
+                            <div class="form-group" id="Mob-div">
+                                <input class="form-control " id = "register_otp_mobile" type="number" name="mobileNumber" required
+                                    placeholder="Mobile Number" maxlength="10" pattern="(6|7|8|9)\d{9}">
+                                <button type="button" style="line-height: normal;padding: 0px;border-radius: 0px 5px 5px 0px;box-shadow: white 0 0 0;background-color: #757575;" class='btn btn-primary btn-sm'  id="register_otp_mobile_submit" onclick="register()" class="btn btn-secondary" >Send OTP</button>
+                            </div>
+                            <span id='register_otp_helper' class='text-danger float-left p-1'></span>
+                            <div>
+                                <div class="form-group" style="display: none;" id='myDIV'>
+                                    <input class="form-control" onblur="verify_mobile_otp()" pattern="(\d{5})" id='register_otp_input' name="OTP" required placeholder="Enter OTP" maxlength="10" >
+                                </div>
+                            </div>
+                            <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email" required
+                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"></div>
+                            <div class="form-group"><input id="password-field" class="form-control icon-wrapper input" type="password"
+                                    name="password" required placeholder="Password"><span toggle="#password-field" onclick="myFunction()"
+                                    class="ion ion-eye field-icon toggle-password" style="font-size: 22px;"></span>
+                            </div>
+                            <br/>
+                            <div class="" style="padding: 30px 0px 0px 30px;">
+                                <div class="form-check" style="padding-left: 0px;"><input class="form-check-input" 
+                                            type="checkbox" required>I Agree With <a href="/marketplace/">Marketplace Agreement </a>And
+                                        <a href="/policy/">Policies</a>.</div>
+                            </div>
+                            <div class="form-group"><button class="btn btn-primary btn-block" type="submit" disabled id='register_submit_button'
+                                style="background: #000;border-color: #4f4f4f;    margin-top: 10px;">Continue</button>
+                            </div>
+                            <div>
+                                Already have an account? 
+                                <u>
+                                    <a class="text-capitalize already" href="/account/login/" style="color:#4f4f4f">Login here</a>
+                                </u>
+                            </div>
+                            <br/>
+
+                    
+                </form>
+                
+            </div>            
+        </div>
+    </section>
+    {% include "footer.html" %}
+    <script src="/static/staticfiles/js/resp.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.0.0/mdb.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="/static/staticfiles/js/resp.js"></script>
+    
+</body>
+</html>

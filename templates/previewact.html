@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Preview Product | Seventh Square Seller</title>
+    <link rel="stylesheet" href="/static/staticfiles/css/Bootstrap-Tags-Input.css">
+    <style>
+        .backdrop {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            position: absolute;
+            display: block;
+            z-index: 10;
+            visibility: hidden;
+        }
+
+        .backdrop-transition {
+            transition-duration: .2s;
+            transition-timing-function: cubic-bezier(.25, .8, .25, 1);
+            transition-property: visibility;
+        }
+
+        .backdrop-dark {
+            background-color: rgba(0, 0, 0, .8);
+        }
+    </style>
+    <style>
+
+        .form-control:focus {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+        #content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .column {
+            width: 600px;
+            padding: 10px;
+
+        }
+
+        #featured {
+            max-width: 500px;
+            max-height: 600px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid black;
+
+        }
+
+        .thumbnail {
+            object-fit: cover;
+            max-width: 180px;
+            max-height: 100px;
+            cursor: pointer;
+            opacity: 0.5;
+            margin: 5px;
+            border: 2px solid black;
+
+        }
+
+        .thumbnail:hover {
+            opacity: 1;
+        }
+
+        .active {
+            opacity: 1;
+        }
+
+        #slide-wrapper {
+            max-width: 500px;
+            display: flex;
+            min-height: 100px;
+            align-items: center;
+        }
+
+        #slider {
+            width: 440px;
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+
+        }
+
+        #slider::-webkit-scrollbar {
+            width: 8px;
+
+        }
+
+        #slider::-webkit-scrollbar-track {
+            box-shadow: 2px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+
+        }
+
+        #slider::-webkit-scrollbar-thumb {
+            background-color: #dede2e;
+            outline: 1px solid slategrey;
+            border-radius: 100px;
+
+        }
+
+        #slider::-webkit-scrollbar-thumb:hover {
+            background-color: #18b5ce;
+        }
+
+        .arrow {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .arrow:hover {
+            opacity: .5;
+            width: 35px;
+            height: 35px;
+        }
+
+        .product-content {
+            margin-top: -80px;
+            padding: 0rem 0rem;
+        }
+
+        .product-title {
+            width: 550px;
+            font-size: 3rem;
+            text-transform: capitalize;
+            font-weight: 700;
+            position: relative;
+            color: #05050e;
+            margin: 1rem 0;
+            border: none;
+            background: white;
+        }
+
+
+
+        .product-link {
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 400;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            background: #256eff;
+            color: #fff;
+            padding: 0 0.3rem;
+            transition: all 0.5s ease;
+            margin-top: -10px;
+        }
+
+        .product-link:hover {
+            opacity: 0.9;
+        }
+
+        .product-price {
+            margin: 1rem 0;
+            margin-left: -10px;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .product-price span {
+            font-weight: 400;
+        }
+
+        .last-price input {
+            width: 50px;
+            color: #f64749;
+            text-decoration: line-through;
+        }
+
+        .new-price input {
+            width: 50px;
+            color: #256eff;
+        }
+
+        .showGSTTax {
+            width: 50px;
+            margin: 0px 0px 0px 80px;
+            font-size: 0.7rem;
+            margin-top: -20px !important;
+        }
+
+        .product-detail {
+            margin-left: -5px;
+        }
+
+        .product-detail p {
+            font-size: 0.9rem;
+            padding: 0.3rem;
+            opacity: 0.8;
+        }
+
+        .product-detail ul {
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .product-detail ul li {
+            margin: 0;
+            list-style: none;
+            background-size: 18px;
+            padding-left: 1.7rem;
+            margin-left: -50px;
+            opacity: 0.9;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .product-detail ul li p {
+            margin-top: -4px;
+            font-weight: 600;
+        }
+    </style>
+     {% include "styles.html" %}
+    {% include "navigation.html" %}
+
+    <div class="modal-content">
+                <div class="modal-header">
+                    <h5 style="text-align: center;font-family: 'Crimson Text', serif;">Preview
+                        Product</h5><button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+
+                <div class="modal-body">
+                    <div id="content-wrapper">
+
+
+                        <div class="column">
+                            <img id="featured" src="{{ inventory.image.url}}" alt=" " />
+                            <!-- <div id=featured></div> -->
+
+                            <div id="slide-wrapper">
+                                <img id="slideLeft" class="arrow"
+                                    src="/static/staticfiles/img/preview/arrow-left.png">
+                                 <div id="slider">
+                                    
+                                    
+                                    <!-- <img id="sliderActive" class="thumbnail active"
+                                    src="#"> -->
+                                    <!-- 
+                                    <img class="thumbnail"
+                                        src="/static/staticfiles/img/preview/shoe2.jpg">
+                                    <img class="thumbnail"
+                                        src="/static/staticfiles/img/preview/shoe3.jpg"> -->
+                                </div>
+
+                                <img id="slideRight" class="arrow"
+                                    src="/static/staticfiles/img/preview/arrow-right.png">
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class=" product-content">
+                                <h2 class="product-title" id="showProductTitle">{{ inventory.name }}</h2>
+                                <div class="product-price row">
+                                    <p><span class="last-price"><input type="text"
+                                                id="showProductMRP"
+                                                style="border:none;background-color:white;"
+                                                disabled /> </span><span class="new-price">
+                                            &nbsp;&nbsp;
+                                            <input type="text" id="showProductSalePrice"
+                                                style="border:none;background-color:white;"
+                                                disabled /></span> &nbsp;
+                                        <input type="text" id="showProductUnit"
+                                            style="border:none;background-color:white;" disabled />
+                                    </p>
+                                    <p class="showGSTTax" id="showGSTTax"></p>
+                                </div>
+
+                                        <div class="product-detail">
+                                            <img src={{ Inventory.image}} Width="20px" height="20px" alt="">
+
+                                         <ul>
+                                         <li>
+                                            <img src="/static/staticfiles/img/preview/checked.webp"
+                                                Width="20px" height="20px"
+                                                alt="">&nbsp;&nbsp;Product Type : <p
+                                                id="showProductType">{{ inventory.category }}</p>
+                                        </li>
+                                        <li><img src="/static/staticfiles/img/preview/checked.webp"
+                                                Width="20px" height="20px"
+                                                alt="">&nbsp;&nbsp;Product Weight : <p
+                                                id="showProductWeight">{{ inventory.weight }}</p>
+                                        </li>
+                                        <li><img src="/static/staticfiles/img/preview/checked.webp"
+                                                Width="20px" height="20px"
+                                                alt="">&nbsp;&nbsp;Product Dimension : <p
+                                                id="showProductDimensions">{{ inventory.packedLength }}x{{ inventory.packedWidth }}x{{ inventory.packedHeight }}</p>
+                                        </li>
+                                        <li><img src="/static/staticfiles/img/preview/checked.webp"
+                                                Width="20px" height="20px"
+                                                alt="">&nbsp;&nbsp;Product Materials : <p
+                                                id="showProductMaterials">{{ inventory.material }}</p>
+                                        </li>
+                                         </ul>
+                                    </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    
+
+                    <div class="product-info">
+                        <div style="padding: 4%;">
+                            <strong>Product Description : </strong>
+                            <hr><br>
+                            <p id="showProductInfo" style="margin-top:-20px;width:1100px;">{{ inventory.description }}</p>
+
+                            <ul class="nav nav-tabs" role="tablist" id="myTab"
+                                style="margin-top: 20px;">
+                                <li class="nav-item" role="presentation"><a class="nav-link active"
+                                        role="tab" data-toggle="tab" id="specifications-tabs"
+                                        href="#specifications">Specifications</a>
+                                </li>
+                            </ul>
+                            <div class="row">
+                                <div class="col-md-6 mx-4">
+                                    <div class="form-group row my-2">
+                                        <label for="inputPassword"
+                                            class="col-sm-4 col-form-label">Storage</label>
+                                        <div class="col-sm-6">
+                                            <p id="showProductStorage" style="width:400px;">{{ inventory.aboutStorage }}</p>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row my-2">
+                                        <label for="inputPassword"
+                                            class="col-sm-4 col-form-label">Installation</label>
+                                        <div class="col-sm-6">
+                                            <p id="showProductInstallation" style="width:400px;">{{ inventory.aboutInstallation }}</p>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row my-2">
+                                        <label for="inputPassword"
+                                            class="col-sm-4 col-form-label">Handling</label>
+                                        <div class="col-sm-6">
+                                            <p id="showProductHandling" style="width:400px;">{{ inventory.aboutHandling }}</p>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row my-2">
+                                        <label for="inputPassword"
+                                            class="col-sm-4 col-form-label">Usage</label>
+                                        <div class="col-sm-6">
+                                            <p id="showProductUsage" style="width:400px;">{{ inventory.aboutUsage }}</p>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row my-2">
+                                        <label for="inputPassword"
+                                            class="col-sm-4 col-form-label">HSN Code</label>
+                                        <div class="col-sm-6">
+                                            <p id="showProductHSNCode" style="width:400px;">{{ inventory.HSN }}</p>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row my-2">
+                                        <label for="inputPassword"
+                                            class="col-sm-4 col-form-label">Tax Code</label>
+                                        <div class="col-sm-6">
+                                            <p id="showProductTaxCode" style="width:400px;">{{ inventory.gstRate }}</p>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row my-2">
+                                        <label for="inputPassword"
+                                            class="col-sm-4 col-form-label">Guarantee</label>
+                                        <div class="col-sm-6">
+                                            <p id="showProductGuarantee" style="width:400px;">{{ inventory.guarantee }}</p>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row my-2">
+                                        <label for="inputPassword"
+                                            class="col-sm-4 col-form-label">Warranty</label>
+                                        <div class="col-sm-6">
+                                            <p id="showProductWarranty" style="width:400px;">{{ inventory.warranty }}</p>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row my-2">
+                                        <label for="inputPassword"
+                                            class="col-sm-4 col-form-label">Packaging Size</label>
+                                        <div class="col-sm-6">
+                                            <p id="showProductPackaging" style="width:400px;">{{ inventory.packagingSize }}</p>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row my-2">
+                                        <label for="inputPassword"
+                                            class="col-sm-4 col-form-label">Components per
+                                            Unit</label>
+                                        <div class="col-sm-6">
+                                            <p id="showComponents" style="width:400px;">{{ inventory.components }}</p>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row my-2">
+                                        <label for="inputPassword"
+                                            class="col-sm-4 col-form-label">Country of
+                                            Origin</label>
+                                        <div class="col-sm-6">
+                                            <p id="showCountry" style="width:600px;">{{ inventory.countryOfOrigin }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mx-4 ">
+                                    <h3>About the Brand</h3>
+                                    <p id="showAbout" style="width:500px;">{{ inventory.aboutBrand }}</p>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                
+                
+                    </div>
+            </div>
+                {% include "footer.html" %}
+
+            </html>

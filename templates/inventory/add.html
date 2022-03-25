@@ -1,0 +1,1693 @@
+{% load static %}
+{%if request.user.is_authenticated%}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Add new product | Seventh Square Seller</title>
+    <link rel="stylesheet" href="/static/staticfiles/css/Bootstrap-Tags-Input.css">
+    <link rel="stylesheet"
+        href="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css" />
+    <style>
+        .form-control:focus {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+        #content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .column {
+            width: 600px;
+            padding: 10px;
+
+        }
+
+        .requiredLabel {
+            top: 20px !important;
+        }
+
+        #featured {
+            max-width: 500px;
+            max-height: 600px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid black;
+
+        }
+
+        .thumbnail {
+            object-fit: cover;
+            max-width: 180px;
+            max-height: 100px;
+            cursor: pointer;
+            opacity: 0.5;
+            margin: 5px;
+            border: 2px solid black;
+
+        }
+
+        .thumbnail:hover {
+            opacity: 1;
+        }
+
+        .active {
+            opacity: 1;
+        }
+
+        #slide-wrapper {
+            max-width: 500px;
+            display: flex;
+            min-height: 100px;
+            align-items: center;
+        }
+
+        #slider {
+            width: 440px;
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+
+        }
+
+        #slider::-webkit-scrollbar {
+            width: 8px;
+
+        }
+
+        #slider::-webkit-scrollbar-track {
+            box-shadow: 2px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+
+        }
+
+        #slider::-webkit-scrollbar-thumb {
+            background-color: #dede2e;
+            outline: 1px solid slategrey;
+            border-radius: 100px;
+
+        }
+
+        #slider::-webkit-scrollbar-thumb:hover {
+            background-color: #18b5ce;
+        }
+
+        .arrow {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .arrow:hover {
+            opacity: .5;
+            width: 35px;
+            height: 35px;
+        }
+
+        .product-content {
+            margin-top: -80px;
+            padding: 0rem 0rem;
+        }
+
+        .product-title {
+            width: 550px;
+            font-size: 3rem;
+            text-transform: capitalize;
+            font-weight: 700;
+            position: relative;
+            color: #05050e;
+            margin: 1rem 0;
+            border: none;
+            background: white;
+        }
+
+
+
+        .product-link {
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 400;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            background: #256eff;
+            color: #fff;
+            padding: 0 0.3rem;
+            transition: all 0.5s ease;
+            margin-top: -10px;
+        }
+
+        .product-link:hover {
+            opacity: 0.9;
+        }
+
+        .product-price {
+            margin: 1rem 0;
+            margin-left: -10px;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .product-price span {
+            font-weight: 400;
+        }
+
+        .last-price input {
+            width: 50px;
+            color: #f64749;
+            text-decoration: line-through;
+        }
+
+        .new-price input {
+            width: 50px;
+            color: #256eff;
+        }
+
+        .showGSTTax {
+            width: 50px;
+            margin: 0px 0px 0px 80px;
+            font-size: 0.7rem;
+            margin-top: -20px !important;
+        }
+
+        .product-detail {
+            margin-left: -5px;
+        }
+
+        .product-detail p {
+            font-size: 0.9rem;
+            padding: 0.3rem;
+            opacity: 0.8;
+        }
+
+        .product-detail ul {
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .product-detail ul li {
+
+            margin: 0;
+            list-style: none;
+            background-size: 18px;
+            padding-left: 1.7rem;
+            margin-left: -50px;
+            opacity: 0.9;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .product-detail ul li p {
+            margin-top: -4px;
+            font-weight: 600;
+        }
+    </style>
+    <style>
+        .fa-question {
+            margin-left: 5px;
+            font-size: 7px;
+            text-align: justify;
+            color: rgb(167, 123, 123);
+        }
+
+        .tooltiptext {
+            font-family: 'Roboto', sans-serif;
+            margin-left: -150px;
+            margin-top: 15px;
+            font-weight: 200;
+            width: 200px;
+            height: auto;
+            visibility: hidden;
+            background-color: black;
+            color: rgb(230, 230, 230);
+            text-align: center;
+            font-size: 12px;
+            padding: 10px 15px;
+            letter-spacing: .5px;
+            border: 1px solid lightgrey;
+
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+        }
+
+        .fa-question:hover .tooltiptext {
+            visibility: visible;
+        }
+
+        textarea {
+            height: 60px !important;
+        }
+    </style>
+    <style>
+        .add__another--img {
+            width: 20px;
+            height: 20px;
+            margin-left: 5px;
+
+            border-radius: 50%;
+        }
+
+        .add__another {
+            margin: 0;
+            padding: 0 !important;
+
+        }
+
+        .add__another a {
+            font-size: 14px;
+            color: black;
+            text-decoration: none;
+            text-align: center;
+            margin-left: 10px;
+            padding-right: 20px !important;
+            padding-left: 10px;
+            border: 1px;
+        }
+
+        .inputClass {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .inputClass img {
+            margin-top: 20px;
+        }
+
+        .fa-times {
+            margin-top: 12px;
+            font-size: 24px !important;
+            color: black !important;
+
+        }
+
+        .main__Input_Field {
+            margin-top: -5px;
+            margin-left: 25px !important;
+        }
+    </style>
+
+    <style>
+        .bs-invalid {
+            border: red 1px solid;
+        }
+    </style>
+    <style>
+        .backdrop {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            position: absolute;
+            display: block;
+            z-index: 10;
+            visibility: hidden;
+        }
+
+        .backdrop-transition {
+            transition-duration: .2s;
+            transition-timing-function: cubic-bezier(.25, .8, .25, 1);
+            transition-property: visibility;
+        }
+
+        .backdrop-dark {
+            background-color: rgba(0, 0, 0, .8);
+        }
+    </style>
+
+    {% include "styles.html" %}
+    {% include "navigation.html" %}
+
+    <div class="alert alert-{{col}} text-center" style="padding:0px; margin:0px; font-weight: 700;">
+        {{msg}}</div>
+    <nav aria-label="breadcrumb" style="font-size: 14px;border-bottom: 1px solid rgb(245, 245, 245);">
+        <ol class="breadcrumb m-0" style="background-color: #fff;padding: 2px 20px;">
+            <li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><span id="lastword"></span></li>
+        </ol>
+    </nav>
+    <div class="row" style="margin: 0px;">
+        {%include "seller_sidebar.html"%}
+        <div class="col mx-4">
+            <h2 class="text-center" style="margin: 20px;font-family: 'Libre Baskerville', serif;color: black;">
+                <strong>Add New Product</strong>
+            </h2>
+            <div class="card mb-3">
+                <div class="card-header py-3 text-center" style="background-color: #f8f9fc;">
+                    <p class="m-0 font-weight-bold"
+                        style="color: black;font-size: 25px;font-family: 'Crimson Text', serif;">Product Details</p>
+                </div>
+
+                <div class="bs-stepper">
+                    <div class="bs-stepper-header col-sm-4 col-md-12" role="tablist">
+                        <!-- your steps here -->
+                        <div class="step" data-target="#basic-info">
+                            <button type="button" class="step-trigger" role="tab" aria-controls="basic-info"
+                                id="basic-info-trigger">
+                                <span class="bs-stepper-circle">1</span>
+                                <span class="bs-stepper-label">Basic Info</span>
+                            </button>
+                        </div>
+                        <div class="line"></div>
+                        <div class="step" data-target="#more-info-part">
+                            <button type="button" class="step-trigger" role="tab" aria-controls="more-info-part"
+                                id="more-info-part-trigger">
+                                <span class="bs-stepper-circle">2</span>
+                                <span class="bs-stepper-label">More Info</span>
+                            </button>
+                        </div>
+                        <div class="line"></div>
+                        <div class="step" data-target="#pricing-part">
+                            <button type="button" class="step-trigger" role="tab" aria-controls="pricing-part"
+                                id="pricing-part-trigger">
+                                <span class="bs-stepper-circle">3</span>
+                                <span class="bs-stepper-label">Pricing</span>
+                            </button>
+                        </div>
+                        <div class="line"></div>
+                        <div class="step" data-target="#shipping-part">
+                            <button type="button" class="step-trigger" role="tab" aria-controls="shipping-part"
+                                id="shipping-part-trigger">
+                                <span class="bs-stepper-circle">4</span>
+                                <span class="bs-stepper-label">Shipping</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bs-stepper-content">
+                        <!-- your steps content here -->
+                        <form onsubmit="return false" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div id="basic-info" class="content" role="tabpanel" aria-labelledby="basic-info-trigger">
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label requiredLabel" for="">Product Title
+                                        <i style="font-size: 10px;" class="fas fa-question"><span
+                                                class="tooltiptext">Product Heading / Title will help your customers
+                                                discover your product on our platform. Read here to find out how to
+                                                write a
+                                                fitting product title</span></i>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <i class="fas fa-asterisk text-danger mx-2 mb-2" style="font-size: 8px;"></i>
+                                        <input class=" form-control" id="productTitle" type="text" placeholder=""
+                                            name="name" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label requiredLabel" for="">Product Type<i
+                                            style="font-size: 10px;" class="fas fa-question"><span
+                                                style="margin-left:-110px;margin-top:-80px" class="tooltiptext">Type
+                                                in the category your product is a part of. If your
+                                                product is not listed in the dropdown list, please choose 'other'
+                                                and define
+                                                your product category</span></i></label>
+                                    <div class="col-sm-8">
+                                        <i class="fas fa-asterisk text-danger mx-2 mb-2" style="font-size: 8px;"></i>
+                                        <input class="form-control" list="datalistOptions" id="productType"
+                                            placeholder="Type your Product Name" name="category" required>
+                                        <datalist id="datalistOptions">
+                                            {%include "productType.html"%}
+                                        </datalist>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label requiredLabel" for="">HSN Code<i
+                                            style="font-size: 10px;" class="fas fa-question"><span
+                                                class="tooltiptext">Please enter the relevant
+                                                HSN
+                                                Code to your Product. In case of any doubts, please check this
+                                                link.</span></i></label>
+                                    <div class="col-sm-8">
+                                        <i class="fas fa-asterisk text-danger mx-2 mb-2" style="font-size: 8px; "></i>
+                                        <input class="form-control block-centered ic-input type=" type="text"
+                                            onchange="checkMyKad()" onKeyDown="validateNum(event, this)" maxlength="6"
+                                            max="6" min="6" placeholder="HSN" id="myKadA" data-max="6" name="HSN"
+                                            required>
+                                        <span style="margin-top: 1px;  font-size: 12px !important;"><a
+                                                href="https://services.gst.gov.in/services/searchhsnsac">Find Relevant
+                                                HSN Code</a></span>
+                                    </div>
+                                    <script>
+                                        function validateNum(event, input) {
+                                            event.preventDefault();
+                                            var currVal = input.value ? input.value : "";
+                                            // Checks if the key pressed is a number and the right length
+                                            if (!isNaN(event.key) && currVal.length < 6) {
+                                                input.value = currVal + event.key;
+                                            }
+                                            // Backspace functionality
+                                            else if (event.keyCode == 8 && currVal > 0) {
+                                                input.value = input.value.slice(0, -1);
+                                            }
+                                        }
+                                    </script>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label requiredLabel" for="">Product Description<i
+                                            style="font-size: 10px;" class="fas fa-question"><span
+                                                class="tooltiptext">Write
+                                                about your Product's key features, benefits & applications. Read here to
+                                                find out how to write a fitting Product Description.</span></i></label>
+                                    <div class="col-sm-8">
+                                        <i class="fas fa-asterisk text-danger mx-2 mb-2" style="font-size: 8px;"></i>
+                                        <textarea class="form-control" id="productDescription" name="description"
+                                            rows="3" maxlength=250 required></textarea>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label requiredLabel" for="">Shipping
+                                        Method<i style="font-size: 10px;" class="fas fa-question"><span
+                                                class="tooltiptext">Self Shipping option will be enable after
+                                                Shipment
+                                                Document verification by our team. It is recommended you upload it
+                                                as
+                                                soon as possible.</span></i></label>
+                                    <div class="col-sm-8">
+                                        <i class="fas fa-asterisk text-danger mx-2 mb-2" style="font-size: 8px;"></i>
+                                        <select class="form-control" id="methodSelect" value="" name="shippingMethod"
+                                            onchange="selectShipping()" required>
+                                            <option value="1">Seventh Square Shipping</option>
+                                            <option value="0"> Self Shipping</option>
+                                        </select>
+                                        <script>
+                                            function selectShipping() {
+                                                var values = parseInt(document.getElementById("methodSelect").value);
+                                                var showDiv = document.getElementById("sla");
+                                                switch (values) {
+                                                    case 0:
+                                                        showDiv.style.display = "flex";
+                                                        showDiv.style.flexDirection = "row";
+                                                        break;
+                                                    case 1:
+                                                        showDiv.style.display = "none";
+
+                                                        break;
+                                                }
+
+                                            }
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputPassword" class="col-sm-4 col-form-label requiredLabel">Upload
+                                        Images and
+                                        videos</label>
+                                    <div class="col-sm-8">
+                                        <div class="well" data-bind="fileDrag: multiFileData">
+                                            <div class="">
+                                                <div class="">
+                                                    <i class="fas fa-asterisk text-danger mx-2 mb-2"
+                                                        style="font-size: 8px;"></i>
+                                                    <input name="image" type="file" multiple data-bind="fileInput: multiFileData, customFileInput: {
+                                              buttonClass: 'btn btn-warning',
+                                              fileNameClass: 'disabled form-control',
+                                              onClear: onClear,
+                                              onInvalidFileDrop: onInvalidFileDrop
+                                            }" accept="image/*" class="form-control"
+                                                        onchange="onProductImageChange(this)" id="productImage"
+                                                        required>
+                                                </div>
+                                                <div class="col-md-12 row">
+                                                    <div id="imageShow" style="border: 1px solid lightgray">
+
+                                                    </div>
+                                                    <script>
+
+                                                        $("body").on("click", ".remove-img", function (e) {
+                                                            $(this).parents('.image__column').remove();
+                                                            //the above method will remove the user_data div
+                                                        });
+                                                    </script>
+
+                                                    <!-- /ko -->
+                                                    <div data-bind="ifnot: fileData().dataURL">
+                                                        <label class="drag-label">Upload images and
+                                                            Video Here</label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type='button' class="btn btn-primary btn-next-form">Next</button>
+                            </div>
+                            <div id="more-info-part" class="content my-4" role="tabpanel"
+                                aria-labelledby="more-info-part-trigger">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" for="">About the Brand <i
+                                            style="font-size: 10px;" class="fas fa-question"><span
+                                                class="tooltiptext">Tip: include Brand
+                                                Name,
+                                                Year of Inception, Products sold by the company, Any
+                                                Recognitions and
+                                                Registrations, any other specialties</span></i></label>
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" name="aboutBrand" id="aboutProduct" cols="30"
+                                            rows="10"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" for="">Storage <i style="font-size: 10px;"
+                                            class="fas fa-question"><span style="margin-left:-100px;"
+                                                class="tooltiptext">Write about how the product should be stored
+                                                after
+                                                delivery. Like Environmental Conditions, Vertically/
+                                                Horizontally,
+                                                etc.</span></i></label>
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" name="aboutStorage" id="productStorage" cols="30"
+                                            rows="10"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" for="">Usage <i style="font-size: 10px;"
+                                            class="fas fa-question"><span style="margin-left:-90px;"
+                                                class="tooltiptext">Write about how the customer should use the
+                                                product
+                                                and where. </span></i></label>
+                                    <div class="col-sm-8">
+                                        <textarea name="aboutUsage" id="productUsage" cols="30" rows="10"
+                                            class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" for="">Installation <i
+                                            style="font-size: 10px;" class="fas fa-question"><span
+                                                style="margin-left:-100px;" class="tooltiptext">If the Product needs to
+                                                be fitted somewhere,
+                                                please
+                                                explain here how customers should proceed about
+                                                it.</span></i></label>
+                                    <div class="col-sm-8">
+                                        <textarea name="aboutInstallation" id="productInstallation" cols="30" rows="10"
+                                            class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" for="">Handling<i style="font-size: 10px;"
+                                            class="fas fa-question"><span style="margin-left:-100px;"
+                                                class="tooltiptext">Write for any handling precautions and
+                                                procedures
+                                                required for the product. </span></i></label>
+                                    <div class="col-sm-8">
+                                        <textarea name="aboutHandling" id="productHandling" cols="30" rows="10"
+                                            class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-7 row">
+                                        <label class="col-sm-4 col-md-7 col-form-label" for="">Warranty <i
+                                                style="font-size: 10px;" class="fas fa-question icon"><span
+                                                    style="margin-left:-100px;" class="tooltiptext">Any Warranty
+                                                    provided by
+                                                    the manufacturer on the purchase of this product.</span></i></label>
+
+                                        <div class="col-sm-8 col-md-4" style="margin-left: 5px;">
+                                            <input type="number" placeholder="Months" name="warranty"
+                                                class="form-control" id="productWarranty">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 row">
+                                        <label class="col-sm-4 col-md-5 col-form-label" for="">Guarantee <i
+                                                style="font-size: 10px;" class="fas fa-question icon"><span
+                                                    style="margin-left:-100px;" class="tooltiptext">Any Guarantee
+                                                    provided by
+                                                    the manufacturer on the purchase of this product.</span></i></label>
+                                        <div class="col-sm-8 col-md-6" style="margin-left: 30px;">
+                                            <input class="form-control" type="number" placeholder="Months"
+                                                name="guarantee" id="productGuarantee">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label requiredLabel" for="">Minimum Order
+                                        Quantity
+                                        <i style="font-size: 10px;" class="fas fa-question"><span
+                                                class="tooltiptext">Mention the quantity as
+                                                per the unit button next to the field. </span></i></label>
+                                    <div class="col-sm-8">
+                                        <i class="fas fa-asterisk text-danger mx-2 mb-2" style="font-size: 8px;"></i>
+                                        <div class="col" style="display: flex;flex-direction:row;">
+                                            <input class="form-control col-md-4" style="margin-left: -15px;" type="text"
+                                                placeholder="" name="qty" required>
+                                            <select class="form-select col-md-8" name="qtyUnit" setvalue="" id=""
+                                                placeholder="Choose Unit" required>
+                                                {% include "unitOptions.html"%}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" for="">Variant <i style="font-size: 10px;"
+                                            class="fas fa-question"><span style="margin-left:-100px;"
+                                                class="tooltiptext">Add any Variant or Versions your product
+                                                might have.
+                                                For ex, multiple lengths in Steel Bars</span></i></label>
+                                    <div class="col-sm-8">
+                                        <button type="button" class="btn btn-primary " data-toggle="modal"
+                                            data-target="#exampleModal">
+                                            Add product variants
+                                        </button>
+                                        <input type="text" name="variant" hidden>
+                                        <datalist id="datalistVariantTypeOptions">
+                                            <option value="Size">
+                                            <option value="Material">
+                                            <option value="Dimension">
+                                            <option value="Shape">
+                                            <option value="Design">
+                                            <option value="Color">
+                                            <option value="Weight">
+                                            <option value="Quality">
+                                            <option value="Quantity">
+                                            <option value="Packeging">
+                                            <option value="Design">
+                                        </datalist>
+                                    </div>
+
+                                </div>
+
+                                <button type='button' onclick="stepperForm.previous()"
+                                    class="btn btn-primary btn-prev-form">Prev</button>
+                                <button type='button' class="btn btn-primary btn-next-form">Next</button>
+                            </div>
+                            <div id="pricing-part" class="content mx-4" role="tabpanel"
+                                aria-labelledby="more-info-part-trigger">
+                                <div class="col-md-12 my-2" style="display: flex;flex-direction:row;">
+                                    <div class="col-md-6 row">
+                                        <label class="col-md-6 col-form-label requiredLabel" for="">MRP<i
+                                                style="font-size: 10px;" class="fas fa-question"><span
+                                                    style="margin-left:-80px;" class="tooltiptext">Maximum Retail Price.
+                                                    This is not your sale
+                                                    price,
+                                                    just the market price of the product.</span></i></label>
+
+                                        <div class="col-md-6">
+                                            <i class="fas fa-asterisk text-danger mx-2 mb-2"
+                                                style="font-size: 8px;"></i>
+                                            <input class="form-control" type="number" placeholder="₹" name="markedPrice"
+                                                id="productMRP" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 row">
+                                        <label class="col-md-6 col-form-label requiredLabel" for="">Sale Price<i
+                                                style="font-size: 10px;" class="fas fa-question"><span
+                                                    class="tooltiptext">Sale Price is what the
+                                                    customer pays for the product. Check the breakdown to see what you
+                                                    get.</span></i>
+                                            <p style="font-size: 12px; margin-top: -4px">( Exclusive of taxes )</p>
+                                        </label>
+
+                                        <div class="col-md-6">
+                                            <div style="display: flex;flex-direction:column;height: 60px !important;"
+                                                class="sale--price__span">
+                                                <i class="fas fa-asterisk text-danger mx-2 mb-2"
+                                                    style="font-size: 8px;"></i>
+
+                                                <input type="number" placeholder="₹" value="0.00" placeholder="0.00"
+                                                    step="0.01" class="form-control floatsaleprice" id="sale_price"
+                                                    oninput="limitDecimalPlaces(event, 2)" onchange="selectData()"
+                                                    required/>
+                                               <!-- <script>
+                                                function compare_input(){
+                                                 var mrp_input=document.getElementById('productMRP').value;
+                                                var sale_input=document.getElementById('sale_price').value;
+                                                    if(mrp_input<sale_input){
+                                                         alert('Sale price should be smaller than or equal to MRP');
+                                                         }
+                                                }
+                                                </script>-->
+
+                                                <!--<script type="text/javascript">
+                                                    function limitDecimalPlaces(e, count) {
+                                                        if (e.target.value.indexOf('.') == -1) { return; }
+                                                        if ((e.target.value.length - e.target.value.indexOf('.')) > count) {
+                                                            e.target.value = parseFloat(e.target.value).toFixed(count);
+                                                        }
+                                                    }
+                                                </script>*/-->
+
+                                                <span
+                                                    style="margin-top: 1px; margin-left:72px; font-size: 12px !important;"><a
+                                                        href="" data-toggle="modal" data-target="#showBreakdown"
+                                                        onclick="showBreakdown()">See
+                                                        the breakdown</a></span>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" id="showBreakdown" tabindex="-1" role="dialog"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">See the Breakdown
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-row">
+                                                            <div class="col-12"
+                                                                style="margin-top: 15px;margin-bottom: 15px;">
+                                                                <h6 style="font-weight: 700;padding-left: 10px;"><i
+                                                                        class="icon ion-pricetags"
+                                                                        style="padding-right: 6px;font-size: 20px;"></i>Sale
+                                                                    Price <i class="fa fa-rupee"></i>&nbsp;<span
+                                                                        id="gst"></span> <input type="text"
+                                                                        id="showSale"
+                                                                        style="border:none;background-color:white;">
+                                                                    <br>
+                                                                </h6>
+                                                                <h6 style="font-weight: 700;padding-left: 10px;"><i
+                                                                        class="icon ion-pricetags"
+                                                                        style="padding-right: 6px;font-size: 20px;"></i>5%
+                                                                    Commission
+                                                                    <i class="fa fa-rupee"></i>&nbsp;<span
+                                                                        id="gateway"></span><input type="text"
+                                                                        id="showCommission"
+                                                                        style="border:none;background-color:white;"><br>
+                                                                </h6>
+
+                                                                <h6 style="font-weight: 700;padding-left: 10px;"><i
+                                                                        class="icon ion-pricetags"
+                                                                        style="padding-right: 6px;font-size: 20px;"></i>
+                                                                    3% Payment Gateway Charges<i
+                                                                        class="fa fa-rupee"></i>&nbsp;<span
+                                                                        id="com"></span><input type="text"
+                                                                        id="showPayment"
+                                                                        style="border:none;background-color:white;"><br>
+                                                                </h6>
+                                                                <h6 style="font-weight: 700;padding-left: 10px;"><i
+                                                                        class="icon ion-pricetags"
+                                                                        style="padding-right: 6px;font-size: 20px;"></i>18%
+                                                                    GST <i class="fa fa-rupee"></i>&nbsp;<span
+                                                                        id="gst"></span><input type="text" id="showGst"
+                                                                        style="border:none;background-color:white;"><br>
+                                                                </h6>
+                                                                <h6 style="font-weight: 700;padding-left: 10px;">
+                                                                    <div><i class="icon ion-pricetags"
+                                                                            style="padding-right: 6px;font-size: 20px;"></i>You
+                                                                        Receive <i class="fa fa-rupee"></i>&nbsp;<span
+                                                                            id="gst"></span><input type="text"
+                                                                            id="showRecieve"
+                                                                            style="border:none;background-color:white;">
+                                                                    </div>
+                                                                    <br>
+                                                                    <p
+                                                                        style="margin-top: -20px; margin-left:20px; font-size: 12px;">
+                                                                        ( Shipping Excluded )</p>
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <script>
+                                                        function showBreakdown() {
+                                                            var sale_price = parseInt($('#sale_price').val());
+                                                            var showCommission = ((5 / 100) * sale_price).toFixed(3);
+                                                            var showPayment = ((3 / 100) * sale_price).toFixed(3);
+                                                            var showGst = ((18 / 100) * showCommission).toFixed(3);
+                                                            var added = (((5 / 100) * sale_price) + ((3 / 100) * sale_price) + ((18 / 100) * showCommission));
+                                                            var showRecieve = (sale_price - added).toFixed(3);
+                                                            $('#showSale').val(sale_price);
+                                                            $('#showCommission').val(showCommission);
+                                                            $('#showPayment').val(showPayment);
+                                                            $('#showGst').val(showGst);
+                                                            $('#showRecieve').val(showRecieve);
+
+
+                                                        }
+                                                    </script>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 my-2" style="display: flex;flex-direction:row;">
+                                    <div class="col-md-6 row">
+                                        <label class="col-md-6 col-form-label requiredLabel" for="">Tax Code<i
+                                                style="font-size: 10px;" class="fas fa-question"><span
+                                                    style="margin-left:-100px;" class="tooltiptext">Choose the GST Rate
+                                                    applicable for your
+                                                    product.</span></i></label>
+
+                                        <div class="col-md-6">
+                                            <i class="fas fa-asterisk text-danger mx-2 mb-2"
+                                                style="font-size: 8px;"></i>
+                                            <select class="form-control" id="sel1" name="gstRate"
+                                                onchange="selectData()" required>
+                                                <option value="0">0%</option>
+                                                <option value="5">5%</option>
+                                                <option value="12">12%</option>
+                                                <option value="18">18%</option>
+                                                <option value="28">28%</option>
+                                            </select>
+                                            <script>
+                                                function selectData() {
+                                                    var sale_price = parseInt($('#sale_price').val());
+                                                    var values = parseInt(document.getElementById("sel1").value);
+                                                    var percentage;
+                                                    var taxable_amount;
+                                                    switch (values) {
+                                                        case 0:
+
+                                                            percentage = 0;
+
+                                                            break;
+
+                                                        case 5:
+                                                            percentage = 5;
+
+                                                            break;
+
+                                                        case 12:
+                                                            percentage = 12;
+
+                                                            break;
+                                                        case 18:
+                                                            percentage = 18;
+
+                                                            break;
+                                                        case 28:
+                                                            percentage = 28;
+
+
+                                                            break;
+
+                                                        default:
+                                                            alert("The default case is true!");
+                                                            break;
+                                                    }
+                                                    if (isNaN(sale_price) || isNaN(percentage)) {
+                                                        taxable_amount = " ";
+                                                    } else {
+                                                        taxable_amount = ((percentage / 100) * sale_price).toFixed(3);
+                                                    }
+                                                    $('#secondP').val(taxable_amount);
+
+                                                }
+                                            </script>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6 row">
+                                        <label class="col-md-6  col-form-label" for="">Taxable amount<i
+                                                style="font-size: 10px;" class="fas fa-question"><span
+                                                    style="margin-left: -130px !important;" class="tooltiptext">Maximum
+                                                    Retail Price. This is not your sale price, just the market price of
+                                                    the
+                                                    product.</span></i></label>
+
+                                        <div class="col-md-6">
+                                            <input class="form-control" id="secondP" type="text" placeholder="₹"
+                                                name="taxableAmount" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 my-2" style="display: flex;flex-direction:row;">
+                                    <div class="col-md-6 row">
+                                        <label class="col-md-6  col-form-label" for="">Packaging size<i
+                                                style="font-size: 10px;" class="fas fa-question"><span
+                                                    class="tooltiptext">Sale Price is what the customer pays for the
+                                                    product. Check the breakdown to see what you get.</span></i></label>
+
+                                        <div class="col-md-6">
+                                            <input class="form-control" id="productPackaging" type="text" placeholder=""
+                                                name="packagingSize">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 my-2">
+                                    <div class="col-md-12 row">
+                                        <label class="col-md-3" for="">Components per unit<i style="font-size: 10px;"
+                                                class="fas fa-question"><span style="margin-left:-100px;"
+                                                    class="tooltiptext">Choose the GST Rate
+                                                    applicable for your product.</span></i></label>
+
+                                        <div class="col-md-9" style="margin-left: -5px;">
+                                            <textarea class="form-control" id="productComponents" placeholder=""
+                                                rows="3" name="components"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="sla" style="display: none;" class="col-md-12 my-2 row ">
+                                    <div class="col-md-3  "><label class="mx-2">Upload Shipment
+                                            SLA</label></div>
+
+
+                                    <div class="col-md-9">
+                                        <input name="sla" type="file" class="form-control">
+                                    </div>
+
+
+                                </div>
+                                <button type='button' onclick="stepperForm.previous()"
+                                    class="btn btn-primary btn-prev-form">Prev</button>
+                                <button type='button' class="btn btn-primary btn-next-form">Next</button>
+                            </div>
+                            <div id="shipping-part" class="content mx-4" role="tabpanel"
+                                aria-labelledby="shipping-part-trigger">
+                                <div class="">
+                                    <div class="">
+                                        <div class="row my-2">
+                                            <div class="col col-md-6">
+                                                <label class="form-label " for="">Product
+                                                    Weight<i style="font-size: 10px;" class="fas fa-question"><span
+                                                            class="tooltiptext">Actual Product weight in
+                                                            Kilograms</span></i></label>
+                                                <i class="fas fa-asterisk text-danger mx-2 mb-2"
+                                                    style="font-size: 8px;"></i>
+                                                <input type="number" placeholder="In Kgs" name="weight"
+                                                    class="form-control" id="productWeight" required>
+                                            </div>
+                                            <div class="col col-md-6">
+                                                <label class="form-label">Country
+                                                    of Origin<i style="font-size: 10px;" class="fas fa-question"><span
+                                                            class="tooltiptext">State where the
+                                                            Product was manufactured/ assembled</span></i></label>
+                                                <i class="fas fa-asterisk text-danger mx-2 mb-2"
+                                                    style="font-size: 8px;"></i>
+                                                <select class="form-control" id="country" name="countryOfOrigin"
+                                                    required>
+                                                    {% include "options.html" %}
+                                                </select>
+                                            </div>
+
+
+                                        </div>
+                                        <div class=" my-2">
+                                            <div class="">
+                                                <label class="" for="">Product Dimensions<i style="font-size: 10px;"
+                                                        class="fas fa-question"><span class="tooltiptext">Please
+                                                            provide
+                                                            actual
+                                                            product dimensions in the provided unit of
+                                                            measurement.</span></i></label>
+                                            </div>
+                                            <div class=" row">
+
+                                                <div class="col-md-3"><select class="form-select" name="dimensionUnit"
+                                                        id="productDimensionUnit">
+                                                        {% include "unitOptions.html"%}
+
+                                                    </select></div>
+                                                <div class="col-md-3"><input class="form-control" type="number"
+                                                        placeholder="Length" name="length" id="productDimensionLength">
+                                                </div>
+                                                <div class="col-md-3"><input class="form-control" type="number"
+                                                        placeholder="Width" name="width" id="productDimensionWidth">
+                                                </div>
+                                                <div class="col-md-3"><input class="form-control" type="number"
+                                                        placeholder="Height" name="height" id="productDimensionHeight">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="my-2">
+                                            <div class="">
+                                                <label class="" for="">Packed box dimensions<i
+                                                        style="font-size: 10px; margin-left:2px;"
+                                                        class="fas fa-question"><span class="tooltiptext">Please
+                                                            provide
+                                                            dimensions for the box
+                                                            containting a packed unit of this
+                                                            product.</span></i></label>
+                                            </div>
+                                            <div class=" row">
+                                                <div class="col-md-3"><select class="form-select" name="dimensionUnit"
+                                                        id="">
+                                                        {% include "unitOptions.html"%}
+                                                    </select></div>
+                                                <div class="col-md-3"><input class="form-control" type="number"
+                                                        placeholder="Length" name="packedLength"></div>
+                                                <div class="col-md-3"><input class="form-control" type="number"
+                                                        placeholder="Width" name="packedWidth"></div>
+                                                <div class="col-md-3"><input class="form-control" type="number"
+                                                        placeholder="Height" name="packedHeight"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row my-4">
+                                            <div class="col-md-12  row">
+                                                <label class="col-md-3 col-form-label requiredLabel" for="">Material<i
+                                                        style="font-size: 10px;" class="fas fa-question"><span
+                                                            style="margin-left:-100px;" class="tooltiptext">Choose your
+                                                            product's material(s). Use
+                                                            complete
+                                                            description like Sheesham Wood instead of just Wood.
+                                                            Separate
+                                                            multiple materials with a comma.</span></i></label>
+                                                <div class="col-md-9">
+                                                    <i class="fas fa-asterisk text-danger mx-2 mb-2"
+                                                        style="font-size: 8px;"></i>
+                                                    <input type="text" name="material" class="form-control"
+                                                        id="productMaterials" required>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-12  my-2" style="display: flex;flex-direction:row;">
+                                            <label class="col-md-3" style="margin-left:-30px;" for="">Serviced
+                                                Regions<i style="font-size: 10px;" class="fas fa-question"><span
+                                                        class="tooltiptext">Please state regions where you want to
+                                                        shipyourproduct in the country. This might influence
+                                                        yourdeliverycost.</span></i></label>
+                                            <style>
+                                                .mul-select {
+                                                    width: 660px !important;
+                                                }
+                                            </style>
+                                            <div class="form-group" style="margin-left: 25px;">
+
+                                                <select class="mul-select form-select form-control" multiple="true">
+                                                    <option value="PAN India">PAN India</option>
+                                                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar
+                                                        Islands</option>
+                                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                                    <option value="Assam">Assam</option>
+                                                    <option value="Bihar">Bihar</option>
+                                                    <option value="Chandigarh">Chandigarh</option>
+                                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                                    <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli
+                                                    </option>
+                                                    <option value="Daman and Diu">Daman and Diu</option>
+                                                    <option value="Delhi">Delhi</option>
+                                                    <option value="Goa">Goa</option>
+                                                    <option value="Gujarat">Gujarat</option>
+                                                    <option value="Haryana">Haryana</option>
+                                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                                    <option value="Jharkhand">Jharkhand</option>
+                                                    <option value="Karnataka">Karnataka</option>
+                                                    <option value="Kerala">Kerala</option>
+                                                    <option value="Lakshadweep">Lakshadweep</option>
+                                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                                    <option value="Maharashtra">Maharashtra</option>
+                                                    <option value="Manipur">Manipur</option>
+                                                    <option value="Meghalaya">Meghalaya</option>
+                                                    <option value="Mizoram">Mizoram</option>
+                                                    <option value="Nagaland">Nagaland</option>
+                                                    <option value="Odisha">Odisha</option>
+                                                    <option value="Pondicherry">Pondicherry</option>
+                                                    <option value="Punjab">Punjab</option>
+                                                    <option value="Rajasthan">Rajasthan</option>
+                                                    <option value="Sikkim">Sikkim</option>
+                                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                                    <option value="Tripura">Tripura</option>
+                                                    <option value="Uttarakhand">Uttarakhand</option>
+                                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                                    <option value="West Bengal">West Bengal</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                            <div class="row d-flex justify-content-center align-item-center">
+                                            <input type="checkbox" name="field name" value="Initial value" checked="yes">
+                                            <label class="col-sm-4 col-form-label " for="">Want customer to return this product.
+                                        </div>
+
+                                        <!-- Modal -->
+
+
+                                    </div>
+                                </div>
+
+
+                                <button type='button' onclick="stepperForm.previous()"
+                                    class="btn btn-primary btn-prev-form">Prev</button>
+                                <a class="already" href="#myModal" onclick="sided()" data-toggle="modal"><button
+                                        class="btn btn-sm" type="button" id="previewButton"
+                                        style="color: white; background: #0a0a20;padding: 6px 20px; margin-left: 58%;">Preview
+                                        Product</button></a>
+                                <button type='button' onclick="formSubmit(this)"
+                                    class="btn btn-primary btn-next-form">Submit</button>
+                            </div>
+                        </form>
+
+                        <!-- preview page starting from here -->
+                        <div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+                            <div class="modal-dialog" style="max-width: 98%;" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 style="text-align: center;font-family: 'Crimson Text', serif;">Preview
+                                            Product</h5><button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <div id="content-wrapper">
+
+
+                                            <div class="column">
+                                                <img id="featured" src="#" alt="your image" />
+                                                <!-- <div id=featured></div> -->
+
+                                                <div id="slide-wrapper">
+                                                    <img id="slideLeft" class="arrow"
+                                                        src="/static/staticfiles/img/preview/arrow-left.png">
+                                                    <div id="slider">
+
+
+                                                        <!-- <img id="sliderActive" class="thumbnail active"
+                                                        src="#"> -->
+                                                        <!-- 
+                                                        <img class="thumbnail"
+                                                            src="/static/staticfiles/img/preview/shoe2.jpg">
+                                                        <img class="thumbnail"
+                                                            src="/static/staticfiles/img/preview/shoe3.jpg"> -->
+                                                    </div>
+
+                                                    <img id="slideRight" class="arrow"
+                                                        src="/static/staticfiles/img/preview/arrow-right.png">
+                                                </div>
+                                            </div>
+
+                                            <div class="column">
+
+                                                <div class=" product-content">
+                                                    <h2 class="product-title" id="showProductTitle"></h2>
+                                                    <a href="#" class="product-link">By Company Name</a>
+                                                    <div class="product-price row">
+                                                        <p><span class="last-price"><input type="text"
+                                                                    id="showProductMRP"
+                                                                    style="border:none;background-color:white;"
+                                                                    disabled /> </span><span class="new-price">
+                                                                &nbsp;&nbsp;
+                                                                <input type="text" id="showProductSalePrice"
+                                                                    style="border:none;background-color:white;"
+                                                                    disabled /></span> &nbsp;Per
+                                                            <input type="text" id="showProductUnit"
+                                                                style="border:none;background-color:white;" disabled />
+                                                        </p>
+                                                        <p class="showGSTTax" id="showGSTTax"></p>
+                                                    </div>
+
+                                                    <div class="product-detail">
+                                                        <ul>
+                                                            <li><img src="/static/staticfiles/img/preview/checked.webp"
+                                                                    Width="20px" height="20px"
+                                                                    alt="">&nbsp;&nbsp;Product Type : <p
+                                                                    id="showProductType"></p>
+                                                            </li>
+                                                            <li><img src="/static/staticfiles/img/preview/checked.webp"
+                                                                    Width="20px" height="20px"
+                                                                    alt="">&nbsp;&nbsp;Product Weight : <p
+                                                                    id="showProductWeight"></p>
+                                                            </li>
+                                                            <li><img src="/static/staticfiles/img/preview/checked.webp"
+                                                                    Width="20px" height="20px"
+                                                                    alt="">&nbsp;&nbsp;Product Dimension : <p
+                                                                    id="showProductDimensions"></p>
+                                                            </li>
+                                                            <li><img src="/static/staticfiles/img/preview/checked.webp"
+                                                                    Width="20px" height="20px"
+                                                                    alt="">&nbsp;&nbsp;Product Materials : <p
+                                                                    id="showProductMaterials"></p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="product-info">
+                                            <div style="padding: 4%;">
+                                                <strong>Product Description : </strong>
+                                                <hr><br>
+                                                <p id="showProductInfo" style="margin-top:-20px;width:1100px;"></p>
+
+                                                <ul class="nav nav-tabs" role="tablist" id="myTab"
+                                                    style="margin-top: 20px;">
+                                                    <li class="nav-item" role="presentation"><a class="nav-link active"
+                                                            role="tab" data-toggle="tab" id="specifications-tabs"
+                                                            href="#specifications">Specifications</a>
+                                                    </li>
+                                                </ul>
+                                                
+
+                                                <div class="row">
+                                                    <div class="col-md-6 mx-4">
+                                                        <div class="form-group row my-2">
+                                                            <label for="inputPassword"
+                                                                class="col-sm-4 col-form-label">Storage</label>
+                                                            <div class="col-sm-6">
+                                                                <p id="showProductStorage" style="width:400px;"></p>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row my-2">
+                                                            <label for="inputPassword"
+                                                                class="col-sm-4 col-form-label">Installation</label>
+                                                            <div class="col-sm-6">
+                                                                <p id="showProductInstallation" style="width:400px;">
+                                                                </p>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row my-2">
+                                                            <label for="inputPassword"
+                                                                class="col-sm-4 col-form-label">Handling</label>
+                                                            <div class="col-sm-6">
+                                                                <p id="showProductHandling" style="width:400px;"></p>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row my-2">
+                                                            <label for="inputPassword"
+                                                                class="col-sm-4 col-form-label">Usage</label>
+                                                            <div class="col-sm-6">
+                                                                <p id="showProductUsage" style="width:400px;"></p>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row my-2">
+                                                            <label for="inputPassword"
+                                                                class="col-sm-4 col-form-label">HSN Code</label>
+                                                            <div class="col-sm-6">
+                                                                <p id="showProductHSNCode" style="width:400px;"></p>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row my-2">
+                                                            <label for="inputPassword"
+                                                                class="col-sm-4 col-form-label">Tax Code</label>
+                                                            <div class="col-sm-6">
+                                                                <p id="showProductTaxCode" style="width:400px;"></p>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row my-2">
+                                                            <label for="inputPassword"
+                                                                class="col-sm-4 col-form-label">Guarantee</label>
+                                                            <div class="col-sm-6">
+                                                                <p id="showProductGuarantee" style="width:400px;"></p>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row my-2">
+                                                            <label for="inputPassword"
+                                                                class="col-sm-4 col-form-label">Warranty</label>
+                                                            <div class="col-sm-6">
+                                                                <p id="showProductWarranty" style="width:400px;"></p>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row my-2">
+                                                            <label for="inputPassword"
+                                                                class="col-sm-4 col-form-label">Packaging Size</label>
+                                                            <div class="col-sm-6">
+                                                                <p id="showProductPackaging" style="width:400px;"></p>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row my-2">
+                                                            <label for="inputPassword"
+                                                                class="col-sm-4 col-form-label">Components per
+                                                                Unit</label>
+                                                            <div class="col-sm-6">
+                                                                <p id="showComponents" style="width:400px;"></p>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row my-2">
+                                                            <label for="inputPassword"
+                                                                class="col-sm-4 col-form-label">Country of
+                                                                Origin</label>
+                                                            <div class="col-sm-6">
+                                                                <p id="showCountry" style="width:600px;"></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 mx-4 ">
+                                                        <h3>About the Brand</h3>
+                                                        <p id="showAbout" style="width:500px;"></p>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- preview page ends here -->
+                        <!-- model for variant option -->
+                        <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+
+                                    <h5 style="margin: 15px 20px; font-weight:600; font-size: 20px; color: black;">
+                                        Add Variants</h5>
+                                    <p style="margin: 5px 20px!important; font-size:14px; margin-top:-10px ">
+                                        Add your product's variants or diffrent versions, </p>
+                                    <p style="margin: 0px 20px !important; font-size:14px; ">if
+                                        any.(For
+                                        Example, multiple sizes , colours)</p>
+                                    <hr class="my-2">
+
+                                    <div class="modal-body" style="background-color: rgb(255, 255, 255) !important;">
+                                        <div class="shadow-sm container-fluid">
+
+                                            <div class=" row g-3">
+                                                <div class="col-md-4" style="margin-left: 20px;">
+                                                    <label for="inputEmail4" class="form-label"><b>Variable</b></label>
+                                                </div>
+                                                <div class="col-md-6" style="margin-left: -60px;">
+                                                    <label for="inputEmail4" class="form-label"><b>Variable
+                                                            Otions</b></label>
+                                                </div>
+                                            </div>
+                                            <div class="col g-3">
+
+
+                                                <div id="variant_input_box">
+
+                                                </div>
+
+                                                <div class="field_wrapper col " style="overflow:auto;">
+
+                                                </div>
+                                                <div class="add__another" style="width: 160px !important; height: 25px; 
+                                                            background-color: rgb(241, 238, 238); border: 1px solid lightgray 
+                                                            !important; margin-left: 10px;">
+                                                    <a href="javascript:void(0);" class="add_button"
+                                                        title="Add field"><img class="add__another--img"
+                                                            src="https://www.freeiconspng.com/thumbs/plus-icon/plus-icon-black-2.png" />Add
+                                                        Variant</a>
+                                                </div>
+
+
+                                            </div>
+                                            <hr class="my-4">
+                                            <div class="row col-md-12 " style="background-color: white;">
+                                                <div class=" row g-3">
+                                                    <div class="col-md-8">
+                                                        <label for="inputEmail4" class="form-label">Product
+                                                            Variants</label>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="inputEmail4" class="form-label">Enter
+                                                            Price</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class=" container showCombinations"
+                                                    style="display:flex; flex-direction:column;">
+
+                                                </div>
+                                                <button type="button" class="btn btn-primary variantSubmit"
+                                                    data-dismiss="modal">ok</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    {% include "footer.html" %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+
+    <script src="https://kit.fontawesome.com/ce664af958.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
+    <script src="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            window.stepperForm = new Stepper(document.querySelector('.bs-stepper'))
+        })
+
+        var btnNextList = [].slice.call(document.querySelectorAll('.btn-next-form'))
+        btnNextList.forEach(function (btn) {
+            btn.addEventListener('click', function (e) {
+                let invalid = $(e.target).closest('[role="tabpanel"]').find('input,select ').removeClass('is-invalid').filter((i, x) => { return !x.checkValidity() })
+                if (invalid.length == 0)
+                    window.stepperForm.next()
+                else {
+                    invalid.addClass('is-invalid')
+                }
+            })
+        })
+        function formSubmit(e) {
+            if (e.form.checkValidity()) {
+                e.form.removeAttribute('onsubmit')
+                e.form.submit()
+            }
+        }
+        $('select').selectpicker();
+    </script>
+    <script>
+        //function for add another button on variant page
+        $(document).ready(function () {
+            var maxField = 10; //Input fields increment limitation
+            var addButton = $('.add_button'); //Add button selector
+            var selectShow = $('#variant_input_box');
+            var stringData = '<div class="form-row py-2" >   <input class="form-control selectVariant" style="width:160px!important;height:35px!important; border:1px solid lightgray" list="datalistVariantTypeOptions" placeholder="Variant Type" > <div class="col-md-8 " id="description__input"> <input type="text" value="" data-role="tagsinput" class="form-control tags_variant" /></div>'
+            var crossShow = $('#variant__cross-sign');
+            var wrapper = $('.field_wrapper');
+            var x = 1; //Initial field counter is 1
+            function removeElement(e) {
+
+                //the above method will remove the user_data div
+            };
+            //Once add button is clicked
+            $(addButton).click(function () {
+                //Check maximum number of input fields
+                if (x < maxField) {
+                    x++; //Increment field counter
+                    $(wrapper).prepend(stringData + '<img onClick="$(this).parent().remove();showPriceCombonation();" class="add__another--img remove-btn mt-1" src="https://www.pngkey.com/png/full/215-2155436_png-file-svg-cross-mark-png-black.png" /></div>');
+                    $('[data-role="tagsinput"]').tagsinput('refresh');
+
+                    $('[data-role="tagsinput"]').on('itemAdded', showPriceCombonation);
+                    $('[data-role="tagsinput"]').on('itemRemoved', showPriceCombonation);
+                }
+            });
+        });
+    </script>
+
+
+    <script>
+        function showPriceCombonation() {
+
+            let variantTags = $(".field_wrapper").find('[data-role="tagsinput"]');
+            let variantTagsList = [];
+            var variants = [];
+            for (let i = 0; i < variantTags.length; i++) {
+                variantTagsList.push(variantTags[i].value.split(','))
+
+            }
+            function combination(x, depth, current) {
+                if (x.length == depth) {
+                    variants.push([...current]);
+                    return;
+                }
+                for (let y in x[depth]) {
+                    current.push(x[depth][y]);
+                    combination(x, depth + 1, current);
+
+                    current.pop();
+
+                }
+            }
+            combination(variantTagsList, 0, []);
+            $('.showCombinations')[0].innerHTML = '';
+
+            for (let i = 0; i < variants.length; i++) {
+                $('.showCombinations').append('<div class="row"> <div class="col-8"><input class="form-control selectedVariant" value="' + variants[i].join(',') + '" type="text" disabled ></div><div class="col-4"><input class="form-control variantPrice" type="number" placeholder="price"></div></div>');
+            }
+
+        }
+    </script>
+    <script>
+        $('.variantSubmit').on('click', (e) => {
+            var selectVariant = $('.selectVariant').map((i, e) => {
+                return e.value;
+            });
+
+            var tagsVariant = $('.tags_variant').map((i, e) => {
+                return e.value;
+            });
+
+            var selectedVariant = $('.selectedVariant').map((i, e) => {
+                return e.value;
+            });
+
+            var variantPrice = $('.variantPrice').map((i, e) => {
+                return e.value;
+            });
+            dict = {
+                "selectVariant": [...selectVariant],
+                "tagsVariant": [...tagsVariant],
+                "selectedVariant": [...selectedVariant],
+                "variantPrice": [...variantPrice]
+            }
+
+            $('input[name= "variant"]').val(JSON.stringify(dict))
+
+        });
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $(".mul-select").select2({
+                placeholder: "select service regions",
+                class: "col-md-12",
+                tags: true,
+                tokenSeparators: ['/', ',', ';']
+            });
+        })
+    </script>
+    <script type="text/javascript">
+
+        // let thumbnails = document.getElementsByClassName('thumbnail')
+
+        // let activeImages = document.getElementsByClassName('active');
+
+
+        // for (var i = 0; i < thumbnails.length; i++) {
+
+        //     thumbnails[i].addEventListener('mouseover', function () {
+        //         console.log(activeImages)
+
+        //         if (activeImages.length > 0) {
+        //             activeImages[0].classList.remove('active')
+        //         }
+
+
+        //         this.classList.add('active')
+        //         document.getElementById('featured').src = this.src
+        //     })
+        // }
+
+
+        let buttonRight = document.getElementById('slideRight');
+        let buttonLeft = document.getElementById('slideLeft');
+
+        buttonLeft.addEventListener('click', function () {
+            document.getElementById('slider').scrollLeft -= 180
+        })
+
+        buttonRight.addEventListener('click', function () {
+            document.getElementById('slider').scrollLeft += 180
+        })
+
+
+    </script>
+    <script>
+        function onProductImageChange(e) {
+            a = e
+            let showDiv = document.getElementById('imageShow');
+            let previewDiv = document.getElementById('slider');
+            showDiv.innerHTML = "";
+            var files = e.files;
+            var index;
+            var url, firstImage;
+            for (index in files) {
+                url = URL.createObjectURL(files[index]);
+                showDiv.innerHTML = '<img style="height: 150px;" src="' + url + '" >' + showDiv.innerHTML;
+                $('#featured').attr('src', URL.createObjectURL(files[index]));
+                firstImage = $('#sliderActive').attr('src', url);
+                slider.innerHTML = '<img class="thumbnail" src="' + URL.createObjectURL(files[index]) + '" >' + slider.innerHTML;
+            }
+
+        }
+    </script>
+
+    <script>
+        function sided() {
+            // var productImage = $('#productImage').html();
+
+            var productTitle = $('#productTitle').val();
+            var productType = $('#productType').val();
+            var productHsn = $('#myKadA').val();
+            var productDescription = $('#productDescription').val();
+            var productImage = $('#productImage').val();
+            var aboutProduct = $('#aboutProduct').val();
+            var aboutStorage = $('#productStorage').val();
+            var aboutUsage = $('#productUsage').val();
+            var productInstallation = $('#productInstallation').val();
+            var productHandling = $('#productHandling').val();
+            var productWarranty = $('#productWarranty').val();
+            var productGuarantee = $('#productGuarantee').val();
+            var productMRP = "₹" + $('#productMRP').val();
+            var sale_price = "₹" + parseFloat($('#sale_price').val());
+            var taxCode = $('#sel1').val();
+            var productComponents = $('#productComponents').val();
+            var productPackaging = $('#productPackaging').val();
+            var productWeight = $('#productWeight').val();
+            var productUnit = $('#productDimensionUnit').val();
+            var productDimensionLength = $('#productDimensionLength').val();
+            var productDimensionWidth = $('#productDimensionWidth').val();
+            var productDimensionHeight = $('#productDimensionHeight').val();
+            var productMaterials = $('#productMaterials').val();
+            var productCountry = $('#country').val();
+            mainTaxCode = "( " + taxCode + "% GST )"
+            var mainDimension = productDimensionLength + " " + productDimensionWidth + " " + productDimensionHeight;
+            $('#showProductUnit').val(productUnit);
+            $('#showProductMRP').val(productMRP);
+            $('#showProductSalePrice').val(sale_price).toFixed(2);
+            document.getElementById("showGSTTax").innerHTML = mainTaxCode;
+            document.getElementById("showProductTitle").innerHTML = productTitle;
+            document.getElementById("showProductInfo").innerHTML = productDescription;
+            document.getElementById("showProductType").innerHTML = productType;
+            document.getElementById("showProductWeight").innerHTML = productWeight;
+            document.getElementById("showProductMaterials").innerHTML = productMaterials;
+            document.getElementById("showProductTaxCode").innerHTML = taxCode;
+            document.getElementById("showProductInstallation").innerHTML = productInstallation;
+            document.getElementById("showProductHandling").innerHTML = productHandling;
+            document.getElementById("showProductUsage").innerHTML = aboutUsage;
+            document.getElementById("showProductHSNCode").innerHTML = productHsn;
+            document.getElementById("showProductGuarantee").innerHTML = productGuarantee;
+            document.getElementById("showProductWarranty").innerHTML = productWarranty;
+            document.getElementById("showProductPackaging").innerHTML = productPackaging;
+            document.getElementById("showComponents").innerHTML = productComponents;
+            document.getElementById("showProductStorage").innerHTML = aboutStorage;
+            document.getElementById("showCountry").innerHTML = productCountry;
+            document.getElementById("showAbout").innerHTML = aboutProduct;
+            document.getElementById("showProductDimensions").innerHTML = mainDimension;
+
+
+
+
+
+        }
+    </script>
+
+    </body>
+
+</html>
+{%else%}
+
+{% include "login.html"%}
+{%endif%}

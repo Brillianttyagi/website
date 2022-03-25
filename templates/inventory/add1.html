@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Product Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <!-- multiselect links -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+    <!-- css links are  -->
+    <link rel="stylesheet" href="/static/staticfiles/css/addProduct.css">
+    
+
+
+    <style>
+        .add__another--img {
+            width: 20px;
+            height: 20px;
+            margin-left: 5px;
+
+            border-radius: 50%;
+        }
+
+        .add__another {
+            margin: 0;
+            padding: 0 !important;
+
+        }
+
+        .add__another a {
+            font-size: 14px;
+            color: black;
+            text-decoration: none;
+            text-align: center;
+            margin-left: 10px;
+            padding-right: 20px !important;
+            padding-left: 10px;
+            border: 1px;
+        }
+
+        .inputClass {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .inputClass img {
+            margin-top: 20px;
+        }
+
+        .fa-times {
+            margin-top: 12px;
+            font-size: 24px !important;
+            color: black !important;
+
+        }
+
+        .main__Input_Field {
+            margin-top: -5px;
+            margin-left: 25px !important;
+        }
+    </style>
+    <script>
+        function toggleField(hideObj, showObj) {
+            hideObj.disabled = true;
+            hideObj.style.display = 'none';
+            showObj.disabled = false;
+            showObj.style.display = 'inline';
+            showObj.focus();
+        }
+    </script>
+</head>
+
+</head>
+
+<body>
+    {% include "styles.html" %}
+    {% include "navigation.html" %}
+    <div class="row" style="margin: 0px;">
+   {%include "seller_sidebar.html"%}
+
+        <div class="col-8" style="width:72%;">
+            <div class="container__right">
+                <header class="header">Add New Product <br></header>
+                <br><br>
+                <div class="progress-bar">
+                    <div class="step">
+                        <p>
+                            Basic Info</p>
+                        <div class="bullet">
+                            <span></span>
+                        </div>
+                        <div class="check fas fa-check">
+                        </div>
+                    </div>
+                    <div class="step">
+                        <p>More Details
+                        </p>
+                        <div class="bullet">
+                            <span></span>
+                        </div>
+                        <div class="check fas fa-check">
+                        </div>
+                    </div>
+                    <div class="step">
+                        <p>
+                            Pricing</p>
+                        <div class="bullet">
+                            <span></span>
+                        </div>
+                        <div class="check fas fa-check">
+                        </div>
+                    </div>
+                    <div class="step">
+                        <p>
+                            Shipping</p>
+                        <div class="bullet">
+                            <span></span>
+                        </div>
+                        <div class="check fas fa-check">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-outer">
+                    <form action="" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+                        <div class="page slide-page">
+                            <div class="field">
+                                <label class="page1__label" style="margin-top:10px;" for="">Product Title
+                                    <i style="font-size: 10px;" class="fas fa-question"><span
+                                            class="tooltiptext">Product Heading / Title will help your customers
+                                            discover your product on our platform. Read here to find out how to write a
+                                            fitting product title</span></i>
+                                </label>
+                                <input class="Product__title__input" type="text" placeholder="" name="name">
+                            </div>
+                            <div class="field">
+                                <label class="page1__label" for="">Product Type<i style="font-size: 10px;"
+                                        class="fas fa-question"><span style="margin-left:-110px;margin-top:-80px"
+                                            class="tooltiptext">Type in the category your product is a part of. If your
+                                            product is not listed in the dropdown list, please choose 'other' and define
+                                            your product category</span></i></label>
+                                <div class="select__product--type ">
+                                    <style>
+                                        .product__select {
+                                            width: 190px;
+                                            border: none;
+                                            border-radius: 1px;
+                                        }
+                                    </style>
+                                    <select class="product__select" id="select-state" name="category">
+                                        <option value="">Product Type</option>
+                                        <option value="AL">Seller</option>
+                                        <option value="AK">Website</option>
+                                        <option value="AZ">Of</option>
+                                        <option value="AR">Our</option>
+                                        <option value="CA">Company</option>
+                                        <option value="CO">Whose</option>
+                                        <option value="CT">Name</option>
+                                        <option value="DE">Is</option>
+                                        <option value="DC">Like</option>
+                                        <option value="FL">as</option>
+                                        <option value="GA">The</option>
+                                        <option value="HI">Seventh</option>
+                                        <option value="ID">Square</option>
+                                        <option value="IL">Private</option>
+                                        <option value="IN">Limited</option>
+                                    </select>
+                                </div>
+
+                                <!-- the select js script here -->
+                                <script>
+                                    var selected__data = document.getElementById("select-state");
+                                    $(document).ready(function () {
+                                        $(selected__data).selectize({
+                                            sortField: 'text'
+                                        });
+                                    });
+                                </script>
+                                <!-- select js script ends here--->
+                                <label class="page1__label hsn__code-label" for="">HSN Code<i style="font-size: 10px;"
+                                        class="fas fa-question"><span class="tooltiptext">Please enter the relevant HSN
+                                            Code to your Product. In case of any doubts, please check this
+                                            link.</span></i></label>
+                                <input class="hsn__code" type="text" placeholder="HSN" name="HSN">
+                            </div>
+                            <div class="field hidden">
+                                <label class="page1__label" style="margin-top:10px;" for="">HSN Code<i
+                                        style="font-size: 10px;" class="fas fa-question"><span
+                                            class="tooltiptext">Please enter the relevant HSN Code to your Product. In
+                                            case of any doubts, please check this link.</span></i></label>
+                                <input class="" type="text" placeholder="" name="HSN">
+                            </div>
+                            <div class="field">
+                                <label class="page1__label product__description" for="">Product Description<i
+                                        style="font-size: 10px;" class="fas fa-question"><span class="tooltiptext">Write
+                                            about your Product's key features, benefits & applications. Read here to
+                                            find out how to write a fitting Product Description.</span></i></label>
+                                <textarea class="form-control" id="textarea" placeholder="" rows="3" name="description"></textarea>
+                            </div>
+                            <div class="container image__upload">
+                                <div class="well" data-bind="fileDrag: multiFileData">
+                                    <div class="form-group column">
+                                        <div class="col-md-12">
+                                            <input name="image" type="file" multiple data-bind="fileInput: multiFileData, customFileInput: {
+                                          buttonClass: 'btn btn-warning',
+                                          fileNameClass: 'disabled form-control',
+                                          onClear: onClear,
+                                          onInvalidFileDrop: onInvalidFileDrop
+                                        }" accept="image/*">
+                                        </div>
+                                        <div class="col-md-12 row">
+                                            <!-- ko foreach: {data: multiFileData().dataURLArray, as: 'dataURL'} -->
+                                            <div style="display: flex; flex-direction:column; margin-top:10px;"
+                                                class="column image__column"><i class="fas fa-trash remove-img "></i>
+                                                <img style="height: 100px; margin: 5px;" class="img-rounded  thumb"
+                                                    data-bind="attr: { src: dataURL }, visible: dataURL">
+                                            </div>
+                                            <script>
+
+                                                $("body").on("click", ".remove-img", function (e) {
+                                                    $(this).parents('.image__column').remove();
+                                                    //the above method will remove the user_data div
+                                                });
+                                            </script>
+
+                                            <!-- /ko -->
+                                            <div data-bind="ifnot: fileData().dataURL">
+                                                <label class="drag-label">Upload images and
+                                                    Video Here</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field right__button ">
+                                <a href="#" class="firstNext next"><span>Next</span></a>
+                            </div>
+                        </div>
+                        <div class="page">
+                            <div class="fourth__page ">
+                                <div class="field about">
+                                    <label class="atb" for="">About the Brand <i style="font-size: 10px;"
+                                            class="fas fa-question"><span class="tooltiptext">Tip: include Brand Name,
+                                                Year of Inception, Products sold by the company, Any Recognitions and
+                                                Registrations, any other specialties</span></i></label>
+                                    <textarea name="aboutBrand" id="" cols="30" rows="10"></textarea>
+                                </div>
+                                <div class="field about">
+                                    <label class="atb" for="">Storage <i style="font-size: 10px;"
+                                            class="fas fa-question"><span style="margin-left:-100px;"
+                                                class="tooltiptext">Write about how the product should be stored after
+                                                delivery. Like Environmental Conditions, Vertically/ Horizontally,
+                                                etc.</span></i></label>
+                                    <textarea name="aboutStorage" id="" cols="30" rows="10"></textarea>
+                                </div>
+                                <!-- warranty mobile page view -->
+                                <div class="field line3 mobile_view_warranty_box">
+                                    <div class="warranty_box">
+                                        <div class="warranty_panel">
+                                            <label style=" width: 140px !important; margin-top:10px" for="">Warranty <i
+                                                    style="font-size: 10px;" class="fas fa-question"><span
+                                                        style="margin-left:-100px;" class="tooltiptext">Any Warranty
+                                                        provided by
+                                                        the manufacturer on the purchase of this
+                                                        product.</span></i></label>
+                                            <input style="font-size: 14px; width:80px;  " type="number"
+                                                placeholder="Month" name="warranty">
+                                        </div>
+                                        <div class="gurrantee_panel">
+                                            <label style=" width: 100px !important;margin-top:10px;" for="">Guarantee <i
+                                                    style="font-size: 10px;" class="fas fa-question"><span
+                                                        class="tooltiptext">Any Guarantee provided by the manufacturer
+                                                        on the
+                                                        purchase of the product.</span></i></label>
+                                            <input style="font-size: 14px; width:80px;" type="number"
+                                                placeholder="Month" name="guarantee">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- guarranty senction for desktop view start here -->
+                                <div class="field line3">
+                                    <label class="warranty" style=" width: 270px !important; margin-top:10px;"
+                                        for="">Warranty <i style="font-size: 10px;" class="fas fa-question icon"><span
+                                                style="margin-left:-100px;" class="tooltiptext">Any Warranty provided by
+                                                the manufacturer on the purchase of this product.</span></i></label>
+                                    <input class="warranty_input"
+                                        style="font-size: 14px; width:70px;margin-left:70px;  " type="number"
+                                        placeholder="Month" name="warranty">
+                                    <label class="guarantee" style=" width: 300px !important;margin-top:10px;"
+                                        for="">Guarantee <i style="font-size: 10px;" class="fas fa-question icon"><span
+                                                class="tooltiptext">Any Guarantee provided by the manufacturer on the
+                                                purchase of the product.</span></i></label>
+                                    <input class="guarantee_input" style="font-size: 14px; width:70px;" type="number"
+                                        placeholder="Month" name="guarantee">
+                                    <label style=" width: 300px !important;" class="MOQ" for="">Minimum Order Quantity
+                                        <i style="font-size: 10px;" class="fas fa-question"><span
+                                                class="tooltiptext">Mention the quantity as
+                                                per the unit button next to the field. </span></i></label>
+                                    <div class="MOQ_unit">
+                                        <input class="MOQ__input" type="number" placeholder="" name="qty">
+                                        <select name="qtyUnit" id="">
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                        " value="">Unit</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                        " value="">Bag</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                        " value="">Metric Ton</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                        " value="">Kilogram</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                        " value="">Tanker Truck</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                        " value="">Piece</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                        " value="">Bundle</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                        " value="">Cubic Foot</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                        " value="">Square Foot</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                        " value="">Cubic Meter</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                        " value="">Sheet</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                        " value="">Meter</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                        " value="">set</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                        " value="">Litre</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                        " value="">Kit</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                        " value="">Can</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                        " value="">Foot</option>
+
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="field about">
+                                    <label class="atb" for="">Usage <i style="font-size: 10px;"
+                                            class="fas fa-question"><span style="margin-left:-90px;"
+                                                class="tooltiptext">Write about how the customer should use the product
+                                                and where. </span></i></label>
+                                    <textarea name="aboutUsage" id="" cols="30" rows="10"></textarea>
+                                </div>
+                                <div class="field about">
+                                    <label class="atb" for="">Installation <i style="font-size: 10px;"
+                                            class="fas fa-question"><span style="margin-left:-100px;"
+                                                class="tooltiptext">If the Product needs to be fitted somewhere, please
+                                                explain here how customers should proceed about it.</span></i></label>
+                                    <textarea name="aboutInstallation" id="" cols="30" rows="10"></textarea>
+                                </div>
+                                <div class="field about">
+                                    <label class="atb" for="">Handling<i style="font-size: 10px;"
+                                            class="fas fa-question"><span style="margin-left:-100px;"
+                                                class="tooltiptext">Write for any handling precautions and procedures
+                                                required for the product. </span></i></label>
+                                    <textarea name="aboutHandling" id="" cols="30" rows="10"></textarea>
+                                </div>
+                                <div class="field about">
+                                    <label class="atb" for="">Variant <i style="font-size: 10px;"
+                                            class="fas fa-question"><span style="margin-left:-100px;"
+                                                class="tooltiptext">Add any Variant or Versions your product might have.
+                                                For ex, multiple lengths in Steel Bars</span></i></label>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary add_variant_button" data-toggle="modal"
+                                        data-target="#exampleModal">
+                                        Add product variants
+
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" style="width: 900px; margin-left: 200px;" id="exampleModal"
+                                        tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content " style="width: 800px!important;">
+
+                                                <h5
+                                                    style="margin: 15px 20px; font-weight:600; font-size: 20px; color: black;">
+                                                    Add Variants</h5>
+                                                <p
+                                                    style="margin: 5px 20px!important; font-size:14px; margin-top:-10px ">
+                                                    Add your product's variants or diffrent versions, </p>
+                                                <p style="margin: 0px 20px !important; font-size:14px; ">if any.(For
+                                                    Example, multiple sizes , colours)</p>
+                                                <hr class="my-2">
+
+                                                <div class="modal-body"
+                                                    style="background-color: rgb(255, 255, 255) !important;">
+                                                    <div class="shadow-sm container-fluid">
+                                                        <div style=" Height:25px;" class=" row col-md 12">
+                                                            <div class="col-md-4">
+                                                                <p
+                                                                    style="font-size:16px; color:black; font-weight: 600; ">
+                                                                    Variable Name</p>
+                                                            </div>
+                                                            <div style="margin-left: -30px;" class="col-md-4">
+                                                                <p
+                                                                    style="font-size:16px; color: black; font-weight:600">
+                                                                    Variable Options</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row  col-md-12">
+
+                                                            <div class="row col-md-4" id="variant_input_box"
+                                                                style="padding-top: 5px!important;">
+
+                                                                <script>
+                                                                    function toggleField(hideObj, showObj) {
+                                                                        hideObj.disabled = true;
+                                                                        hideObj.style.display = 'none';
+                                                                        showObj.disabled = false;
+                                                                        showObj.style.display = 'inline';
+                                                                        showObj.style.margin = '15px 20px';
+                                                                        showObj.focus();
+                                                                    }
+                                                                </script>
+                                                                <select class="form-select"
+                                                                    style="margin:10px 10px; width:160px!important; height: 30px!important; border:1px solid lightgray"
+                                                                    name="browser" onchange="if(this.options[this.selectedIndex].value=='customOption'){
+                                                                 toggleField(this,this.nextSibling);
+                                                                    this.selectedIndex='0';
+                                                                    }">
+
+                                                                    <option>Select Option</option>
+                                                                    <option>Size</option>
+                                                                    <option>Material</option>
+                                                                    <option>Dimension</option>
+                                                                    <option>Shape</option>
+                                                                    <option>Design</option>
+                                                                    <option>Colour</option>
+                                                                    <option>Weight</option>
+                                                                    <option>Quality</option>
+                                                                    <option>Quantity</option>
+                                                                    <option>Packaging</option>
+                                                                    <option value="customOption">Other
+                                                                    </option>
+                                                                </select><input class="form-control" name="browser"
+                                                                    style="width:160px !important; height: 30px!important; font-size:12px; display:none;"
+                                                                    disabled="disabled"
+                                                                    onblur="if(this.value==''){toggleField(this,this.previousSibling);}">
+                                                            </div>
+                                                            <input type="text" value="" data-role="tagsinput" />
+                                                            
+                                                            <!-- <div class="column" id="description__input"
+                                                                style="width: 380px; min-height:29px;">
+                                                                <div id="description__input__box"
+                                                                    class="input-group mb-3"
+                                                                    style="margin: 15px 15px; display:flex; flex-direction: column; width: 350px; min-height:29px; border: 1px solid lightgray;">
+                                                                    <div style="margin:0px; padding:0px; "
+                                                                        class="tag-container">
+                                                                    </div>
+                                                                    <input
+                                                                        style="background: transparent;  border: none; min-height:29px !important; width:350px !important; 
+                                                                            font-size: 14px; margin:0px; padding:0px 10px;"
+                                                                        type="text"
+                                                                        class="form-control discription--input add-tag-input"
+                                                                        placeholder="Your Option"
+                                                                        aria-label="Text input with checkbox">
+
+                                                                    </input>
+
+
+                                                                </div>
+
+                                                            </div> -->
+
+
+                                                            <div class="field_wrapper row col-md-12">
+
+                                                            </div>
+                                                            <div class="add__another" style="width: 160px !important; height: 25px; 
+                                                                    background-color: rgb(241, 238, 238); border: 1px solid lightgray 
+                                                                    !important; margin-left: 10px;">
+                                                                <a href="javascript:void(0);" class="add_button"
+                                                                    title="Add field"><img class="add__another--img"
+                                                                        src="https://www.freeiconspng.com/thumbs/plus-icon/plus-icon-black-2.png" />Add
+                                                                    Another</a>
+                                                            </div>
+                                                            <script>
+                                                                //function for add another button on variant page
+                                                                $(document).ready(function () {
+                                                                    var maxField = 10; //Input fields increment limitation
+                                                                    var addButton = $('.add_button'); //Add button selector
+                                                                    var selectShow = $('#variant_input_box');
+                                                                    var inputShow = $('#description__input');
+                                                                    var crossShow = $('#variant__cross-sign');
+                                                                    var wrapper = $('.field_wrapper');
+                                                                    var fieldHTML = document.getElementById('variant_input_box').innerHTML;
+                                                                    var main__Input_Field = '<div class="main__Input_Field">' + document.getElementById('description__input').innerHTML + '</div>';
+                                                                    var textField = '<div class="inputClass">' + fieldHTML + main__Input_Field + '<img class="add__another--img remove-btn" src="https://www.pngkey.com/png/full/215-2155436_png-file-svg-cross-mark-png-black.png" /> </div>';
+                                                                    var x = 1; //Initial field counter is 1
+
+                                                                    //Once add button is clicked
+                                                                    $(addButton).click(function () {
+                                                                        //Check maximum number of input fields
+                                                                        if (x < maxField) {
+                                                                            x++; //Increment field counter
+
+                                                                            $(wrapper).append(textField);
+
+                                                                            //Add field html
+                                                                        }
+                                                                    });
+
+                                                                    //Once remove button is clicked
+
+                                                                    $("body").on("click", ".remove-btn", function (e) {
+                                                                        $(this).parents('.inputClass').remove();
+
+                                                                        //the above method will remove the user_data div
+                                                                    });
+                                                                    main__Input_Field.style.marginLeft = "20px!important;";
+
+                                                                });
+
+                                                            </script>
+
+                                                        </div>
+                                                        <hr class="my-4">
+                                                        <div class="row col-md-12 " style="background-color: white;">
+                                                            <div style=" Height:25px; margin:5px -15px"
+                                                                class=" row col-md 12">
+                                                                <div class="col-md-4">
+                                                                    <p
+                                                                        style="font-size:16px; color:black; font-weight: 600; ">
+                                                                        Product Variants</p>
+                                                                </div>
+                                                                <div style="margin-left: 160px;" class="col-md-4">
+                                                                    <p
+                                                                        style="font-size:16px; color: black; font-weight:600">
+                                                                        Enter Price</p>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class=" container col-md-12"
+                                                                style="height:auto; margin: 15px 0px; background:transparent; display:flex; flex-direction:column;">
+                                                                <div class=" row elements col-md-12 my-2">
+                                                                    <input type="text"
+                                                                        style="font: size 12px; margin:0;margin-left:10px; width: 350px !important; height: 30px !important; "
+                                                                        placeholder="Shape, Circle, Size: 5" />
+                                                                    <input type="number"
+                                                                        style="font: size 12px;margin: 0 ; width: 160px !important; height: 30px !important; margin-left: 40px;"
+                                                                        placeholder=" ₹ " />&nbsp;&nbsp;
+                                                                    <a href=""
+                                                                        onclick="document.body.removeChild(this.parentNode)"
+                                                                        class="remove_button"><img
+                                                                            class="add__another--img"
+                                                                            src="https://www.pngkey.com/png/full/215-2155436_png-file-svg-cross-mark-png-black.png" /></a>
+                                                                </div>
+                                                                <div class=" row elements col-md-12 my-2">
+                                                                    <input type="text"
+                                                                        style="font: size 12px;margin:0;margin-left:10px; width: 350px !important; height: 25px !important; "
+                                                                        placeholder="Shape, Circle, Size: 5" />
+                                                                    <input type="number"
+                                                                        style="margin: 0 ; width: 160px !important;font: size 12px; height: 30px !important; margin-left: 40px;"
+                                                                        placeholder=" ₹ " />&nbsp;&nbsp;
+                                                                    <a href=""
+                                                                        onclick="document.body.removeChild(this.parentNode)"
+                                                                        class="remove_button"><img
+                                                                            class="add__another--img"
+                                                                            src="https://www.pngkey.com/png/full/215-2155436_png-file-svg-cross-mark-png-black.png" /></a>
+                                                                </div>
+                                                                <div class=" row elements col-md-12 my-2">
+                                                                    <input type="text"
+                                                                        style="font: size 12px;margin:0;margin-left:10px; width: 350px !important; height: 30px !important; "
+                                                                        placeholder="Shape, Circle, Size: 5" />
+                                                                    <input type="number"
+                                                                        style="margin: 0 ; width: 160px !important;font: size 12px !important; height: 30px !important; margin-left: 40px;"
+                                                                        placeholder=" ₹ " />&nbsp;&nbsp;
+                                                                    <a href=""
+                                                                        onclick="document.body.removeChild(this.parentNode)"
+                                                                        class="remove_button"><img
+                                                                            class="add__another--img"
+                                                                            src="https://www.pngkey.com/png/full/215-2155436_png-file-svg-cross-mark-png-black.png" /></a>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row col-md-12">
+                                                                <button type="button" class="btn btn-default"
+                                                                    data-dismiss="modal">Close</button>
+                                                                <button type="button" style="margin-left:60%"
+                                                                    class="btn btn-default"
+                                                                    data-dismiss="modal">Proceed</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="field btns ">
+                                <a href="#" class="prev-1 prev"><span>Previous</span></a>
+                                <a href="#" class="next-1 next"><span>Next</span></a>
+
+                            </div>
+                        </div>
+                        <div class="page">
+                            <div class="third__page ">
+                                <div class="field line1">
+                                    <label style="margin-top:5px;" class="" for="">MRP<i style="font-size: 10px;"
+                                            class="fas fa-question"><span style="margin-left:-80px;"
+                                                class="tooltiptext">Maximum Retail Price. This is not your sale price,
+                                                just the market price of the product.</span></i></label>
+                                    <input style="width: 165px !important;" type="number" placeholder="₹" name="markedPrice">
+                                    <label style="margin-top:5px;" class="" for="">Sale Price<i style="font-size: 10px;"
+                                            class="fas fa-question"><span class="tooltiptext">Sale Price is what the
+                                                customer pays for the product. Check the breakdown to see what you
+                                                get.</span></i></label>
+                                    <div style="display: flex;flex-direction:column;height: 60px !important;"
+                                        class="sale--price__span">
+                                        <input style="height: 40px!important; width: 250px !important;" type="number"
+                                            placeholder="₹" name="sellingPrice">
+                                        <span style="margin-top: 8px; margin-left:20px; font-size: 12px !important;"><a
+                                                href="#">See
+                                                the breakdown</a></span>
+                                    </div>
+
+                                </div>
+
+                                <div class="field line2">
+                                    <label style="margin-top:5px;" class="" for="">Tax Code<i style="font-size: 10px;"
+                                            class="fas fa-question"><span style="margin-left:-100px;"
+                                                class="tooltiptext">Choose the GST Rate applicable for your
+                                                product.</span></i></label>
+                                    <div class="form-group">
+                                        <select
+                                            style="width: 165px!important; margin-right:20px; margin-Left:20px;border: 1px solid lightgray!important;"
+                                            class="form-control" id="sel1" name="gstRate">
+                                            <option>0%</option>
+                                            <option>5%</option>
+                                            <option>12%</option>
+                                            <option>18%</option>
+                                            <option>28%</option>
+                                        </select>
+                                    </div>
+                                    <label style="margin-left: 5px; margin-top:5px;" class="" for="">Shipping Method<i
+                                            style="font-size: 10px;" class="fas fa-question"><span
+                                                class="tooltiptext">Self Shipping option will be enable after Shipment
+                                                Document verification by our team. It is recommended you upload it as
+                                                soon as possible.</span></i></label>
+                                    <select style="width:255px; border: 1px solid lightgray; margin-left:10px;" name=""
+                                        id="" name="shippingMethod">
+                                        <option value=""> Self Shipping</option>
+                                        <option value="">Seventh Square Shipping</option>
+                                    </select>
+                                </div>
+                                <div class="field line1">
+                                    <label style="margin-top:5px;" class="" for="">Taxable amount<i
+                                            style="font-size: 10px;" class="fas fa-question"><span
+                                                style="margin-left: -130px !important;" class="tooltiptext">Maximum
+                                                Retail Price. This is not your sale price, just the market price of the
+                                                product.</span></i></label>
+                                    <input style="width: 165px !important;;" type="text" placeholder="₹" name="taxableAmount">
+                                    <label style="margin-top:5px;" class="" for="">Packaging size<i
+                                            style="font-size: 10px;" class="fas fa-question"><span
+                                                class="tooltiptext">Sale Price is what the customer pays for the
+                                                product. Check the breakdown to see what you get.</span></i></label>
+                                    <div style="display: flex;flex-direction:column;height: 60px !important;"
+                                        class="sale--price__span">
+                                        <input style="height: 35px!important;" type="text" placeholder="" name="packagingSize">
+
+                                    </div>
+
+                                </div>
+                                <div class="field line3">
+                                    <label style="margin-top:5px;" class="" for="">Components per unit<i
+                                            style="font-size: 10px;" class="fas fa-question"><span
+                                                style="margin-left:-100px;" class="tooltiptext">Choose the GST Rate
+                                                applicable for your product.</span></i></label>
+                                    <textarea style="width:610px; margin:0;margin-left:-30px;" class="form-control"
+                                        id="textarea" placeholder="" rows="3" name="components"></textarea>
+                                </div>
+                                <div class="input-group"
+                                    style="width:770px; margin-top: 40px !important;; margin-left: 10px !important;;">
+                                    <div class="custom-file">
+                                        <input name="sla" type="file" class="custom-file-input" id="inputGroupFile04">
+                                        <label class="custom-file-label" for="inputGroupFile04">Upload Shipment
+                                            SLA</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- third page of mobile view -->
+                            <div class="third__page--mobile ">
+                                <div class="field">
+                                    <label style="margin-top:5px;" class="" for="">MRP<i style="font-size: 10px;"
+                                            class="fas fa-question"><span style="margin-left:-80px;"
+                                                class="tooltiptext">Maximum Retail Price. This is not your sale price,
+                                                just the market price of the product.</span></i></label>
+                                    <input type="number" placeholder="₹" name="markedPrice">
+                                </div>
+                                <div class="field">
+                                    <label style="margin-top:5px;" class="" for="">Sale Price<i style="font-size: 10px;"
+                                            class="fas fa-question"><span class="tooltiptext">Sale Price is what the
+                                                customer pays for the product. Check the breakdown to see what you
+                                                get.</span></i></label>
+                                    <div style="display: flex;flex-direction:column;height: 60px !important;"
+                                        class="sale--price__span">
+                                        <input type="number" placeholder="₹" name="sellingPrice">
+                                        <span style="margin-top: 8px; margin-left:20px; font-size: 12px !important;"><a
+                                                href="#">See
+                                                the breakdown</a></span>
+                                    </div>
+
+                                </div>
+                                <div class="field">
+                                    <label class="" for="">Tax Code<i style="font-size: 10px;"
+                                            class="fas fa-question"><span style="margin-left:-100px;"
+                                                class="tooltiptext">Choose the GST Rate applicable for your
+                                                product.</span></i></label>
+                                    <div class="form-group">
+                                        <select name="gstRate" style="border: 1px solid lightgray!important;" class="form-control"
+                                            id="sel1">
+                                            <option>0%</option>
+                                            <option>5%</option>
+                                            <option>12%</option>
+                                            <option>18%</option>
+                                            <option>28%</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="field">
+                                    <label style="margin-left: 5px;" class="" for="">Shipping Method<i
+                                            style="font-size: 10px;" class="fas fa-question"><span
+                                                class="tooltiptext">Self Shipping option will be enable after Shipment
+                                                Document verification by our team. It is recommended you upload it as
+                                                soon as possible.</span></i></label>
+
+                                    <div class="form-group">
+                                        <select name="shippingMethod" style="border: 1px solid lightgray!important;" class="form-control"
+                                            id="sel1">
+                                            <option> Self Shipping</option>
+                                            <option>Seventh Square Shipping</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="field">
+                                    <label class="" for="">Taxable amount<i style="font-size: 10px;"
+                                            class="fas fa-question"><span style="margin-left: -130px !important;"
+                                                class="tooltiptext">Maximum
+                                                Retail Price. This is not your sale price, just the market price of the
+                                                product.</span></i></label>
+                                    <input type="text" placeholder="₹" name="taxableAmount">
+
+
+                                </div>
+                                <div class="field">
+                                    <label class="" for="">Packaging size<i style="font-size: 10px;"
+                                            class="fas fa-question"><span class="tooltiptext">Sale Price is what the
+                                                customer pays for the
+                                                product. Check the breakdown to see what you get.</span></i></label>
+                                    <div style="display: flex;flex-direction:column;height: 60px !important;"
+                                        class="sale--price__span">
+                                        <input style="height: 35px!important;" type="text" placeholder="" name="packagingSize">
+
+
+                                    </div>
+
+                                </div>
+                                <div class="field">
+                                    <label style="margin-top:5px;" class="" for="">Components per unit<i
+                                            style="font-size: 10px;" class="fas fa-question"><span
+                                                style="margin-left:-100px;" class="tooltiptext">Choose the GST Rate
+                                                applicable for your product.</span></i></label>
+                                    <textarea style="width: 350px !important;; margin:0;" class="form-control"
+                                        id="textarea" placeholder="" rows="3" name="components"></textarea>
+                                </div>
+                                <div class="input-group" style="width:350px;">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="inputGroupFile04" name="sla">
+                                        <label class="custom-file-label" for="inputGroupFile04">Upload Shipment
+                                            SLA</label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="field btns">
+                                <a href="#" class="prev-2 prev"><span>Previous</span></a>
+                                <a href="#" class="next-2 next"><span>Next</span></a>
+                            </div>
+                        </div>
+                        <div class="page">
+                            <div class="main__box">
+                                <div class="main__box-body">
+                                    <div class="field">
+                                        <label style="width: 130px!important; margin:0;" class="" for="">Product
+                                            Weight<i style="font-size: 10px;" class="fas fa-question"><span
+                                                    class="tooltiptext">Actual Product weight in
+                                                    Kilograms</span></i></label>
+                                        <input style=" margin:0; "
+                                            type="number" placeholder="In KG" name="weight">
+                                        <label style="width: 140px!important; margin:0; margin-left: 10px;" class=" coo"
+                                            for="">Country of Origin<i style="font-size: 10px;"
+                                                class="fas fa-question"><span class="tooltiptext">State where the
+                                                    Product was manufactured/ assembled</span></i></label>
+
+                                        <style>
+                                            #country option {
+                                                width: 100px !important;
+                                            }
+                                        </style>
+                                        <select class="form-select"
+                                            style="width: 150px !important; overflow:hidden;margin:0;  border: 1px solid lightgray; "
+                                            id="country"  class="chosen" name="countryOfOrigin">
+                                            {% include "options.html" %}
+                                        </select>
+                                        <label style="width: 130px!important;margin:0; margin-left: 10px;" class=""
+                                            for="">Dimension unit<i style="font-size: 10px;"
+                                                class="fas fa-question"><span class="tooltiptext"></span></i></label>
+                                        <select
+                                            style="margin:0; width: 60px!important;overflow:hidden; border:1px solid lightgray;"
+                                            class="form-select" name="dimensionUnit" id="">
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                            " >Unit</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                            " >Bag</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                            " >Metric Ton</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                            " >Kilogram</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                            " >Tanker Truck</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                            " >Piece</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                            " >Bundle</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                            " >Cubic Foot</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                            " >Square Foot</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                            " >Cubic Meter</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                            " >Sheet</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                            " >Meter</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                            " >set</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                            " >Litre</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                            " >Kit</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                            " >Can</option>
+                                            <option style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                            " >Foot</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="field ">
+                                        <label class="" for="">Product Dimensions<i style="font-size: 10px;"
+                                                class="fas fa-question"><span class="tooltiptext">Please provide actual
+                                                    product dimensions in the provided unit of
+                                                    measurement.</span></i></label>
+                                        <input type="number" placeholder="Length" name="length">
+                                        <input type="number" placeholder="Width" name="width">
+                                        <input type="number" placeholder="Height" name="height">
+                                    </div>
+                                    <div class="field">
+                                        <label class="" for="">Packed box dimensions<i
+                                                style="font-size: 10px; margin-left:2px;" class="fas fa-question"><span
+                                                    class="tooltiptext">Please provide dimensions for the box
+                                                    containting a packed unit of this product.</span></i></label>
+                                        <input type="number" placeholder="Length" name="packedLength">
+                                        <input type="number" placeholder="Width" name="packedWidth">
+                                        <input type="number" placeholder="Height" name="packedHeight">
+                                    </div>
+                                    <div class="field">
+                                        <label class=" material" for="">Material<i style="font-size: 10px;"
+                                                class="fas fa-question"><span style="margin-left:-100px;"
+                                                    class="tooltiptext">Choose your product's material(s). Use complete
+                                                    description like Sheesham Wood instead of just Wood. Separate
+                                                    multiple materials with a comma.</span></i></label>
+                                        <input type="text" name="material"
+                                            style="width: 580px !important; border:1px solid lightgray; height: 40px !important;margin-left:-30px;">
+                                    </div>
+                                    <div class="field loction">
+                                        <label style="margin-top:20px" class="" for="">Pickup Location<i
+                                                style="font-size: 10px;" class="fas fa-question"><span
+                                                    class="tooltiptext">Please choose the factory / warehouse from where
+                                                    this product will be shipped</span></i></label>
+
+                                        <select name="pickupLocation"
+                                            style="margin-left:-30px; width:  580px !important;; height:40px; border:1px solid lightgray;"
+                                            id="">
+                                            <option value="">Select Pickup Location</option>
+                                            <option value="">Use This Location</option>
+                                            <option value="" data-bs-toggle="modal" data-bs-target="#pickupmodal">
+                                                <button
+                                                    style=" width: 580px !important; margin-left: -30px; margin-top:15px;"
+                                                    type="button" class="btn btn-primary add_variant_button"
+                                                    data-bs-toggle="modal" data-bs-target="#pickupmodal">
+                                                    Add New Location
+                                                </button>
+                                            </option>
+
+                                        </select>
+
+
+
+
+                                        <!--  -->
+                                    </div>
+                                    <div class="field">
+                                        <label style="margin-top :10px !important;" class="" for="">Serviced
+                                            Regions<i style="font-size: 10px;" class="fas fa-question"><span
+                                                    class="tooltiptext">Please state regions where you want to ship your
+                                                    product in the country. This might influence your delivery
+                                                    cost.</span></i></label>
+                                        <div class="column" id="description__input"
+                                            style="width: 380px; min-height:40px; margin-top:0px;">
+
+                                            <div id="description__input__box" class="input-group mb-3"
+                                                style="margin-left:-30px; display:flex; flex-direction: column; width: 580px; min-height:40px; border: 1px solid lightgray;">
+                                                <div style="margin:0px; padding:0px; " class="tag-container">
+                                                </div>
+                                                <input name="servicedRegions"
+                                                    style="background: transparent;  border: none; min-height:29px !important; width:350px !important; 
+                                                                            font-size: 14px; margin:0px; padding:0px 10px;"
+                                                    type="text" class="form-control discription--input add-tag-input"
+                                                    id="" placeholder="Add Your Regions"
+                                                    aria-label="Text input with checkbox">
+
+                                                </input>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="pickupmodal" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true"
+                                        style="height: 450px!important;width:350px;">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">New Pickup Location
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <form class="form-horizontal" role="form">
+                                                                    <div class="form-group">
+                                                                        <div class="col-sm-10">
+                                                                            <input type="text" class="form-control"
+                                                                                id="inputAddressLine1"
+                                                                                name="address-line1"
+                                                                                placeholder="Street address, P.O. box, company name, c/o">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <div class="col-sm-10">
+                                                                            <input type="text" class="form-control"
+                                                                                id="inputAddressLine2"
+                                                                                name="address-line2"
+                                                                                placeholder="Apartment, suite , unit, building, floor, etc.">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <div class="col-sm-10">
+                                                                            <input type="text" class="form-control"
+                                                                                id="inputCityTown" name="city-town"
+                                                                                placeholder="City / Town">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <div class="col-sm-10">
+                                                                            <input type="text" class="form-control"
+                                                                                id="inputStateProvinceRegion"
+                                                                                name="state-province-region"
+                                                                                placeholder="State / Province / Region">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <div class="col-sm-10">
+                                                                            <input type="text" class="form-control"
+                                                                                id="inputZipPostalCode"
+                                                                                name="zip-postal-code"
+                                                                                placeholder="Zip / Postal Code">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <div class="col-sm-10">
+                                                                            <select class="form-control"
+                                                                                id="selectCountry" name="country">
+                                                                                {% include "options.html" %}
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Close</button>
+                                                                        <button type="button"
+                                                                            class="btn btn-primary">Add Address</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- mobile view of final form submission  page -->
+                            <div class="main__box--mobileView">
+                                <div class="field">
+                                    <label style=" margin:0;" class="" for="">Product
+                                        Weight<i style="font-size: 10px;" class="fas fa-question"><span
+                                                class="tooltiptext">Actual Product weight in
+                                                Kilograms</span></i></label>
+                                    <input style=" margin:0; margin-left: 70px;" type="number" placeholder="In KG" name="weight">
+                                </div>
+                                <div class="field">
+                                    <label style=" margin:0; margin-left: 10px;" class=" coo" for="">Country of Origin<i
+                                            style="font-size: 10px;" class="fas fa-question"><span
+                                                class="tooltiptext">State where the
+                                                Product was manufactured/ assembled</span></i></label>
+
+                                    <style>
+                                        #country option {
+                                            width: 100px !important;
+                                        }
+                                    </style>
+                                    <select class="form-select" name="countryOfOrigin"
+                                        style="overflow:hidden;margin:0;  border: 1px solid lightgray; " id="country"
+                                        name="country" class="chosen">
+                                        {% include "options.html" %}
+                                    </select>
+                                </div>
+                                <div class="field ">
+                                    <label style="margin:0; margin-left: 10px;" class="" for="">Dimension unit<i
+                                            style="font-size: 10px;" class="fas fa-question"><span
+                                                class="tooltiptext"></span></i></label>
+                                    <select style="margin:0; overflow:hidden; border:1px solid lightgray;"
+                                        class="form-select" name="dimensionUnit" id="">
+                                        <option style=" margin:0px!important;border: 1px solid lightgray;border-radius: 1px;
+                                            " >Unit</option>
+                                        <option style=" margin:0px!important;border: 1px solid lightgray;border-radius: 1px;
+                                            " >Bag</option>
+                                        <option style=" margin:0px!important;border: 1px solid lightgray;border-radius: 1px;
+                                            " >Metric Ton</option>
+                                        <option style=" margin:0px!important;border: 1px solid lightgray;border-radius: 1px;
+                                            " >Kilogram</option>
+                                        <option style=" margin:0px!important;border: 1px solid lightgray;border-radius: 1px;
+                                            " >Tanker Truck</option>
+                                        <option style=" margin:0px!important;border: 1px solid lightgray;border-radius: 1px;
+                                            " >Piece</option>
+                                        <option style=" margin:0px!important;border: 1px solid lightgray;border-radius: 1px;
+                                            " >Bundle</option>
+                                        <option style=" margin:0px!important;border: 1px solid lightgray;border-radius: 1px;
+                                            " >Cubic Foot</option>
+                                        <option style=" margin:0px!important;border: 1px solid lightgray;border-radius: 1px;
+                                            " >Square Foot</option>
+                                        <option style=" margin:0px!important;border: 1px solid lightgray;border-radius: 1px;
+                                            " >Cubic Meter</option>
+                                        <option style=" margin:0px!important;border: 1px solid lightgray;border-radius: 1px;
+                                            " >Sheet</option>
+                                        <option style=" margin:0px!important;border: 1px solid lightgray;border-radius: 1px;
+                                            " >Meter</option>
+                                        <option style=" margin:0px!important;border: 1px solid lightgray;border-radius: 1px;
+                                            " >set</option>
+                                        <option style=" margin:0px!important;border: 1px solid lightgray;border-radius: 1px;
+                                            " >Litre</option>
+                                        <option style=" margin:0px!important;border: 1px solid lightgray;border-radius: 1px;
+                                            " >Kit</option>
+                                        <option style=" margin:0px!important;border: 1px solid lightgray;border-radius: 1px;
+                                            " >Can</option>
+                                        <option style=" margin:0px!important;border: 1px solid lightgray;border-radius: 1px;
+                                            " >Foot</option>
+
+                                    </select>
+                                </div>
+                                <div class="field ">
+                                    <label class="" for="">Product Dimensions<i style="font-size: 10px;"
+                                            class="fas fa-question"><span class="tooltiptext">Please provide actual
+                                                product dimensions in the provided unit of
+                                                measurement.</span></i></label>
+                                    <div class="dimension__row">
+                                        <input type="number" placeholder="Length" name="length">
+                                        <input type="number" placeholder="Width" name="width">
+                                        <input type="number" placeholder="Height" name="height">
+                                    </div>
+
+                                </div>
+                                <div class="field">
+                                    <label class="" for="">Packed box dimensions<i
+                                            style="font-size: 10px; margin-left:2px;" class="fas fa-question"><span
+                                                class="tooltiptext">Please provide dimensions for the box
+                                                containting a packed unit of this product.</span></i></label>
+                                    <div class="dimension__row">
+                                        <input type="number" placeholder="Length" name="packedLength">
+                                        <input type="number" placeholder="Width" name="packedWidth">
+                                        <input type="number" placeholder="Height" name="packedHeight">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class=" material" for="">Material<i style="font-size: 10px;"
+                                            class="fas fa-question"><span style="margin-left:-100px;"
+                                                class="tooltiptext">Choose your product's material(s). Use complete
+                                                description like Sheesham Wood instead of just Wood. Separate
+                                                multiple materials with a comma.</span></i></label>
+                                    <input type="text" style="border:1px solid lightgray; margin-left:-30px;" name="material">
+                                </div>
+                                <div class="field">
+                                    <label style="margin-top:20px" class="" for="">Pickup Location<i
+                                            style="font-size: 10px;" class="fas fa-question"><span
+                                                class="tooltiptext">Please choose the factory / warehouse from where
+                                                this product will be shipped</span></i></label>
+
+                                    <select name="pickupLocation" style="margin-left:-30px; border:1px solid lightgray;" id="">
+                                        <option>Select Pickup Location</option>
+                                        <option>Use This Location</option>
+                                        <option data-bs-toggle="modal" data-bs-target="#pickupmodal">
+                                            <button style=" margin-left: -30px; margin-top:15px;" type="button"
+                                                class="btn btn-primary add_variant_button" data-bs-toggle="modal"
+                                                data-bs-target="#pickupmodal">
+                                                Add New Location
+                                            </button>
+                                        </option>
+
+                                    </select>
+
+
+
+
+                                    <!--  -->
+                                </div>
+                                <div class="field">
+                                    <label style="margin-top :10px !important;" class="" for="">Serviced
+                                        Regions<i style="font-size: 10px;" class="fas fa-question"><span
+                                                class="tooltiptext">Please state regions where you want to ship your
+                                                product in the country. This might influence your delivery
+                                                cost.</span></i></label>
+                                    <div class="column" id="description__input" style=" margin-top:0px;" >
+
+                                        <div id="description__input__box" class="input-group mb-3"
+                                            style="margin-left:-30px; display:flex; flex-direction: column; width: 580px; min-height:40px; border: 1px solid lightgray;">
+                                            <div style="margin:0px; padding:0px; " class="tag-container">
+                                            </div>
+                                            <input name="servicedRegions"
+                                                style="background: transparent;  border: none; min-height:29px !important; width:350px !important; 
+                                                                            font-size: 14px; margin:0px; padding:0px 10px;"
+                                                type="text" class="form-control discription--input add-tag-input" id=""
+                                                placeholder="Add Your Regions" aria-label="Text input with checkbox">
+
+                                            </input>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="pickupmodal" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true"
+                                    style="height: 450px!important;width:350px;">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">New Pickup Location
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <form class="form-horizontal" role="form">
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" class="form-control"
+                                                                            id="inputAddressLine1" name="address-line1"
+                                                                            placeholder="Street address, P.O. box, company name, c/o">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" class="form-control"
+                                                                            id="inputAddressLine2" name="address-line2"
+                                                                            placeholder="Apartment, suite , unit, building, floor, etc.">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" class="form-control"
+                                                                            id="inputCityTown" name="city-town"
+                                                                            placeholder="City / Town">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" class="form-control"
+                                                                            id="inputStateProvinceRegion"
+                                                                            name="state-province-region"
+                                                                            placeholder="State / Province / Region">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" class="form-control"
+                                                                            id="inputZipPostalCode"
+                                                                            name="zip-postal-code"
+                                                                            placeholder="Zip / Postal Code">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-10">
+                                                                        <select class="form-control" id="selectCountry"
+                                                                            name="country">
+                                                                            {% include "options.html" %}
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Close</button>
+                                                                    <button type="button" class="btn btn-primary">Add
+                                                                        Address</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field btns">
+                                <a href="#" class="prev-3 prev"><span>Previous</span></a>
+                                <button type="button" class="submit" onclick="this.form.submit();" >submit
+                                    <!-- <a href="#" class="submit-btn"><span>Submit</span></a> -->
+                                </button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+    <script src="https://kit.fontawesome.com/ce664af958.js" crossorigin="anonymous"></script>
+    <script src="/static/staticfiles/js/addProduct.js"></script>
+
+    <script>
+        var viewModel = {};
+        viewModel.fileData = ko.observable({
+            dataURL: ko.observable(),
+            // can add "fileTypes" observable here, and it will override the "accept" attribute on the file input
+            // fileTypes: ko.observable('.xlsx,image/png,audio/*')
+        });
+        viewModel.multiFileData = ko.observable({ dataURLArray: ko.observableArray() });
+        viewModel.onClear = function (fileData) {
+            if (confirm('Are you sure?')) {
+                fileData.clear && fileData.clear();
+            }
+        };
+        viewModel.debug = function () {
+            window.viewModel = viewModel;
+            console.log(ko.toJSON(viewModel));
+            console.log(viewModel.multiFileData())
+            console.log(viewModel.multiFileData().dataURLArray());
+            console.log(viewModel.multiFileData().fileArray());
+            debugger;
+        };
+        viewModel.onInvalidFileDrop = function (failedFiles) {
+            var fileNames = [];
+            for (var i = 0; i < failedFiles.length; i++) {
+                fileNames.push(failedFiles[i].name);
+            }
+            var message = 'Invalid file type: ' + fileNames.join(', ');
+            alert(message)
+            console.error(message);
+        };
+        ko.applyBindings(viewModel);
+    </script>
+
+</body>
+
+</html>

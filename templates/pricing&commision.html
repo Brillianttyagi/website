@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Pricing & Commission | Building Materials & Home Interiors Marketplace | Seventh Square</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Understand the math behind payments and cost at Seventh Square.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.0.0/mdb.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    {% include "styles.html" %}
+    
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Mukta&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: #f8f9fa;
+    font-family: 'Mukta';
+    overflow-x: hidden;
+}
+.container{
+    background-size: cover;
+    max-width: 100%;
+    margin: 0;
+    min-height: 100vh;
+}
+.head{
+    background-color: rgb(39, 39, 41);
+    padding: 10px;
+}
+.head .logo img{
+    max-width: 100px;
+}
+.first{
+    background-color: #fff;
+}
+.first a{
+    text-decoration: none;
+    color: #757575;
+}
+.first .link{
+    margin: 5px;
+    color: #4f4f4f;
+    width: 70%;
+}
+.first .main{
+    width: 90%;
+    margin: auto;
+}
+.first .main .col-7{
+    justify-content: center;
+    align-items: center;
+    margin:auto;
+}
+.first .main h1,.second h1,.third h1{
+    font-family: 'Crimson Text';
+    font-weight: 800;
+}
+.first .main .col-7 hr{
+    height: 2px;
+    border-radius: 10px;
+    opacity: 1;
+    width: 60%;
+}
+.first .main .col-7 h3{
+    width: 50%;
+}
+.first .main .col-5 img{
+    max-width: 350px;
+    margin: 20px 0;
+}
+
+.second,.third {
+    margin-top: 20px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+}
+.second h1,.third h1{
+    margin-bottom: 10px;
+    text-align: center;
+}
+.second .row{
+    margin: auto;
+    width: 95%;
+}
+.second .minus{
+    width: 1%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1%;
+    border-radius: 10px;
+    opacity: 1;
+    height: 2px;
+    
+}
+.second .equals{
+    width: 1%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1%;
+    color: #fff;
+    border-top: 10px double black;
+    opacity:1; 
+}
+.ele{
+    display: inline-block;
+    width: 22%;
+}
+.ele .component{
+    flex-wrap: wrap;
+    background-color: #e9ecef;
+    width: 90%;
+    margin: auto;
+    padding: 5px;
+}
+.ele .component p{
+    margin: 0;
+}
+.second p{
+    margin-top: 5px;
+}
+
+.third p{
+    width: 70%;
+    margin: 10px auto;
+    line-height: 30px;
+}
+.container a{
+    text-decoration: underline;
+    color: black;
+}
+
+@media (max-width:900px) {
+    .first .main .col-5 img {
+        max-width: 300px;
+    }
+    .second .minus,.second .equals{
+        width: 0.5%;
+    }   
+}
+@media(max-width:760px){
+    .first .main .col-7 h3 {
+        width: 70%;
+    }
+    .first .main .col-5 img {
+        max-width: 250px;
+    }
+    .second .minus, .second .equals {
+        width: 0.25%;
+        margin-top: 2%;
+    }
+}
+
+@media(max-width:700px){
+    .first .main .col-7 h3 {
+        font-size: 25px;
+    }
+    .second,.third{
+        font-size: 15px;
+    }
+    .second .minus, .second .equals {
+        width: 0.05%;
+        margin-top: 2%;
+    }
+    .ele{
+        width: 21%;
+    }
+}
+@media(max-width:630px){
+    .first .main .col-5 img {
+        max-width: 200px;
+    }
+}
+@media(max-width:550px){
+    .first .main h1,.second h1,.third h1{
+        font-size: 30px;
+    }
+    .first .main .col-7 h3 {
+        font-size: 22px;
+    }
+    .second .minus, .second .equals {
+        width: 2%;
+        margin-left: 48%;
+    }
+    .ele {
+        width: 80%;
+        margin:auto;
+    }
+    .ele .component{
+        width: 60%;
+    }
+    .ele p{
+        margin-bottom: 2px;
+    }
+}
+@media(max-width:500px){   
+    .first .main .col-5 img {
+        max-width: 150px;
+    }
+    .first .main h1,.second h1,.third h1{
+        font-size: 27px;
+        font-weight: 700;
+    }
+    .first .main .col-7 h3 {
+        width: 90%;
+        font-size: 20px;
+    }
+    .first .main .col-7 hr {
+        width: 90%;
+    }
+}
+@media(max-width:400px){
+    .first .main {
+        width: 100%;
+    }
+    .first .main .col-5 img {
+        max-width: 120px;
+    }
+    .first .main .col-7 h3 {
+        width: 100%;
+        font-size: 18px;
+    }
+    .first .main .col-7 hr {
+        width: 100%;
+    }
+    .ele {
+        width: 90%;
+    }
+    .ele .component{
+        width: 80%;
+    }
+    .third p {
+        width: 90%;      
+        line-height: 25px;
+    }
+}
+    </style>
+    
+    {% include "navigation.html" %}
+    <div class="container">
+
+        <div class="row first">
+            <div class="row link">
+                <p><a href="#">Home</a> > Pricing & Commission</p>
+            </div>
+            <div class="row main">
+                <div class="col-7">
+                    <h1>Pricing & Commission</h1>
+                    <hr>
+                    <h3>Understand the math behind payments and cost at Seventh Square.</h3>                  
+                </div>
+                <div class="col-5">
+                    <img src="https://raw.githubusercontent.com/Aastha2891/Seventh_Square/master/Pricing%26Commission/img/Untitled%20design%20(3).png" alt="Image">
+                </div>
+            </div>
+        </div>
+        <div class="row second">
+            <h1>Basics</h1>
+            <div class="row">
+                <div class="ele">
+                    <div class="component">
+                        <p> Sale Price</p>
+                    </div>
+                    <p>Amount paid by the customer on purchase of product</p>
+                </div>
+                <hr class="minus">
+                <div class="ele">
+                    <div class="component">
+                        <p> Marketplace Commission</p>
+                    </div>
+                    <p>Includes Commission based on Product,Payement collection fee (if applicable)</p>
+                </div>
+                <hr class="minus">
+                <div class="ele">
+                    <div class="component">
+                        <p> Service GST 18%</p>
+                    </div>
+                    <p>GST applicable on Marketplace Commission</p>
+                </div>
+                <hr class="equals">
+                <div class="ele">
+                    <div class="component">
+                        <p> Settlement Amount</p>
+                    </div>
+                    <p>Amount transferrable to your account for the product sale</p>
+                </div>
+            </div>
+            <div class="row">
+                <p>For example, if price paid by the customer is INR 1000 (excluding delivery) and Product commission is 5%
+                    and payment collection 3%, then the calculation would look something like this below (delivery charges are
+                    separately settled in this case)
+                    </p>
+            </div>
+            <div class="row">
+                <div class="ele">
+                    <div class="component">
+                        1000
+                    </div>
+                </div>  
+                <hr class="minus">
+                <div class="ele">
+                    <div class="component">
+                        80 (50 + 30)
+                    </div>
+                </div>  
+                <hr class="minus">
+                <div class="ele">
+                    <div class="component">
+                        14 (80 X 18%)
+                    </div>
+                </div>  
+                <hr class="equals">
+                <div class="ele">
+                    <div class="component">
+                        906
+                    </div>
+                </div>  
+            </div>
+            <div class="row">
+                <p>Check the same for any price and situation with our <a href="https://seller.seventhsq.com/pricecalculator/">Price Calculator</a></p>
+            </div>
+        </div>
+        <div class="row third">
+            <h1>How does delivery work?</h1>
+            <p>Sellers have the option to deliver the products themselves or with us. Here's how it looks :<br>
+            <strong>1. Inclusive Delivery</strong> : Delivery charges are included in the product sale price and customer pays no extra
+            shipping.<br>
+            <strong>2. Exclusive Delivery</strong> : Delivery charges are excluded from sale price and customer pays shipping extra as
+            per location and product weight<br>
+            Both these options are available whether seller chooses self shipping or Shipping with Seventh Square
+            </p>
+        </div>
+        <div class="row third">
+            <h1>What is payment collection fee ?</h1>
+            <p>This is the fee charged by payment gateways and delivery operators for collection of payment. This is
+                only applicable if the customer pays using payment gateway on the platform or by cash on delivery.
+                This is flat at 3% and is charged from the sale price of the product along with 18% GST on it.
+            </p>
+            <p>Still have some questions ? Check out <a href=" https://seller.seventhsq.com/faqs/pricing/">Payment FAQs</a> or reach out to us <a href="/contact-us/">here</a> </p>
+        </div>
+    </div>
+    
+    
+    <!-------------------------------------------------- Footer ------------------------------------------>
+
+
+    {% include "footer.html" %}
+
+    <script src="/static/staticfiles/js/jquery.min.js"></script>
+    <script src="/static/staticfiles/bootstrap/js/bootstrap.min.js"></script>
+    
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.0.0/mdb.min.js"></script>
+    </body>
+
+</html>

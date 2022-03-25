@@ -1,0 +1,900 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+
+.aboutMenu {
+   position: fixed;
+   display: flex;
+   justify-content:space-around;
+   align-items: center;
+   width: 100%;
+   z-index: -10;
+   top: 0;
+   background-color: white;
+}
+ .aboutMenu .container {
+   width: 100%;
+   height: 60px;
+   margin: 0 auto;
+   text-align: center;
+   padding: 10px;
+}
+.aboutMenu ul{
+   position: relative;
+   display: flex;
+   list-style: none;
+   width: 100%;
+   justify-content: flex-end;
+   margin: 0;
+}
+    
+.aboutMenu .container ul li {
+   display: inline-block;
+   height: 45px;
+   position: relative;
+   margin: 0 20px;
+   padding: 5px 10px;
+}
+
+.aboutMenu .container ul li a {
+   display: inline-block;
+   text-decoration: none;
+   padding: 2px 5px!important;
+   color: black;
+   position: relative;
+   text-transform: uppercase;
+}
+.aboutMenu .container ul li a:hover{
+   color: white;
+
+
+}
+.aboutMenu .container ul li.active {
+   background-color: rgb(0, 0, 0);
+   transition: 0.3s ease background-color;
+   text-decoration: underline;
+   text-underline-position: under;
+   transition: 0.3s ease background-color;
+}
+.aboutMenu .container ul li.active a {
+   color:rgb(255, 255, 255);
+   text-decoration: underline;
+   text-underline-position: under;
+   margin-bottom: 5px;
+}
+.aboutMenu .logo{
+   color: #111;
+   font-size: 24px;
+   text-transform: uppercase;
+   text-decoration: none;
+   font-weight: 700;
+   letter-spacing: 2px;
+}
+.aboutMenu.logo img{
+   width: 80px;
+}
+
+.container-other{
+   width: 100%;
+   height: 100%;
+   overflow-y: scroll;
+   overflow-x: hidden;
+   scroll-behavior: smooth;
+   scroll-snap-type: y mandatory;    
+}
+.section{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   text-align: center;
+   width: 100%;
+   height: 100vh;
+   scroll-snap-align: center;
+}
+.section h1{
+   font-size: 2.5rem;
+}
+.section p{
+   font-size: 1.5rem;
+}
+.banner{
+   width: 100%;
+   height: 100vh;
+   position: relative;
+   overflow: hidden;
+   margin-top: -60px;
+}
+.slider{
+   width: 100%;
+   height: 100vh;
+   position: absolute;
+   top:0;
+
+}
+#slideImg{
+   width: 100%;
+   height: 100vh;
+   animation: zoom 10s linear infinite;
+}
+@keyframes zoom{
+   0%{
+       transform: scale(1.2);
+   }
+   33%{
+       transform: scale(1.15);
+   }
+   77%{
+       transform: scale(1);
+   }
+   100%{
+       transform: scale(1.2);
+   }
+}
+
+.list{
+   position: relative;
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   width: 100%;
+   z-index:9;
+   background:rgb(0,0,0,0);
+   top:0px;
+}
+.list ul{
+   position: relative;
+   display: flex;
+   list-style: none;
+   width: 100%;
+   justify-content: flex-end;
+   margin: 0;
+}
+
+.list ul li{
+   position: relative;
+   margin: 0 0.5rem;
+   padding: 1rem;
+}
+
+.list ul li a{
+   position: relative;
+   text-decoration: none;
+   text-transform: uppercase;
+   color: #fff;
+}
+
+.list ul li a:hover{
+   color: skyblue;
+}
+.list ul li .selected{
+   color: #f3994c;
+   text-decoration: underline;
+   text-underline-position: under;
+}
+
+.overlay{
+   width: 100%;
+   height: 100vh;
+   background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
+   position: absolute;
+   top: 0;
+}
+.content{
+   width: 80%;
+   margin:180px 200px 0px;
+   text-align: left;
+   color:#fff;
+}
+.content h2{
+   width: 60%;
+   font-size: 2rem;
+}
+.content p{
+   width: 50%;
+   margin: 20px 0px;
+   font-weight: 100;
+   line-height: 25px;
+}
+.content a {
+   color: white;
+   text-decoration: none;
+   text-transform: uppercase;
+ }
+ 
+.content a:hover {
+   color:orange;
+   
+ }
+ 
+.content a:active {
+   background: black;
+ }
+.know{
+   margin: 20px 0;
+}
+
+
+/* ----------------------------------------- SECTION - STORY ------------------------------------------- */
+section#story{    
+   background: #fefefe;
+   display: flex;
+   flex-direction: column;
+   color: black;
+}
+#block{
+   display: flex;
+}
+section#story .list ul li a,section#products .list ul li a,section#objectives .list ul li a{
+   color: #111;
+}
+section#story .list ul li a:hover,section#products .list ul li a:hover,section#objectives .list ul li a:hover{
+   color: skyblue;
+}
+section#story .list ul li .selected,section#products .list ul li .selected,section#objectives .list ul li .selected{
+   color: #f3994c;
+   text-decoration: underline;
+   text-underline-position: under;
+}
+.story-con{
+   width: 65%;
+   text-align: left;
+   padding-left: 5%;
+}
+.story-con p{
+   margin: 20px 0px;
+   font-weight: 100;
+   line-height: 23px;
+   font-size: 20px;
+}
+.planePath {
+   /* stroke: #D9DADA; */
+   stroke: #98a0a0;
+   stroke-width: .1%;
+   stroke-width: .3%;
+   stroke-dasharray: 1% 2%;
+   stroke-linecap: round;
+   fill: none;
+ }
+ 
+ .fil1 {
+   /* fill: #D9DADA; */
+   fill: #babdbd;
+ }
+ 
+ .fil2 {
+   /* fill: #C5C6C6; */
+   fill: #98a0a0;
+ }
+
+ .fil3 {
+   /* fill: #AEAFB0; */
+   fill:#c1c2c3;
+ }
+ 
+ .fil4 {
+   /* fill: #9D9E9E; */
+   fill: #8a8b8b;
+ }  
+ 
+/* --------------------------------------- SECTION - PRODUCTS ----------------------------------- */
+section#products{
+   color: black;
+   background: #FEFEFE;
+   /* background-image: url("../img/8.jpg");
+   width: 100%;
+   height: 100vh;
+   background-size: cover;
+   position: relative;
+   opacity: 0.9;
+   background-attachment: fixed; */
+}
+section#products h1{
+   margin-top: 2vh;
+}
+
+section#products .content{
+   display: flex;
+   justify-content: center;
+   flex-direction: row;
+   flex-wrap:wrap ;
+   margin:0 auto;
+}
+section#products .content .workBx{
+   position: relative;
+   width: 280px;
+   height: 130px;
+   margin: 5px;
+   transition: 0.3s;
+   text-align: center;
+   align-items: center;        
+   cursor: pointer;
+}
+section#products .content .workBx .imgBx,
+section#products .content .workBx .textBx{
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+
+}
+section#products .content .workBx .imgBx img{
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+}
+section#products .content .workBx .textBx{
+   background: #000;
+   opacity: 0 ;
+   transition: 0.5s;
+   align-items: center;
+   justify-content: center;
+}
+section#products .content .workBx:hover .textBx{
+   opacity: 0.8;
+}
+section#products .content .workBx .textBx h3{
+   color: #fff;
+   text-transform: uppercase;
+   letter-spacing: 1px;
+   font-size:1em;
+}
+section#products .products{
+   display: flex;
+   justify-content: center;
+   flex-wrap: wrap;
+   flex-direction: row;
+   width: 90%;
+   margin: 0 auto 5vh;
+}
+section#products .products .prodBox
+{
+   padding: 10px 10px;
+   background: #f4f4f4;
+   color: black;
+   width: 320px;
+   margin: 5px;
+   text-align: center;
+   transition: 0.5s;
+   display: flex;
+   align-items: center;
+}
+section#products .products .prodBox:hover{
+   background: skyblue;
+}
+section#products .products .prodBox img{
+   width: 60px;
+}
+section#products .products .prodBox h2{
+   font-size: 20px;
+   font-weight: 600;
+   width: 100%;
+}
+/* .products img{
+   width: 10vh;
+} */
+.button-container{
+   background-image: url("../img/8.jpg");
+   width: 100%;
+   height: 30vh;
+   background-size: cover;
+   position: relative;
+   opacity: 0.9;
+   background-attachment: fixed;
+}
+button,
+button::after {
+ -webkit-transition: all 0.3s;
+   -moz-transition: all 0.3s;
+ -o-transition: all 0.3s;
+   transition: all 0.3s;
+}
+
+button {
+ background: none;
+ border: 3px solid #000;
+ border-radius: 5px;
+ color: #000;
+ display: block;
+ font-size: 1em;
+ font-weight: bold;
+ margin: 4em auto;
+ padding: 1em 5em;
+ position: relative;
+ text-transform: uppercase;
+}
+
+button::before,
+button::after {
+ background: #000;
+ content: '';
+ position: absolute;
+ z-index: -1;
+}
+
+button:hover {
+ color: #fefefe;
+ background: #000;
+}
+.btn-2::after {
+   height: 100%;
+   left: 0;
+   top: 0;
+   width: 0;
+ }
+ 
+ .btn-2:hover:after {
+   width: 100%;
+ }
+
+/* ----------------------------------Section-Objectives-------------------------------------- */
+section#objectives{
+   padding-top: 1%;
+   background: #fefefe;
+   color: black;
+}
+#gray{
+   margin: 0 auto;
+   width: 50%;
+   line-height: 30px;
+   color: #504d4d;
+}
+.aim-content .line{
+   width: 8%;
+   height: 2px;
+   opacity: 0.7;
+   background: #e0e0e0;
+   margin: auto;
+}
+.hide  {
+   display: none;
+}
+.aim-content{
+   display: flex;
+   width: 95%;
+   margin: 10px auto;
+}
+.aim{
+   width: 45%;
+   padding: 0 20px;
+   margin: auto;
+   display: flex;
+   flex-direction: row;
+}
+.aim.text-num{
+   text-shadow: saddlebrown;
+}
+.aim p{
+   font-weight: 100;
+   line-height: 25px;
+   text-align: left;
+}
+.bullet{
+   text-shadow: 3px 3px rgb(0 0 0 / 25%);
+}
+
+.globe {
+   border: 2px solid #8bc34a;
+   border-radius: 50%;
+   height: 140px;
+   left: 50%;
+   overflow: hidden;
+   top: 50%;
+   transform: translate(-50%, -50%);
+   width: 140px;
+}
+   
+.globe svg{
+     animation: rotation 5s linear 0s infinite;
+}
+.globe svg path {
+       stroke: #8BC34A;
+}
+@keyframes rotation {
+   from {
+     transform: translateX(0);
+   }
+   
+   from {
+     transform: translateX(-50%);
+   }
+}
+
+/* ----------------------------------------------------Section-Contact Us------------------------------------------*/
+ Section#contact{
+   padding-top: 1%;
+   background: #1b1b1b;
+}
+#contact h1{
+   color: white;
+}
+.formBx{
+   min-width: 40%;
+}
+.formBx form{
+   display: flex;
+   flex-direction: column;
+}
+.formBx form h3,.contactInfo h3{
+   font-size: 20px;
+   font-weight: 600;
+   margin-bottom: 10px;
+   color: #fff;
+}  
+.formBx form input,
+.formBx form textarea{
+   margin-bottom: 20px;
+   padding: 15px;
+   font-size: 16px;
+   background: transparent;
+   border: none;
+   outline: none;
+   background: #222;
+   color: #fff;
+   resize: none;
+
+} 
+.formBx form textarea{
+   min-height: 180px;
+}
+.formBx form input::placeholder,
+.formBx form textarea::placeholder{
+   color: #999;
+}
+.formBx form input[type = "submit"] {
+   max-width: 100px;
+   background: #2196f3;
+   cursor: pointer;
+   text-transform: uppercase;
+   letter-spacing: 2px;
+}
+.contactInfo{
+   min-width: 60%;
+}
+.contactInfoBx{
+   position: relative;
+}
+.box{
+   position: relative;
+   padding: 20px 0;
+   display: flex;
+   width: 80%;
+}
+.box .icon{
+   min-width: 40px;
+   padding-top: 4px;
+   display: flex;
+   justify-content: center;
+   align-items: flex-start;
+   font-size: 24px;
+   color: #fff;
+}
+.text p{
+   font-size:1.2rem;
+   line-height: 25px;
+}
+.box .text{
+   display: flex;
+   margin-left : 20px;
+   font-size : 16px;
+   flex-direction: column;
+   font-weight: 300;
+   color: #fff;
+}
+.box .text h3{
+   color : #2196f3;
+   margin-bottom: 0;
+}
+.box-small{
+   position: relative;
+   padding: 20px 0;
+   display: flex;
+   width: 50%;
+   margin: auto;
+}
+.box-small .icon{
+   min-width: 50px;
+   padding-top: 4px;
+   display: flex;
+   justify-content: center;
+   align-items: flex-start;
+   font-size: 30px;
+   color: #fff;
+   cursor: pointer;
+}
+.box-small .icon a{
+   text-decoration: none;
+   color:white;
+}
+.box-small .icon:hover{
+   color: #2196f3;
+}
+.contact-content{
+   display: flex;
+   width: 95%;
+   margin: 10px auto;
+   text-align: left;
+} 
+/* -----------------------------------------------Section-Footer--------------------------------------------- */
+section#footer{
+   height: 55%;
+   align-items: flex-start;
+}
+/* ---------------------------------------------------Responsive--------------------------------------------- */
+@media (max-width : 1100px){
+   .story-con{
+       width:100%;
+       padding-right: 5%;
+   }    
+   section#products,section#objectives,section.contact,section#story{
+       align-items: flex-start;
+   }
+   section#products h1,section#objectives h1,section.contact h1{
+       width: 100%;
+   }
+   section#products .products .prodBox{
+       width:280px
+   }
+   section#story svg{
+       display: none;
+   }
+   section#products .content .workBx{
+       width: 220px;
+       height: 130px;
+   }
+}
+
+
+@media (max-width : 970px){
+   .story{
+       width:85%;
+   }
+   section#products .products .prodBox{
+       width:250px;
+   }
+   nav {
+       padding: 20px 50px;
+       z-index: 1000;
+   }
+   .aboutMenu {
+      display: none;
+   }
+   #menu{
+       position: fixed;
+       top: 75px;
+       left: -100%;
+       display: block;
+       padding: 100px 50px;
+       text-align: left;
+       width: 100%;
+       height: 100vh;
+       background: #fff;
+       transition: 0.5s;
+       z-index:999;
+       border-top: 1px solid rgba(0,0,0,0.2);
+   }
+   #menu.active{
+       left: 0;
+   }
+   nav ul li {
+       color: #111;
+   }
+   .toggle{
+       width: 40px;
+       height: 40px;
+       background: url("../img/hamburger.png");
+       background-position:center;
+       background-repeat: no-repeat;
+       background-size:30px;
+       cursor: pointer;
+   }
+   .toggle.active{
+       background:url("../img/cross.png");
+       background-position: center;
+       background-repeat: no-repeat;
+       background-size: 25px;
+       cursor: pointer;
+   }
+   
+
+}
+@media (max-width :930px){
+   
+   section#products .products .prodBox{
+       width:225px;
+   }
+}
+@media (max-width: 862px){
+   section#products .content .workBx{
+       width: 180px;
+       height: 130px;
+   } 
+   section#product{
+       height: 120vh;
+   }
+}
+@media (max-width : 787px){
+   .content{
+       width:80%;
+       text-align: center;
+       margin: 150px auto;
+   }
+   .content h2{
+       margin: auto;
+   }
+   #gray{
+       width:80%;
+   }
+
+   #products .products .prodBox{
+       display:initial;
+       min-width: 185px;
+       max-width: 195px;
+   }
+   #products .products{
+       width: 100%;
+   }
+   #products .products .prodBox img {
+       width: 45px;
+   }
+   .story h1{
+       font-size:50px;
+   }
+   .story p{
+       font-size:1.2em;  
+   }
+   .container-other{
+       overflow-y: normal;
+   }
+   .container-other{
+       overflow-y: normal;
+       scroll-behavior: normal;
+       scroll-snap-type: none;    
+   }
+   .aim-content{
+       margin: 5px auto;
+   }
+   .aim {
+       width: 50%;
+   }
+}
+
+@media(max-width : 717px){
+   #products .content{
+       width:100%;
+   }
+}
+@media(max-width : 615px){
+   #products .products .prodBox{
+       min-width: 145px;
+       max-width: 155px;
+   }
+   #story{
+       height: 120vh;
+   }
+   .aim p {
+       line-height: 23px;
+       font-size: 20px;
+   }
+   #gray{
+       line-height: 23px;
+       font-size: 20px;
+
+   }
+}
+@media(max-width: 570px){
+   #products .content .workBx {
+       width: 150px;
+       height: 130px;
+   }
+   #products .content .workBx .textBx{
+       background: rgb(0 0 0 / 20%);
+       opacity: 1;
+   }
+}
+
+@media (max-width : 500px){
+   
+   .content{
+       width:80%;
+       text-align: center;
+       margin: 120px auto;
+   }
+   .content p{
+       margin: auto;
+       font-size:1.2em;
+       text-align: left;
+   }
+   .content h1{
+       font-size:50px;
+   }
+   #story{
+       align-items: flex-start;
+   }
+   #objectives h1{
+       font-size: 2rem;
+   }
+   .aim {
+      width: 100%;
+      margin: 10px auto;
+  }
+  #gray{
+     margin:10px auto;
+  }
+   .aim-content{
+       flex-direction: column;
+   }
+   .hide{
+       display:flex;
+   }
+   .hide-bar{
+       display:none;
+   }
+   body{
+       overflow: none;
+   }
+   #products .content .workBx {
+       width: 130px;
+       height: 130px;
+   }
+
+}
+@media (max-width : 450px){
+   #products .content .workBx{
+       margin:1.5px;
+   }
+   .story-con p{      
+       line-height: 20px;
+       font-size: 17px;  
+   }
+   .story-con{
+       margin-top: 10%;
+   }
+   section h1 {
+       font-size: 2rem;
+   }
+   #objectives{
+       height: 150vh;
+   }
+   .aim p {
+       line-height: 20px;
+       font-size: 18px;
+   }
+}
+@media(max-width:400px ){
+   #products .content .workBx {
+       width: 100px;
+       height: 100px;  
+   }
+   #products .content .workBx .textBx h3 {
+       font-size: 0.8em;
+   }
+   .box-small {
+       left: 10%;
+   }
+}
+@media (max-width : 310px){
+   #products{
+       height: 120vh;
+   }
+}
+@media (max-width : 300px){
+   .story h1, .content h1{
+       font-size:40px;
+   }
+   .story p, .content p{
+       font-size:1.1em;  
+   }
+   #objectives{
+       height: 130vh;
+   }   
+}

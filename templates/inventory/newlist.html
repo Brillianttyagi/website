@@ -1,0 +1,254 @@
+{% load static %}
+{% load bootstrap_pagination %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Active Products | Seventh Square Seller</title>
+    <link rel="stylesheet" href="/static/staticfiles/css/Bootstrap-Tags-Input.css">
+    <style>
+        .backdrop {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            position: absolute;
+            display: block;
+            z-index: 10;
+            visibility: hidden;
+        }
+
+        .backdrop-transition {
+            transition-duration: .2s;
+            transition-timing-function: cubic-bezier(.25, .8, .25, 1);
+            transition-property: visibility;
+        }
+
+        .backdrop-dark {
+            background-color: rgba(0, 0, 0, .8);
+        }
+    </style>
+    {% include "styles.html" %}
+    {% include "navigation.html" %}
+
+    <div class="alert alert-{{col}} text-center" style="padding:0px; margin:0px; font-weight: 700;">
+        {{msg}}</div>
+    <nav aria-label="breadcrumb" style="font-size: 14px;border-bottom: 1px solid rgb(245, 245, 245);">
+        <ol class="breadcrumb m-0" style="background-color: #fff;padding: 2px 20px;">
+            <li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><span id="lastword"></span></li>
+        </ol>
+    </nav>
+    <div class="row" style="margin: 0px;">
+        {%include "seller_sidebar.html"%}
+        <div class="col" style="font-size: 14px;background: #ffffff;margin-right: 10px;">
+            <h4
+                style="color: #01011e;font-family: 'Source Serif Pro', serif;font-weight: 900;padding-top: 20px;padding-bottom: 5px;padding-left: 20px;">
+                <strong>Your Product List</strong></h4>
+            <hr style="max-width: 75%;margin-left: 0px;margin-right: 0px;">
+            <div class="card" style="border-width: 0px;background: TRANSPARENT;">
+                <div class="card-body" style="padding: 0px;">
+                    <div class="row" style="padding: 0px 2%;">
+                        <div class="col-6">
+                            <div id="dataTable_filter" class="dataTables_filter"><label><input type="search"
+                                        class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"
+                                        style="padding-right: 100px;background: transparent;border-width: 2px;border-style: solid;"></label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite" style="text-align: right;">Showing : {% if inventory.has_previous %}{{ request.get_full_path|slice:"-1:"|add:'-1' }}{% else %}0{%endif%}1-{% if not inventory.has_previous %}10{% elif not inventory.has_next %}{{l}}{% else %}{{ request.get_full_path|slice:"-1:" }}0{%endif%} of {{l}}</p>
+                        </div>
+                    </div>
+                    <div class="table-responsive table-borderless" id="dataTable">
+                        <table class="table table-bordered table-hover">
+                            <thead
+                                style="border-bottom-width: 2px;border-bottom-style: solid;background: rgba(37,71,106,0.56);color: rgb(255,255,255);">
+                                <tr>
+                                    <th style="border-width: 1px;border-style: solid;">Sr. No.</th>
+                                    <th style="border-width: 1px;border-style: solid;">Image</th>
+                                    <th style="border-width: 1px;border-style: solid;">Title</th>
+                                    <th style="border-width: 1px;border-style: solid;">Category</th>
+                                    <th style="border-width: 1px;border-style: solid;">Inventory</th>
+                                    <th style="border-width: 1px;border-style: solid;">Selling Price</th>
+                                    <th style="border-width: 1px;border-style: solid;">Status</th>
+                                    <th style="border-width: 1px;border-style: solid;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>{% for i in inventory %}{% if i.prod_status != "" %}
+                                <tr>
+                                    <td class="text-center">{{ forloop.counter0|add:inventory.start_index }}</td>
+                                    <td style="text-align: center;"><img class="img-fluid" src="{{media}}{{i.image }}"
+                                            style="width: 40px;"></td>
+                                    <td><a href="{{media}}{{i.image }}" style="color: #858796;">{{ i.name }}</a></td>
+                                    <td>{{ i.category }}</td>
+                                    <td>{{ i.qty }}</td>
+                                    <td>{{ i.sellingPrice |floatformat:2 }}</td>
+                                    <td>{{ i.inventoryStatus  }}</td>
+                                    <td style="padding: 5px;text-align: center;"><a href="/inventory/active-products/{{ i.id }}/"><button
+                                                class="btn btn-danger"
+                                                style="padding-right: 9px;padding-left: 9px;background: #00b760;border-style: none;"
+                                                type="submit"><i class="material-icons"
+                                                    style="font-size: 16px;">edit</i></button></a>
+                                        <form action="/inventory/inventorydelete/{{ i.id }}/" method="POST">
+                                            {%csrf_token%}
+                                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>{% endif %}{% endfor %}
+                            </tbody>
+                            <tfoot style="border-width: 1px;border-style: solid;">
+                                <tr></tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-5">
+                        </div>
+                        <div class="col-7">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+        <div class="modal-dialog" style="max-width: 98%;" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 style="text-align: center;font-family: 'Crimson Text', serif;">Preview Product</h5><button
+                        type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="product-info">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-4" style="padding: 0rem 3rem !important;">
+                                <div id="carouselExampleControls" class="carousel slide text-center"
+                                    data-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <div id="selectedFiles">
+                                        </div>
+                                    </div><img src="" alt="" style="size: coevr;">
+
+                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                                        data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                                        data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-6">
+                                <div class="info">
+                                    <strong><span class="text-capitalize" id="mtitle"
+                                            style="font-size: 30px; padding: 10px; color: black;font-family: 'Source Serif Pro', serif;"></span></strong>
+                                    <div class="rating" style="color: #999;"> <i class="fa fa-star"
+                                            style="color: #FC0;"></i> <i class="fa fa-star" style="color: #FC0;"></i> <i
+                                            class="fa fa-star" style="color: #FC0;"></i> <i class="fa fa-star-o"></i> <i
+                                            class="fa fa-star-o"></i> </div>
+                                    <div class="price" style="padding: 10px; font-size: 20px; color: black;">
+                                        <strong>Rs. <span id="mselling"></span></strong>
+                                    </div>
+                                    <div class="price" style="padding: 10px; font-size: 20px;">
+                                        <strong><strike>Rs. <span id="mmarked"></span></strike></strong>
+                                    </div>
+                                    <button class="btn" type="button"
+                                        style="color:white; background-color: #091030; margin: 0px 10px;"><i
+                                            class="icon-basket"></i>Add to Wishlist</button><button class="btn"
+                                        type="button"
+                                        style="color:white; background-color: #091030; margin: 0px 10px;"><i
+                                            class="icon-basket"></i>Add to Cart</button>
+                                    <div class="summary" style="padding: 20px;">
+                                        <p id="mdetail" style="color: black;"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-info">
+                        <div style="padding: 4%;">
+                            <strong>About The Brand : </strong>
+                            <p id="sabout"></p>
+                            <ul class="nav nav-tabs" role="tablist" id="myTab" style="margin-top: 20px;">
+                                <li class="nav-item" role="presentation"><a class="nav-link active" role="tab"
+                                        data-toggle="tab" id="specifications-tabs"
+                                        href="#specifications">Specifications</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane active fade show specifications" role="tabpanel"
+                                    id="specifications">
+                                    <div class="table-responsive table-bordered">
+                                        <table class="table table-bordered mb-0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Product Seller</td>
+                                                    <td>{{data.name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="stat">Material</td>
+                                                    <td id="mmat"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="stat">Product Dimensions</td>
+                                                    <td><span id="pd1"></span> x <span id="pd2"></span> x <span
+                                                            id="pd3"></span> (cm)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="stat">Packed Box Dimensions</td>
+                                                    <td><span id="pbd1"></span> x <span id="pbd2"></span> x <span
+                                                            id="pbd3"></span> (cm)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="stat">Weight</td>
+                                                    <td><span id="wgt"></span> (gm)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="stat">Product Warranty</td>
+                                                    <td><span id="pwar"></span> years</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="stat">Product Guarantee</td>
+                                                    <td><span id="pguar"></span> years</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="stat">Pickup Location</td>
+                                                    <td id="ploc"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="stat">Country Of Origin</td>
+                                                    <td id="cofo"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include "footer.html" %}
+
+    </body>
+    <script src="/static/staticfiles/js/jquery.min.js"></script>
+    <script src="/static/staticfiles/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/staticfiles/js/Collapsible-sidebar-left-or-right--Content-overlay.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+    <script src="/static/staticfiles/js/Drag-and-Drop-Multiple-File-Form-Input-upload-Advanced.js"></script>
+    <script src="/static/staticfiles/js/Bootstrap-Tags-Input-1.js"></script>
+    <script src="/static/staticfiles/js/Bootstrap-Tags-Input.js"></script>
+</html>

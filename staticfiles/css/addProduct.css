@@ -1,0 +1,940 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+  font-family: 'Poppins', sans-serif;
+  font-family: 'crimson', sans-serif;
+}
+header{
+    height: 60px;
+    width: 100%;
+    background: black;
+}
+.container{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+    display:flex;
+    flex-direction: row;
+}
+.mobile__view{
+  display: none;
+}
+::selection{
+  color: #fff;
+  background: #43d400;
+}
+.container__right{
+  width: 100%;
+  background: #fff !important;
+  border-radius: 5px;
+  padding: 30px;
+  margin-left: 100px;
+}
+.container__right .header{
+    padding: 0;
+    margin: 0;
+    background: #fff !important;
+    justify-content:center;
+  font-size: 30px;
+  font-weight: 600;
+  margin: 0 0 0px 0;
+}
+.container__right .header span{
+    font-size: 16px;
+}
+.container__right .form-outer{
+    width: 100%;
+  overflow: hidden;
+}
+.container__right .form-outer form{
+  display: flex;
+  width: 400%;
+}
+.form-outer form .page{
+  width: 70%;
+  transition: margin-left 0.3s ease-in-out;
+}
+.form-outer form .page:nth-child(2){
+    width: 1450px;
+    justify-content:center;
+}
+.form-outer form .page:nth-child(3){
+    width: 1250px;
+    justify-content:center;
+}
+.form-outer form .page:nth-child(4){
+    width: 1450px;
+    justify-content:center;
+}
+.form-outer form .page .field{
+  width: 800px;
+  height: 40px;
+  margin: 25px 0;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+.product__type{
+    width: 200px !important;
+    margin-left: -10px;
+}
+
+.form-outer form .page .field .select__product--type{
+  margin-left: -30px !important;
+  margin-right: 20px !important;
+  }
+.hidden{
+  display: none !important;
+}
+.hsn__code{
+
+    width: 230px!important;
+}
+.form-outer form .page .field .page1__label{
+    width: 250px;
+    height: 40px;
+    display: inline-block;
+    
+}
+.hsn__code-label{
+    width:150px !important;
+}
+form .page .field input, textarea{
+  height: 100%;
+  width: 100%;
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+  padding-left: 15px;
+  margin: 0 20px;
+  font-size: 16px;
+  color: #5f5e5e;
+}
+textarea{
+    height: 60px !important;
+}
+.image__upload{
+  width:1000px!important; 
+  padding: 15px;
+  height:auto !important;
+}
+.image__upload label{
+  margin: 300px;
+}
+/* page 2 styling starts from here */
+.main__box{
+  margin-top: 20px;
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+.main__box--mobileView{
+  display: none;
+}
+.sub__category{
+  margin-left: 210px!important;
+}
+.main__box-body{
+  width:100%;
+  height: auto;
+  margin: 0 10px;
+  padding: 0 5px;
+}
+.main__box-body .field{
+  width: 800px;
+  height: 35px!important;
+  margin: 5px 0;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+#country option{
+ width: 100px !important;
+ overflow: hidden;
+}
+.main__box-body .field label{
+  width: 230px!important;
+}
+.main__box-body .field input{
+  width: 167px!important ;
+  font-size: 14px!important;
+}
+
+.main__box-body .field .pul , .main__box-body .field .ssom{
+  width :65% !important;
+}
+.main__box-body .field .file{
+  border: none;
+}
+.main__box-body .field select{
+  margin-left: 0;
+  width:120px!important;
+  color: #5f5e5e;
+  border :none;
+  margin-left: 20px;
+}
+
+
+/* page 2 styling ends here */
+/* page 3 styling starts from  here */
+.third__page--mobile{
+  display: none;
+}
+.third__page{
+  width: 100%;
+  height :50vh;
+  margin : 5px 15px;
+}
+.third__page .field{
+  width: 800px;
+  height: 35px!important;
+  margin: 5px 0;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+.third__page .line1 label{
+  width :150px!important;
+}
+.third__page .line1 input{
+  width: 260px!important;
+}
+.third__page .line2{
+  margin-top: 40px!important;
+}
+.third__page .line2 label{
+  width: 150px !important;
+}
+.third__page .line2 input{
+  width: 260px!important;
+}
+.third__page .line3 label{
+  width:200px;
+}
+.third__page .line3 textarea{
+width:580px;
+margin-left: 50px;
+}
+
+.MOQ_unit{
+  display:flex;
+  flex-direction: row;
+}
+
+.about.MOQ{
+margin: 0px !important;
+width: 100% !important;
+}
+.MOQ_unit
+{
+margin: 0;
+width: 100%!important;
+}
+.MOQ_unit input{
+  border-right: none!important;
+}
+.MOQ_unit select{
+margin:0px!important;
+width: 100px !important;; 
+border: 1px solid lightgrey;
+border-radius: 1px;
+border-left: none!important;
+}
+/* page 3 styling ends here */
+/* page 4 styling starts from here */
+.fourth__page{
+  width: 100%!important;
+  height: 85vh;
+  margin: 5px 15px;
+}  
+.fourth__page .field{
+  width: 780px !important;
+  margin: 15px 0;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.fourth__page .about label {
+width : 150px;
+margin-top: 5px;
+}
+.fourth__page .about textarea{
+  margin-left: 20px;
+
+  height: 65px!important;
+  width: 650px;
+}
+.fourth__page .about{
+  height: 60px!important;
+}
+.add_variant_button{
+  background-color: black;
+  width: 200px !important;
+  margin-left: 10px;
+  border: 1px solid lightgrey;
+  border-radius: 1px;
+  color: #e0dcdc;
+  letter-spacing: 1px;
+  font-size: 14px;
+  height:40px;
+}
+.add_variant_button:hover{
+  background-color: rgb(223, 202, 17);
+  color: #000;
+  border: 1px solid lightgrey;
+}
+.add_variant_button:focus, .add_variant_buttonactive{
+  background-color: transparent;
+  outline: none;
+  -webkit-outline: none!important;
+  box-shadow:none;
+  -webkit-box-shadow: none;
+}
+.mobile_view_warranty_box{
+  display: none !important;
+}
+.fourth__page.line3{
+display: flex;
+flex-direction: row!important;
+}
+.MOQ_unit{
+  display:flex;
+  flex-direction: row;
+}
+
+.MOQ label{
+width: 200px !important;
+margin: 0px !important;
+}
+.MOQ_unit
+{
+margin: 0;
+width: 100%!important;
+}
+.MOQ_unit input{
+  width: 70px!important;
+  margin: 0px!important;
+  margin-left: 70px!important;
+  margin-right: -30px !important;
+  border-right: none!important;
+}
+.MOQ_unit select{
+margin:0px!important;
+width: 100px !important;; 
+border: 1px solid lightgrey;
+border-radius: 1px;
+border-left: none!important;
+}
+
+/* page 4 styling ends here */
+
+.next, .prev, .submit{
+  display: block;
+  width: 140px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 18px;
+  font-family: sans-serif;
+  text-decoration: none;
+  color: #333;
+  border: 2px solid #333;
+  letter-spacing: 2px;
+  text-align: center;
+  position: relative;
+  transition: all .35s;
+  text-decoration: none;
+}
+.submit-btn{
+  color:rgb(97, 96, 96);
+  text-decoration: none;
+}
+.submit-btn:hover{
+  color: #fff;
+  text-decoration: none;
+}
+.next span, .prev span,.select span{
+  position: relative;
+  z-index: 2;
+}
+
+.next:after, .prev:after{
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #000000;
+  transition: all .35s;
+}
+
+.next:hover, .prev:hover, .submit:hover{
+  color: #fff!important;
+  text-decoration: none;
+  background-color: #000;
+}
+.submit{
+  background-color: transparent;
+  margin-left: 63%;
+}
+.next:hover:after, .prev:hover:after{
+  width: 100%;
+}
+.firstNext{
+  left:78%;
+}
+.prev-1, .prev-2,.prev-3{
+  left:2%;
+}
+.next-1, .next-2{
+  left:62%;
+}
+.select {
+  left:78%;
+}
+
+
+/* question mark or info panel styling */
+i{
+  margin-left:5px;
+
+  font-size: 7px;
+  text-align: justify;
+  color:rgb(167, 123, 123);
+}
+i .tooltiptext {
+  font-family: 'Roboto', sans-serif;
+  margin-left: -150px;
+  margin-top: 15px;
+  font-weight: 200;
+  width: 200px;
+  height:auto;
+  visibility: hidden;
+  background-color: black;
+  color: rgb(230, 230, 230);
+  text-align: center;
+  font-size:12px;
+  padding: 10px 15px;
+  letter-spacing: .5px;
+  border:1px solid lightgrey;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+i:hover .tooltiptext {
+  visibility: visible;
+}
+
+.container__right .progress-bar{
+	width: 100%;
+	height: auto;
+  display: flex;
+  flex-direction: row;
+  margin: 20px 0;
+  user-select: none;
+  color: #000;
+  background-color: transparent;
+
+}
+
+
+
+.container__right .progress-bar .step{
+  text-align: center;
+  width: 100%;
+  position: relative;
+}
+.container__right .progress-bar .step p{
+  font-weight: 300;
+  font-size: 14px;
+  color: #000;
+  margin-bottom: 8px;
+}
+.progress-bar .step .bullet{
+  height: 25px;
+  width: 25px;
+  border: 2px solid #000 ;
+  display: inline-block;
+  border-radius: 50%;
+  position: relative;
+  transition: 0.2s;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 25px;
+}
+.progress-bar .step .bullet.active{
+  border-color: #03b612;
+  background: #03b612;
+}
+.progress-bar .step .bullet span{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.progress-bar .step .bullet.active span{
+  display: none;
+}
+.progress-bar .step .bullet:before,
+.progress-bar .step .bullet:after{
+  position: absolute;
+  content: '';
+  bottom: 11px;
+  right: -170px;
+  height: 3px;
+  width: 162px;
+  background: #262626;
+}
+.progress-bar .step .bullet.active:after{
+  background: #03b612;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: animate 0.3s linear forwards;
+}
+@keyframes animate {
+  100%{
+    transform: scaleX(1);
+  }
+}
+.progress-bar .step:last-child .bullet:before,
+.progress-bar .step:last-child .bullet:after{
+  display: none;
+}
+.progress-bar .step p.active{
+  color: #03b612;
+  transition: 0.2s linear;
+}
+.progress-bar .step .check{
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  font-size: 15px;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+.progress-bar .step .check.active{
+  display: block;
+  color: #fff;
+}
+@media (max-width: 500px) {
+  header {
+    min-width: 100%;
+  }
+  .container {
+    min-width: 100%;
+    flex-direction: column;
+  }
+  .left {
+    width: 100%;
+    display: none;
+  }
+  .right {
+    min-width: 100%;
+  }
+
+  .container__right {
+    border-radius: 5px;
+    padding: 5px;
+    margin-left: 10px;
+  }
+  .container__right .header {
+    font-size: 20px;
+  }
+  .container__right .header span {
+    font-size: 14px;
+  }
+  .form-outer form .slide-page {
+    width: 480px !important;
+    transition: margin-left 0.3s ease-in-out;
+  }
+  .form-outer form .page:nth-child(2) {
+    width: 400px !important;
+    justify-content: center;
+  }
+  .form-outer form .page:nth-child(3) {
+    width: 400px !important;
+    justify-content: center;
+  }
+  .form-outer form .page:nth-child(4) {
+    width: 400px !important;
+    justify-content: center;
+  }
+  .form-outer form .page .field {
+    width: 80%;
+    height: auto;
+    margin: 25px 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .form-outer form .page .field label {
+    font-size: 16px;
+    width: 100%;
+  }
+  .form-outer form .page .field input {
+    height: 30px;
+    width: 350px;
+    margin-top: -10px;
+    margin-left: 20px;
+  }
+  .form-outer form .page .field .page1__label {
+    width: 100%;
+    margin-left: 20px;
+  }
+  .form-outer form .page .field .page1__label .Product__title__input {
+    height: 30px !important;
+  }
+  .form-outer form .page .field .select__product--type {
+    margin: 0px !important;
+    margin-left: 20px !important;
+    width: 350px !important;
+    background-color: #8f8b8b;
+    height: 40px !important;
+  }
+
+  .hsn__code {
+    display: none !important;
+  }
+  .hsn__code-label {
+    display: none !important;
+  }
+  .hidden {
+    display: block !important;
+  }
+  .hidden label {
+    width: 100% !important;
+  }
+  .hidden input {
+    width: 350px;
+  }
+  form .page .field input {
+    height: 100%;
+    width: 350px;
+    border: 1px solid lightgrey;
+    border-radius: 1px;
+    padding-left: 15px;
+
+    margin: 0 20px;
+    font-size: 16px;
+  }
+  textarea {
+    width: 350px !important;
+    height: 60px !important;
+    margin: 0;
+    margin-left: 20px;
+  }
+  .image__upload {
+    width: 300px !important;
+
+    height: auto !important;
+  }
+  .well {
+    width: 360px !important;
+  }
+  .image__upload .col-md-12 {
+    width: 350px;
+  }
+  .image__upload label {
+    margin: 50px;
+  }
+  /* page 2 styling starts from here */
+  .main__box {
+    display: none;
+    margin-left: 80px;
+  }
+  .main__box--mobileView{
+    display: block;
+    height: 70vh;
+  }
+  .main__box--mobileView .field{
+    width: 100%;
+    height: auto;
+    margin: 5px 0;
+    margin-left: 29px!important;
+    display: flex;
+    flex-direction: column;
+  }
+  .main__box--mobileView label{
+    width: 100% !important;
+  }
+  .main__box--mobileView input,select{
+    width: 400px!important;
+    height: 40px !important;
+  }
+  /* page 2 styling ends here */
+  /* page 3 styling starts from  here */
+  .third__page {
+    display: none;
+  }
+  .third__page--mobile {
+    display: block;
+    width: 450px;
+    height: 130vh;
+  }
+  .third__page--mobile .field{
+    width: 100%;
+    height: auto;
+    margin: 25px 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .third__page--mobile input, select {
+    width: 350px !important;
+    height: auto;
+    margin: 5px 0;
+    margin-left :-0px!important;
+
+  }
+  .third__page--mobile .btns{
+display: flex!important;
+flex-direction: row!important;
+  }
+  .third__page--mobile .btns 
+  
+  /* page 3 styling ends here */
+  /* page 4 styling starts from here */
+  .fourth__page {
+    width: 450px !important;
+    height: 120vh!important;
+    margin: 0;
+  }
+  .fourth__page .field {
+    width: 400px !important;
+    height: auto !important;
+    margin: 0;
+  }
+  .fourth__page .about label {
+    width: 400px !important;
+    margin-left: 0px;
+  }
+  .fourth__page .about input {
+    width: 400px !important;
+    height: 40px !important;
+    margin-left: 0px !important;
+  }
+  .fourth__page .about textarea {
+    margin-left: 0px;
+    width: 400px;
+    height: 55px !important;
+  }
+  .fourth__page .line3 {
+    margin: 10px 0 !important;
+    display: flex;
+    flex-direction: column;
+  }
+  .fourth__page .line3 label {
+    width: 100% !important;
+  }
+  .fourth__page .line3 input {
+    width: 400px !important;
+    height: 30px;
+    margin: 0 !important;
+  }
+  .warranty,
+  .icon,
+  .warranty_input,
+  .guarantee,
+  .guarantee_input {
+    display: none !important;
+  }
+  .mobile_view_warranty_box {
+    display: flex !important;
+  }
+  .warranty_box {
+    display: flex;
+    flex-direction: row;
+  }
+  .warranty_box .warranty_panel {
+    width: 170px;
+  }
+  .warranty_box .warranty_panel input {
+    width: 150px !important;
+  }
+  .warranty_box .gurrantee_panel {
+    width: 170px;
+    margin-left: 30px !important;
+  }
+  .warranty_box .gurrantee_panel input {
+    width: 150px !important;
+  }
+  .line3 {
+    display: none !important;
+  }
+  .MOQ_unit {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .about.MOQ {
+    margin: 0px !important;
+    width: 100% !important;
+  }
+  .MOQ_unit {
+    margin: 0;
+    width: 100% !important;
+  }
+  .MOQ_unit input {
+    border-right: none !important;
+  }
+  .MOQ_unit select {
+    margin: 0px !important;
+    width: 100px !important;
+    border: 1px solid lightgrey;
+    border-radius: 1px;
+    border-left: none !important;
+  }
+
+  /* page 4 styling ends here */
+  .btns {
+    display: flex;
+    flex-direction: row;
+  }
+  .firstNext {
+    left: 50%;
+  }
+  .prev-1,
+  .prev-2,
+  .prev-3 {
+    left: 2%;
+  }
+  .next-1,
+  .next-2 {
+    left: 52%;
+  }
+  .next-1 {
+    margin-left: 30px !important;
+    width: 150px !important;
+    margin-top: -37px !important;
+    padding: 0px 20px !important;
+    float: right;
+  }
+  .next-2 {
+    margin-left: 30px !important;
+    width: 150px !important;
+    margin-top: -37px !important;
+    padding: 0px 20px !important;
+    float: right;
+  }
+  .select {
+    left: 78%;
+  }
+
+  .container__right .progress-bar {
+    width: 85%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    margin: 20px 0;
+    user-select: none;
+    color: #000;
+    background-color: transparent;
+  }
+  .progress-bar .step .bullet.active span {
+    display: none;
+  }
+  .progress-bar .step .bullet:before,
+  .progress-bar .step .bullet:after {
+    right: -60px;
+    width: 52px;
+  }
+}
+/* variant styling is here*/
+.tag-container {
+    max-width: 400px;
+    padding-left: 10px; /* helps wrap the tags in a specific width */
+  }
+  
+  .dashfolio-tag {
+    cursor:pointer;
+    height: 25px;
+    padding: 1px 5px;
+    padding-right: 20px!important;
+    display: inline-block;
+    margin: 3px; /*incase tags go in next line, will space */
+    color:#fff;
+    margin-right: 4px;
+    background:rgb(0, 0, 0);
+font-size: 14px;
+    padding-right: 10px; /* adds space inside the tags for the 'x' button */
+  }
+  
+  .dashfolio-tag:hover{
+    opacity:0.7;
+  }
+  
+  .dashfolio-tag:after { 
+   position:absolute;
+   content:"×";
+   padding:2px 5px;
+   margin-right: 5px!important;
+   font-size:12px;
+  }
+  .form-control:focus {
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  #add-tag-input {
+    background:#eee;
+    border:0;
+    margin:6px 6px 6px 0px ; /* t r b l */
+    padding:5px;
+    width:auto;
+  } 
+/*Add image styling is here*/
+
+.filedrag {
+    width: 78%;
+    border: 2px solid #AAA;
+    border-radius: 7px;
+    cursor: default;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.filedrag .drag-label {
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    color: #AAA;
+    margin-top: 10px;
+    margin-bottom: -10px;
+}
+
+.filedrag.hover {
+    border-color: rgb(97, 91, 91);
+    border-style: solid;
+    box-shadow: inset 0 3px 4px #888;
+}
+
+.filedrag.hover .drag-label {
+    color: #F00;
+}
+
+.custom-file-input-wrapper {
+    position: relative;
+}
+
+.custom-file-input-wrapper .custom-file-input-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-file-input-wrapper .custom-file-input-button * {
+    cursor: pointer;
+}
+
+.custom-file-input-wrapper .custom-file-input-button input[type="file"] {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    cursor: pointer;
+    opacity: 0;
+}

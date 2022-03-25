@@ -1,0 +1,177 @@
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+/* custom scroll bar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #000000;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+::selection{
+  background: rgba(24, 24, 24, 0.3);
+}
+.content{
+  max-width:100%;
+  margin: 0;
+  padding: 0 30px;
+
+}
+.navbarblog{
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  padding: 5px 0;
+  transition: all 0.3s ease;
+  background-color: rgb(255, 255, 255);
+}
+.navbarblog.sticky{
+  background: #1b1b1b; 
+  top: 0;
+  padding: 10px 0;
+  box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.1);
+height: 48px;
+
+}
+.sticky a{
+  color: #fff!important;
+}
+.navbarblog .content{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbarblog .logo a{
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.navbarblog .menu-list{
+  display: inline-flex;
+}
+.menu-list li{
+  list-style: none;
+  color:rgb(148, 146, 146);
+}
+.menu-list li a{
+  color: rgb(126, 120, 120);
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 25px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.menu-list li a:hover{
+  color: #9abce0;
+}
+
+.content.icon{
+  color: rgb(173, 173, 173);
+  font-size: 20px;
+  cursor: pointer;
+  display: none;
+  margin-left: -20px!important;
+  margin-top:5px;
+}
+
+.menu-list .cancel-btn{
+  position: absolute;
+  right: 30px;
+  top: 45px;
+}
+
+@media (max-width: 868px) {
+  .content.icon{
+    display: block;
+  }
+  .content.icon.hide{
+    display: none;
+  }
+  .menu-list .menu-btn i{
+  margin-top: 15px !important;
+}
+  .navbarblog .menu-list{
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    max-width: 400px;
+    left: -100%;
+    top: 0px;
+    display: block;
+    padding: 40px 0;
+    text-align: center;
+    background: #222;
+    transition: all 0.3s ease;
+  }
+  .navbarblog.show .menu-list{
+    left: 0%;
+  }
+  .navbarblog .menu-list li{
+    margin-top: 15px;
+  }
+  .navbarblog .menu-list li a{
+    font-size: 23px;
+    margin-left: -100%;
+    transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  .navbarblog.show .menu-list li a{
+    margin-left: 0px;
+  }
+}
+@media (max-width: 380px) {
+  .navbarblog .logo a{
+    font-size: 24px;
+  }
+}
+    </style>
+  <nav class="navbarblog">
+    <div class="content">
+      <div class="logo">
+        <a href="/blog/">Home</a>
+      </div>
+      <ul class="menu-list">
+        <div class="icon cancel-btn">
+          <i class="fas fa-times"></i>
+        </div>
+        <li>Categories</li>
+        <li><a href="#" style="padding: 0px!important;">&#8213;</a></li>
+        <li><a href="/blog/Industry/">Industry</a></li>
+        <li><a href="/blog/Ecommerce/">Ecommerce</a></li>
+        <li><a href="/blog/Seller-help/">Seller Help</a></li>
+      </ul>
+      <div class="icon menu-btn">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+    <hr class="" style="margin-left: 20px;margin-top: -5px; transition:0.5s ease-in-out">
+  </nav>
+
+  <script>
+    const body = document.querySelector("body");
+    const navbar = document.querySelector(".navbarblog");
+    const menuBtn = document.querySelector(".menu-btn");
+    const cancelBtn = document.querySelector(".cancel-btn");
+    menuBtn.onclick = ()=>{
+      navbar.classList.add("show");
+      menuBtn.classList.add("hide");
+      body.classList.add("disabled");
+    }
+    cancelBtn.onclick = ()=>{
+      body.classList.remove("disabled");
+      navbar.classList.remove("show");
+      menuBtn.classList.remove("hide");
+    }
+    window.onscroll = ()=>{
+      this.scrollY > 20 ? navbar.classList.add("sticky") : navbar.classList.remove("sticky");
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>

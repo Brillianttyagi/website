@@ -1,0 +1,45 @@
+[
+    {
+        "id" : 1,
+        "url" : "faq",
+        "title"  : "general faq",
+        "description" : " HOW DO I REGISTER MYSELF AS A SELLER ON SEVENTH SQUARE? Visit seller.seventhsq.com to register as a seller.  HOW DO I START SELLING ON SEVENTH SQUARE?  IS GSTIN MANDATORY FOR SELLING ON SEVENTH SQUARE?  IS IT MANDATORY TO KEEP INVENTORY UPDATED?  DO I NEED TO KEEP ACCOUNT OF MY ORDERS AND TRANSACTIONS FROM SEVENTH SQUARE?  IF ANY ISSUE, HOW DO I REACH OUT TO SS?  WHO SHIPS THE PRODUCTS PURCHASED BY THE CUSTOMER?  WHERE DO I CHOOSE MY SHIPPING POLICY WITH SEVENTH SQUARE?  IS THERE ANY POLICY, IF I DON'T KEEP MY INVENTORY UPDATED?  HOW SHOULD I PRICE MY PRODUCTS TO RECEIVE MY DESIRED AMOUNT?  WHO CAN SEE MY COMPANY AND BANK DETAILS WHEN FILLED IN THE ACCOUNT?  I FORGOT THE PASSWORD FOR MY SELLER ACCOUNT. WHAT DO I DO?  HOW DO I ACCESS MY COMPANY’S SELLER ACCOUNT?"
+    },
+    {
+        "id" : 2,
+        "url" : "faqs/advertising/",
+        "title"  : "Advertising FAQ",
+        "description" : "Advertising faq  WHAT IS SEVENTH SQUARE ADVERTISING? Seventh Square offers Advertising & Promotional options for sellers who want market their brand as well as their products. This helps them get better visibility on the platform and increases their sales.   WHAT ADVERTISING OPTIONS DOES SEVENTH SQUARE HAVE?   WHAT IS SPONSORED PRODUCTS?   WHAT IS SPONSORED BRANDS?   WHAT IS BRAND PAGES?   HOW MUCH DOES IT COST TO ADVERTISE ON SEVENTH SQUARE?  I STILL HAVE SOME DOUBTS. HOW DO I ADDRESS THEM?"
+    },
+    {
+        "id" : 3,
+        "url" : "faqs/orders/",
+        "title"  : "Orders FAQ",
+        "description" : "Orders FAQs WHAT HAPPENS IF I DON'T HAVE THE PRODUCT IN INVENTORY TO DELIVER ANY ORDER? Although it is not mandatory for sellers to keep inventory updated, we advise you to keep sufficient inventory in hand to fulfill any orders you get from Seventh Square. If you can’t deliver for any order, it is marked under seller cancellation.  HOW WILL I KNOW WHEN A CUSTOMER ORDERS?  I’M NOT RECEIVING ORDER EMAIL NOTIFICATIONS. WHAT DO I DO?  CAN I GET AN ORDER REPORT?"
+    },
+    {
+        "id" : 4,
+        "url" : "faqs/dashboard/",
+        "title"  : "Dashboard FAQ",
+        "description" : "Dashboard FAQs  HOW CAN I UPDATE INVENTORY FOR ANY PRODUCT? You can go to Active Products and select edit for the product you want to update inventory for. HOW DO I MANAGE ORDERS?  HOW CAN I ADD PRODUCTS? WHERE DO I CHOOSE MY SHIPPING POLICY WITH SEVENTH SQUARE? WHAT DO I DO IF I HAVE ANY ISSUES IN LISTING MY CATALOGUE?  IF ANY ISSUE, HOW DO I REACH OUT TO SS?"
+    },
+    {
+        "id" : 5,
+        "url" : "faqs/pricing/",
+        "title"  : "Pricing & Payments FAQ",
+        "description" : "Pricing & Payments FAQs HOW WILL I RECEIVE PAYMENTS FOR PRODUCTS SOLD? You will receive the payments in the bank account you register with us on your seller panel. Please refer to Payment Policy for more information on this.  WHEN DO I GET PAYMENTS FOR ORDERS SHIPPED?  WHO DECIDES THE PRICE OF THE PRODUCTS? HOW SHOULD I PRICE MY PRODUCTS?"
+    },
+    {
+        "id" : 6,
+        "url" : "faqs/policies/",
+        "title"  : "Policies FAQ",
+        "description" : "Policies FAQs  WHAT IS SEVENTH SQUARE POLICY FOR LOST/DAMAGED GOODS OR FRAUDULENT CUSTOMER COMPLAINTS? Seventh Square maintains clear policies and arbitration process for such events. Please refer to Marketplace agreement and Terms of Use for detailed understanding. You can reach out to us at seller@seventhsq.com for any seller related queries and complaints.  WHAT SHOULD I DO TO SHOW COMPLETE EFFICIENCY FROM SELLER’S SIDE IN CASE OF ORDER DISPUTE?  WOULD I GET MY PRODUCT PRICE IF THE GOODS ARE LOST IN TRANSIT?  WHAT HAPPENS IN CASE OF A CONFLICT WITH A CUSTOMER?"
+    },
+    {
+        "id" : 7,
+        "url" : "faqs/advertising/",
+        "title"  : "Advertising FAQ",
+        "description" : "Advertising faq  WHAT IS SEVENTH SQUARE ADVERTISING? Seventh Square offers Advertising & Promotional options for sellers who want market their brand as well as their products. This helps them get better visibility on the platform and increases their sales.   WHAT ADVERTISING OPTIONS DOES SEVENTH SQUARE HAVE?   WHAT IS SPONSORED PRODUCTS?   WHAT IS SPONSORED BRANDS?   WHAT IS BRAND PAGES?   HOW MUCH DOES IT COST TO ADVERTISE ON SEVENTH SQUARE?  I STILL HAVE SOME DOUBTS. HOW DO I ADDRESS THEM?"
+    }
+    
+]

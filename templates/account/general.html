@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Account</title>
+    <link rel="icon" href="/static/staticfiles/favicon.ico"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/staticfiles/css/style.css">
+    <link rel="stylesheet" href="/static/staticfiles/css/Registration.css">
+    <link rel="stylesheet" href="/static/staticfiles/css/responsive.css">
+    <link rel="stylesheet" href="/static/staticfiles/css/Login.css">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.0.0/mdb.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+    {% include "styles.html" %}
+    {% include "navigation.html" %}
+    <div id='alert' style="text-align: center;"></div>
+    {%if message is not None%}
+    <div class="alert alert-{{color}} text-center" style="margin:0">
+        <strong>{{message}}</strong>
+    </div>
+    {%endif%}
+    <section class="background SingleSec">
+        <div class="row film" style="margin:0px;">
+            <div class="col-12 col-md-1"></div>
+            
+            <div class="col-12 col-md-5 register">
+                <form class=" text-center" method="POST" action="" id="form-col-det" >
+                  {%csrf_token%}
+                    <h2 class="text-capitalize text-center" id="form-head">
+                        Enter your details</h2>
+                    <div class="form-group"><input class="form-control" type="text" value="{{request.user.Representativename|default_if_none:''}}" name="Representativename" required
+                            placeholder="Representative Name" style="background: rgb(256,256,256,0.5); border: solid 1px #6c757d;"></div>
+                    <div class="form-group"><input class="form-control" type="text" value="{{request.user.companyName|default_if_none:''}}" name="companyName" required
+                            placeholder="Company Name" style="background: rgb(256,256,256,0.5); border: solid 1px #6c757d;"></div>
+                    
+                    <div class="form-group" style="font-size: 1rem;"><select class="form-control" onload="(()=>{alert('load');this.value='{{request.user.city|default_if_none:''}}' })()" value='{{request.user.city}}' name="city" required style="background: rgb(256,256,256,0.5); border: solid 1px #6c757d;">
+                        <option value="" >City</option>
+                        <option value="Agra">Agra</option>
+                        <option value="Ahmedabad">Ahmedabad</option>
+                        <option value="Bangalore">Bangalore</option>
+                        <option value="Bhopal">Bhopal</option>
+                        <option value="Chandigarh">Chandigarh</option>
+                        <option value="Chennai">Chennai</option>
+                        <option value="Coimbatore">Coimbatore</option>
+                        <option value="New Delhi">New Delhi</option>
+                        <option value="Faridabad">Faridabad</option>
+                        <option value="Faridabad">Faridabad</option>
+                        <option value="Gaziabad">Gaziabad</option>
+                        <option value="Gurgaon">Gurgaon</option>
+                        <option value="Hyderabad">Hyderabad</option>
+                        <option value="Indore">Indore</option>
+                        <option value="Jaipur">Jaipur</option>
+                        <option value="Jalandhar">Jalandhar</option>
+                        <option value="Jodhpur">Jodhpur</option>
+                        <option value="Kanchipuram">Kanchipuram</option>
+                        <option value="Kanpur">Kanpur</option>
+                        <option value="Kolkata">Kolkata</option>
+                        <option value="Kota">Kota</option>
+                        <option value="Lucknow">Lucknow</option>
+                        <option value="Ludhiana">Ludhiana</option>
+                        <option value="Madurai">Madurai</option>
+                        <option value="Meerut">Meerut</option>
+                        <option value="Morbi">Morbi</option>
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Nagpur">Nagpur</option>
+                        <option value="Navi">Navi</option>
+                        <option value="Noida">Noida</option>
+                        <option value="Patna">Patna</option>
+                        <option value="Pune">Pune</option>
+                        <option value="Ranchi">Ranchi</option>
+                        <option value="Salem">Salem</option>
+                        <option value="Surat">Surat</option>
+                        <option value="Thane">Thane</option>
+                        <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                        <option value="Tiruchillappalli">Tiruchillappalli</option>
+                        <option value="Udaipur">Udaipur</option>
+                        <option value="Vadodara">Vadodara</option>
+                        <option value="Vijaywada">Vijaywada</option>
+                        <option value="Vishakapatnam">Vishakapatnam</option>
+                    </select></div>
+                    
+                    <div class="form-group"><button href ="Seller_login.html" class="btn btn-primary btn-block" type="submit"
+                            style="background: #000; border-color: #4f4f4f;">Submit</button></div>
+                    <a class="text-capitalize already" href="/account/gstindetail/" style="color:#4f4f4f; float: left;text-decoration: underline;">&#60; Back </a>
+                </form>
+            </div>
+            <div class="col-12 col-md-5" id = "content-col">
+                <p class="text-para-big" id = "content-head" >You've reached the finish line!</p> 
+                <p style="font-size: 1.1rem;"> Tell us about youself and the company you represent, so we know who to address.</p> 
+                <p style="font-size: 1.1rem;"> Please use names mentioned in the official documents as these will help us in verification.
+                </p>
+                <hr class="custom-black-bold">
+                <div style="font-size: 1.1rem; font-weight: 500; padding-top: 5px;">Frequently Asked Questions</div>
+                <div class="accordion accordion-flush new" id="accordionFlushExample">
+                    <div class="accordion-item ">
+                      <h2 class="accordion-header" id="flush-heading1">
+                        <button
+                          class="accordion-button collapsed"
+                          type="button"
+                          data-mdb-toggle="collapse"
+                          data-mdb-target="#flush-collapse1"
+                          aria-expanded="false"
+                          aria-controls="flush-collapse1"
+                          style="font-size: 1.1rem;text-align: left;"
+                        >
+                        Why should I provide in Company Name?
+                        </button>
+                      </h2>
+                      <div
+                        id="flush-collapse1"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="flush-heading1"
+                        data-mdb-parent="#accordionFlushExample"
+                      >
+                        <div class="accordion-body" style="font-size: 1.1rem;text-align: left;">
+                            Please provide full legal name in the company name. This helps us verify and onboard only genuine sellers.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="flush-heading2">
+                        <button
+                          class="accordion-button collapsed"
+                          type="button"
+                          data-mdb-toggle="collapse"
+                          data-mdb-target="#flush-collapse2"
+                          aria-expanded="false"
+                          aria-controls="flush-collapse2"
+                          style="font-size: 1.2rem;text-align: left;"
+                        >
+                        Which city should be mentioned?
+                        </button>
+                      </h2>
+                      <div
+                        id="flush-collapse2"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="flush-heading2"
+                        data-mdb-parent="#accordionFlushExample"
+                      >
+                        <div class="accordion-body" style="font-size: 1.1rem;text-align: left;">
+                            In case of multiple locations, please enter the city where the company is registered.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-12 col-md-1"></div>
+        </div>
+    </section>
+    {% include "footer.html" %}
+    <script src="/static/staticfiles/js/resp.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.0.0/mdb.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
+</body>
+</html>

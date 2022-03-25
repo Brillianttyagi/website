@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        @media only screen and (max-width: 1024px)
+{
+ 
+    .box-main{
+        max-width: 100%;
+    }
+    .inline{
+        flex-direction: column;
+    }
+    .square
+    {
+        width: 80%;
+    }
+    .thirdSection .square
+    {
+        width:80%;
+    }
+    
+}
+
+
+@media only screen and (max-width: 600px) {
+    .bton:link,
+.bton:visited{
+  font-size: 2vh;
+  padding:1vh 5vh;
+}
+
+.bton::after{
+  font-size: 18px;
+}
+
+.bton-animation-1:hover::after {
+    transform: scaleX(1.02) scaleY(1.01);
+    opacity: 0;
+}
+    .list-group-item {
+        color: white;
+    }
+
+    .panel {
+        padding: 0 18px;
+        display: none;
+        background-color: none;
+        overflow: hidden;
+    }
+
+    .foter-1{
+        display: block !important;
+    }
+
+    .foter-2 {
+        display: none !important;
+    }
+
+    .imgage-1 {
+        padding-right: 5rem !important;
+        padding-left: 5rem !important;
+    }
+
+    .canv {
+        width: 100% !important;
+        padding: 0% 5% !important;
+    }
+    .dashborder {
+        border-right-style: none!important;
+    }
+    .happyclient {
+        width: 70% !important;
+    }
+
+    .thirdSection .square{
+        padding: 0;
+    }
+    
+    #reg-form{
+        margin-top: 20px;
+    }
+
+    .box-bottom{
+        font-family: 'PT Serif', serif;
+        font-size: 2vh;
+        text-align: right;
+        padding: 0vh 3vh;
+        font-weight: 700;
+    }
+    .inline{
+        display: flex;
+        width: 95%;
+        margin: auto;
+    }
+    .square{
+        width: 30%;
+        padding: 10px 20px;
+        margin: 0 auto;
+    }
+
+
+}
+
+@media ( max-width:480px){
+    #star-content{
+        margin-top: 0;
+    }
+}
+@media only screen and (max-width:567px){
+    #Mob-div{
+        flex-direction: column;
+    }
+    #num{
+        width: 100%;
+    }
+    #OTP-button
+    {
+        padding: .375rem .75rem;
+        width: 100%;
+        height: 40px;
+        margin:1rem 0rem 0rem 0rem;
+    }
+    
+    
+}
+@media(max-width:600px){
+    .firstSection{
+    height: 52vh!important;
+}
+    .text-head{
+        font-size: 3vh!important;
+    }
+    .heading p{
+        font-size: 30px;
+    }
+    .text-big{
+        padding: 1% 1%;
+        font-size: 3.55vh!important;
+        font-weight: 600;
+    }
+    .text-num{
+        margin:0 30!important;
+        margin-top: -40px!important;
+        font-size:4vh;
+    }
+    .text-para-small{
+        font-size: 14px!important;
+    }
+    .text-para-big{
+       
+        font-size:2.5vh!important;
+    }
+    .register > h1 > .text-capitalize{
+        font-size: 30px!important;
+    }
+}
+    </style>
+    <script>
+
+        function register() {
+            let alert_ = $('#alert')
+            alert_.removeClass('alert-danger')
+            alert_[0].innerHTML = ''
+
+            let input_ = document.getElementById("register_otp_mobile")
+            let y = input_.value;
+            let regexp = RegExp(/^[0-9]{10}$/)
+            if (regexp.test(y) == false) {
+                input_.style.borderColor = 'red'
+                return
+            }
+            let x = document.getElementById("myDIV");
+            x.style.display = "block";
+            input_.style.borderColor = 'green'
+            let abc = $('#register_otp_mobile_submit')[0]
+            abc.style.color = 'black'
+            abc.style.padding = '0px 13px'
+            abc.disabled = true
+            let time = 30
+            login_otp_setinterval_id = setInterval(() => {
+                abc.innerHTML = time
+                time -= 1
+
+            }, 1000);
+            let b = setTimeout(() => {
+                clearInterval(login_otp_setinterval_id)
+                abc.innerHTML = 'Resend OTP';
+                abc.disabled = false
+
+            }, 30000);
+            $.post('/account/sendmobileotp/', { 'mobileNumber': y }).done(() => {
+
+            }).fail(() => {
+                let alert_ = $('#alert')
+                alert_.addClass('alert-danger')
+                alert_[0].innerHTML = 'Account already exists'
+                clearInterval(login_otp_setinterval_id)
+                abc.innerHTML = 'Resed OTP';
+                abc.disabled = false
+            })
+        }
+        function verify_mobile_otp() {
+            let alert_ = $('#alert')
+            alert_.removeClass('alert-danger')
+            alert_[0].innerHTML = ''
+
+            let input_ = document.getElementById("register_otp_mobile")
+            let y = input_.value;
+            let input_otp = document.getElementById("register_otp_input")
+            let z = input_otp.value;
+            console.log(input_otp)
+            let regexp = RegExp(/^\d{5}$/)
+            if (regexp.test(z) == false) {
+                input_otp.style.borderColor = 'red'
+                return
+            }
+            input_otp.style.borderColor = 'yellow'
+            $.post('/account/verifymobileotp/', { 'mobileNumber': y, 'otp': z }).done(() => {
+                input_otp.style.borderColor = 'green'
+                let alert_ = $('#register_otp_helper')
+                alert_[0].innerHTML = ''
+                let sb = document.getElementById('register_submit_button')
+                sb.disabled = false
+            }).fail(() => {
+                let alert_ = $('#register_otp_helper')
+                alert_[0].innerHTML = 'Invalid OTP'
+                input_otp.style.borderColor = 'red'
+            })
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description"
+        content="Reach Builders, Contractors, Engineers, Architects, Individual Home Buyers across India and be part of their material procurement process direclty.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/staticfiles/css/style.css">
+    <link rel="stylesheet" href="/static/staticfiles/css/responsive.css">
+    <link rel="stylesheet" href="/static/staticfiles/css/footer.css">
+    <link rel="stylesheet" href="/static/staticfiles/css/navbar.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.0.0/mdb.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>Sell Building Materials & Home Interiors Online | Seventh Square </title>
+</head>
+
+<body>
+    {% include "styles.html" %}
+    {% include "navigation.html" %}
+    <div id='alert' style="text-align: center;"></div>
+
+    <section class="background firstSection">
+        <div class=" text-center row">
+            <div class="col-md-5 mt-5">
+                <style>
+                    @media (max-width:600px) {
+
+                        .bton:link,
+                        .bton:visited {
+                            font-size: 2vh;
+                            padding: 1vh 5vh;
+                        }
+
+                        .bton::after {
+                            font-size: 18px;
+                        }
+
+                    }
+                </style>
+                <p class="text-big">Reach out to the $600 billion+ industry from your office</p>
+                <div class="box">
+                    <a href="#Register" class="bton bton-black bton-animation-1">Become a Seller</a>
+                </div>
+            </div>
+        </div>
+        <div class="box-bottom">
+            <p id="star-content">Figure as per Industry Estimates for Home Interiors & Construction Industry</p>
+        </div>
+        </div>
+    </section>
+    <section class="secondSection">
+        <div class="heading">
+            <p>Why sell with Seventh Square?</p>
+        </div>
+        <div class="inline row mb-5">
+            <div class="col-sm-4 m-auto">
+                <p class="text-head" style="text-align: left;">Bigger & Better Clientele</p>
+                <p class="text-para-small">Reach Clients all over India. Sell to Builders
+                    & Developers, Contractors & Construction
+                    Firms, Architects, Institutions and
+                    Individual Home Buyers from a single
+                    dashboard.</p>
+                <hr class="custom">
+            </div>
+            <div class="col-sm-4 m-auto">
+                <p class="text-head" style="text-align: right;">Customer Services</p>
+                <p class="text-para-small" style="text-align: right;">Superior Services to clients such as One-stop shop
+                    for Building Materials & Home Interiors, Automatic
+                    Invoicing & Tax Management, Delivery & Order
+                    scheduling for bigger projects, third-party financing
+                    etc. for free</p>
+                <hr class="custom" style=" float: right;">
+            </div>
+        </div>
+        <div class="inline row">
+            <div class="col-md-4 m-auto">
+                <p class="text-head" style="text-align: left;">Seventh Square Specialty</p>
+                <p class="text-para-small">Receive orders & quote updates on text,
+                    whatsapp, email & call. Track payments in
+                    your dashboard. Dedicated Relationship
+                    Manager for all your doubts & queries;
+                    and much more...</p>
+                <hr class="custom">
+            </div>
+            <div class="col-md-4 m-auto">
+                <p class="text-head" style="text-align: right;">Lowest Fees</p>
+                <p class="text-para-small" style="text-align: right;">5% Commission across all categories. No
+                    added charges, so you can give customers
+                    the best prices without lowering margins.</p>
+                <hr class="custom" style=" float: right;">
+            </div>
+        </div>
+        <div class="inline"></div>
+    </section>
+    <section class="thirdSection my-5">
+        <div class="heading">
+            <p>How it works?</p>
+        </div>
+        <div class="inline row">
+            <div class="col-md-4 m-auto" style="display: flex;">
+                <div class="text-num">1</div>
+                <p class="text-para-big">Register with us and
+                    complete your profile</p>
+            </div>
+            <div class="col-md-4 m-auto" style="display: flex;">
+                <div class="text-num">2</div>
+                <p class="text-para-big">Upload your product
+                    portfolio</p>
+            </div>
+        </div>
+        <div class="inline row">
+            <div class="col-md-4 m-auto" style="display: flex;">
+                <div class="text-num">3</div>
+                <p class="text-para-big">Start receiving orders.
+                    Check status in Dashboard</p>
+            </div>
+            <div class="col-md-4 m-auto" style="display: flex;">
+                <div class="text-num">4</div>
+                <p class="text-para-big">Receive your payments
+                    directly in bank</p>
+            </div>
+        </div>
+    </section>
+    <section class="fourthSection my-5" id="Register">
+        <div class="heading">
+            <p>Register as a Seller with Seventh Square</p>
+        </div>
+        <div class="inline thirdSection row">
+            <div class="col-md-4 m-auto mt-5">
+                <p class="text-para-small">Become a seller with us by filling this form.
+                    To sell with Seventh Square, you need:</p>
+                <p class="text-para-small"><span class="tick">&#128504</span> Identification Number (GSTIN)</p>
+                <p class="text-para-small"><span class="tick">&#128504</span>Bank Account</p>
+                <p class="text-para-small"><span class="tick">&#128504</span>PAN</p>
+                <p class="text-para-small">Our team will contact you after you've
+                    filled the form. For any queries, check our
+                    FAQ page or arrange a callback.</p>
+            </div>
+            <div class="col-md-5 m-auto register mt-5" id="reg-form">
+                <form class="text-center" method="POST" action="/account/register/">
+                    {%csrf_token%}
+                    <h1 class="text-capitalize text-center"
+                        style="margin-bottom: 5px; letter-spacing: 2px; font-weight: bold;font-family: 'Voga Medium'; font-size: 48px;">
+                        Register</h1>
+                    <h1 class="text-capitalize text-center"
+                        style="font-family: 'Voga Medium'; letter-spacing: 2px; font-style: normal; font-weight: 500;">
+                        Your Seller Account</h1>
+
+                    <span id='register_mobile_helper' class='text-danger float-left p-1'></span><br />
+                    <div class="form-group" id="Mob-div">
+                        <input class="form-control " id="register_otp_mobile" type="number" name="mobileNumber" required
+                            placeholder="Mobile Number" style="border:1px transparent solid;" maxlength="10"
+                            pattern="(6|7|8|9)\d{9}">
+                        <button type="button"
+                            style="line-height: normal;padding: 0px;border-radius: 0px 5px 5px 0px;box-shadow: white 0 0 0;background-color: #757575;"
+                            class='btn btn-primary btn-sm' id="register_otp_mobile_submit" onclick="register()"
+                            class="btn btn-secondary">Send OTP</button>
+                    </div>
+                    <span id='register_otp_helper' class='text-danger float-left p-1'></span>
+                    <div>
+                        <div class="form-group" style="display: none;" id='myDIV'>
+                            <input class="form-control" style="border:1px transparent solid;"
+                                onblur="verify_mobile_otp()" pattern="(\d{5})" id='register_otp_input' name="OTP"
+                                required placeholder="Enter OTP" maxlength="10">
+                        </div>
+                    </div>
+                    <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email"
+                            required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"></div>
+                    <div class="form-group"><input id="password-field" class="form-control icon-wrapper input"
+                            type="password" name="password" required placeholder="Password"><span
+                            toggle="#password-field" onclick="myFunction()"
+                            class="ion ion-eye field-icon toggle-password" style="font-size: 22px;"></span>
+                    </div>
+                    <br />
+                    <div class="" style="padding: 30px 0px 0px 30px;">
+                        <div class="form-check" style="padding-left: 0px;"><input class="form-check-input"
+                                type="checkbox" required>I Agree With <a href="/marketplace/">Marketplace Agreement
+                            </a>And
+                            <a href="/policy/">Policies</a>.
+                        </div>
+                    </div>
+                    <div class="form-group"><button class="btn btn-primary btn-block" type="submit" disabled
+                            id='register_submit_button'
+                            style="background: #000;border-color: #4f4f4f;    margin-top: 10px;">Continue</button>
+                    </div>
+                    <div>
+                        Already have an account?
+                        <u>
+                            <a class="text-capitalize already" href="account/login/" style="color:#4f4f4f">Login
+                                here</a>
+                        </u>
+                    </div>
+                    <br />
+
+
+                </form>
+            </div>
+        </div>
+    </section>
+    {% include "footer.html"%}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="/static/staticfiles/js/resp.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.0.0/mdb.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,663 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Seventh Square Seller Profile</title>
+  <style>
+    .button_ {
+        background: none!important;
+        border: none;
+        padding: 0!important;
+        /*optional*/
+        font-family: arial, sans-serif;
+        /*input has OS specific font-family*/
+        color: #069;
+        text-decoration: underline;
+        cursor: pointer;
+        vertical-align: middle;
+    }
+  </style>
+
+  {% include "styles.html" %}
+  {% include "navigation.html" %}
+
+
+  <div class="alert alert-{{col}} text-center" style="padding:0px; margin:0px; font-weight: 700;">
+    {{msg}}
+  </div>
+  <nav aria-label="breadcrumb" style="font-size: 14px;border-bottom: 1px solid rgb(245, 245, 245);">
+    <ol class="breadcrumb m-0" style="background-color: #fff;padding: 2px 20px;">
+      <li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page"><span id="lastword"></span></li>
+    </ol>
+  </nav>
+  <div class="row" style="margin: 0px;">
+  {%include 'seller_sidebar.html'%}
+    <div class="col row">
+      <h2 class="text-center" style="margin: 20px;font-family: 'Libre Baskerville', serif;"><strong>Seller
+          Profile</strong></h2>
+      <div class="col-md-6">
+      <div class="p-1">
+        <div class="card m-auto mb-3" style="border: 1px rgb(214, 214, 214) solid; box-shadow: none;">
+          <div class="card-header py-3" style="">
+            <p class="m-0 font-weight-bold float-left" style="color: black;font-size: 18px;">Personal Info</p>
+            <div class=""><a href="#myModal" data-toggle="modal"><button
+                  class="button_" type="button"><i
+                    class="icon ion-edit" style="margin: 0px 7px;font-size: 14px;"></i></button></a></div>
+          <div style="width: 100%;">
+            <hr style="width: 20%;display:inline;" />
+            <hr style="width: 80%;display:inline;" />
+          </div>
+          </div>
+          <div style="width: 100%;">
+            <div style="margin-left: 2%;position: relative;top:-1px; width: 25%;height: 2px;background-color: rgb(0, 209, 224);"></div>
+          </div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="col-12 col-md-5" style="padding: 10px;">
+                <div class="card-body text-center" style="padding: 0px;">
+                  <img class="rounded-circle img-fluid mb-3 mt-4"
+                    src="{% if account.Representativeimage.name != '' %}{{media_url}}{% endif %}{% firstof account.Representativeimage.name '/static/staticfiles/img/human.jpg'%}" style="width:109px;height:109px" onclick='document.getElementById("representativeImage").click()'>
+                </div>
+                <form action='/account/representativedetail/' method="POST" enctype='multipart/form-data'>
+                  {% csrf_token %}
+                  <input type='file' name='representativeimage' hidden id='representativeImage' onchange="(()=>{window.abc=this;if(this.files.length)this.form.submit()})()">
+                </form>
+              </div>
+              <div class="col" style="padding: 10px; font-size: 15px;">
+                <div class="form-group"><label><strong>Name : </strong>{{ account.Representativename |default_if_none:""  }}</label></div>
+                <div class="form-group"><label><strong>Phone Number : </strong>+91 {{ account.mobileNumber |default_if_none:""  }}</label></div>
+                <div class="form-group"><label><strong>Email : </strong>{{ account.email |default_if_none:""  }}</label></div>
+                <div class="form-group"><label><strong>Password : </strong>**********</label></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-1">
+        <div class="card m-auto mb-3" style="border: 1px rgb(214, 214, 214) solid; box-shadow: none;">
+          <div class="card-header py-3" style="">
+
+            <p class="m-0 font-weight-bold float-left" style="color: black;font-size: 18px;">Company Details</p>
+            <div class=" ">
+              <a href="#CompanyDetailModel" data-toggle="modal"><button class="button_"
+                  style="" type="button"><i
+                    class="icon ion-edit" style="margin: 0px 7px;font-size: 14px;"></i></button></a>              
+            </div>
+          </div>
+          <div style="width: 100%;">
+            <div style="margin-left: 2%;position: relative;top:-1px; width: 25%;height: 2px;background-color: rgb(0, 209, 224);"></div>
+          </div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="col" style="padding: 10px; font-size: 15px;">
+                <div class="form-group"><label><strong>Company Name : </strong>{{ account.companyName |default_if_none:"" }}</label></div>
+                <div class="form-group"><label><strong>Company Address : </strong><a href="#AddressModel" data-toggle="modal"><button class="button_"
+                  style="" type="button"><i
+                    class="icon ion-edit" style="margin: 0px 7px;font-size: 14px;"></i></button></a>
+                {{addressCompany.address}}
+                {{addressCompany.city}}
+                {{addressCompany.get_state_display}}
+                {{addressCompany.pincode}}
+                </label></div>
+                <div class="form-group"><label><strong>Categories Serviced : </strong>{{ account.companyCategory |default_if_none:""  }}</label></div>
+                <div class="form-group"><label><strong>About The Brand : </strong>{{ account.companyAbout |default_if_none:""  }}</label></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class=" p-1">
+        <div class="card m-auto mb-3" style="border: 1px rgb(214, 214, 214) solid; box-shadow: none;">
+          <div class="card-header py-3" style="">
+            <p class="m-0 font-weight-bold" style="color: black;font-size: 18px;display: inline;">Pickup Location <i
+                class="far fa-question-circle" data-toggle="tooltip" data-bs-tooltip="" style="font-size: 12px;"
+                title="This is the pickup location form where you can add your address"></i></p>
+                <div class="" style="display: inline;"><a href="#PickupModel" data-toggle="modal"><button class="button_"
+                  style="" type="button"><i
+                    class="icon ion-edit" style="margin: 0px 7px;font-size: 14px;"></i></button></a>            
+                </div>
+          </div>
+          <div style="width: 100%;">
+            <div style="margin-left: 2%;position: relative;top:-1px; width: 25%;height: 2px;background-color: rgb(0, 209, 224);"></div>
+          </div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="col" style="padding: 10px; font-size: 15px;">
+                <div class="form-group"><label><strong>Plot/House No. : {{ pickup.pickupPlotNo |default_if_none:"" }}</strong></label></div>
+                <div class="form-group"><label><strong>Street Name : {{ pickup.pickupStreet |default_if_none:"" }}</strong></label></div>
+                <div class="form-group"><label><strong>City : {{ pickup.pickupCity |default_if_none:"" }}</strong></label></div>
+                <div class="form-group"><label><strong>State : {{ pickup.pickupState |default_if_none:"" }}</strong></label></div>
+                <div class="form-group"><label><strong>Pin :  {{ pickup.pickupPin |default_if_none:"" }}</strong></label></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="col-md-6">
+        <div class=" p-1">
+          <div class="card m-auto mb-3 " style="border: 1px rgb(214, 214, 214) solid; box-shadow: none;">
+            <div class="card-header py-3" style="">
+              <p class="m-0 font-weight-bold float-left" style="color: black;font-size: 18px;">Entity Details <i
+                  class="far fa-question-circle" data-toggle="tooltip" data-bs-tooltip="" style="font-size: 12px;"
+                  title="These Get Automatically Filled After Documents Verification"></i></p>
+                  <div class=""><a href="#EntityModel" data-toggle="modal"><button class="button_"
+                    style="" type="button"><i
+                      class="icon ion-edit" style="margin: 0px 7px;font-size: 14px;"></i></button></a></div>
+            </div>
+            <div style="width: 100%;">
+              <div style="margin-left: 2%;position: relative;top:-1px; width: 25%;height: 2px;background-color: rgb(0, 209, 224);"></div>
+            </div>
+            <div class="card-body">
+              <div class="form-row">
+                <div class="col" style="padding: 10px; font-size: 15px;">
+                  <div class="form-group"><label><strong>GST Number : {{ account.companyGSTNumber |default_if_none:"" }}</strong></label></div>
+                  <div class="form-group"><label><strong>GST Document :{% if account.GSTDoc.name %}<a target="blank" href='{{ account.GSTDoc |default_if_none:"" }}'> view</a>{% endif %}</strong></label></div>
+                  <div class="form-group"><label><strong>Document Used : {{ account.companyKYCDocType |default_if_none:"" }}</strong></label></div>
+                  <div class="form-group"><label><strong>Entity Document :{% if account.companyKYCDOC.name %}<a target="blank" href='{{ account.companyKYCDOC |default_if_none:"" }}'> view</a>{% endif %}</strong></label></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class=" p-1">
+          <div class="card m-auto mb-3" style="border: 1px rgb(214, 214, 214) solid; box-shadow: none;">
+            <div class="card-header py-3" style="">
+              <p class="m-0 font-weight-bold" style="color: black;font-size: 18px;display: inline;">Bank Details <i
+                  class="far fa-question-circle" data-toggle="tooltip" data-bs-tooltip="" style="font-size: 12px;"
+                  title="These Get Automatically Filled After Documents Verification"></i></p>
+                  <div class="" style="display: inline;"><a href="#BankModel" data-toggle="modal"><button class="button_"
+                    style="" type="button"><i
+                      class="icon ion-edit" style="margin: 0px 7px;font-size: 14px;"></i></button></a>            
+                  </div>
+            </div>
+            <div style="width: 100%;">
+              <div style="margin-left: 2%;position: relative;top:-1px; width: 25%;height: 2px;background-color: rgb(0, 209, 224);"></div>
+            </div>
+            <div class="card-body">
+              <div class="form-row">
+                <div class="col" style="padding: 10px; font-size: 15px;">
+                  <div class="form-group"><label><strong>Account Holder Name :{{ bank.accountHolderName |default_if_none:"" }} </strong></label></div>
+                  <div class="form-group"><label><strong>Account Number :{{ bank.accountNumber |default_if_none:"" }} </strong></label></div>
+                  <div class="form-group"><label><strong>IFSC Code :{{ bank.ifsc |default_if_none:"" }} </strong></label></div>
+                  <div class="form-group"><label><strong>Bank Name :{{ bank.bank |default_if_none:"" }} </strong></label></div>
+                  <div class="form-group"><label><strong>Branch :{{ bank.branch |default_if_none:"" }} </strong></label></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      <div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+        <div class="modal-dialog" style="max-width: 95%;" role="document">
+          <div class="modal-content">
+            <form method="POST" action="/account/representativedetail/">
+              {% csrf_token %}
+              <div class="modal-header" style="padding: 2rem 3rem 1rem 3rem;">
+                <h2 style="color: black;font-family: 'Source Serif Pro', serif;"><strong>Add Details</strong>&nbsp;</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">×</span></button>
+              </div>
+
+              <div class="modal-body" style="padding: 5% 10%;">
+                <!-- Horizontal material form -->
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>Name</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <input type="text" class="form-control" placeholder="Name" value="{{account.Representativename |default_if_none:''}}"
+                        style="border-radius: 0px;" name="Representativename">
+                    </div>
+                  </div>
+                </div>
+                <!-- Grid row -->
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>Mobile Number</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <input type="text" class="form-control" placeholder="Number" value="{{account.mobileNumber |default_if_none:''}}" maxlength="10"
+                        style="border-radius: 0px;" name="mobileNumber">
+                    </div>
+                  </div>
+                </div>
+                <!-- Grid row -->
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>Email</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <input type="email" class="form-control" placeholder="Email" value="{{account.email |default_if_none:''}}"
+                        style="border-radius: 0px;" name="email">
+                    </div>
+                  </div>
+                </div>
+                <!-- Grid row -->
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>Password</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <input type="text" class="form-control" placeholder="Password" value=""
+                        style="border-radius: 0px;" name="password">
+                    </div>
+                  </div>
+                </div>
+                <!-- Grid row -->
+                <!-- Horizontal material form -->
+              </div>
+              <div class="modal-footer"><button class="btn btn-light" data-dismiss="modal" style="padding: 7px 60px;"
+                  type="button">Close</button><button class="btn btn-primary" type="submit"
+                  style="margin-top: 4px;background: #091030; padding: 7px 50px;">Submit</button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" role="dialog" tabindex="-1" id="CompanyDetailModel">
+        <div class="modal-dialog" style="max-width: 95%;" role="document">
+          <div class="modal-content">
+            <form method="POST" action="/account/companydetail/">
+              {% csrf_token %}
+              <div class="modal-header" style="padding: 2rem 3rem 1rem 3rem;">
+                <h2 style="color: black;font-family: 'Source Serif Pro', serif;"><strong>Add Details</strong>&nbsp;</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">×</span></button>
+              </div>
+
+              <div class="modal-body" style="padding: 5% 10%;">
+                <!-- Horizontal material form -->
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>Company Name</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <input type="text" class="form-control" placeholder="Company Name" value="{{account.companyName |default_if_none:''}}"
+                        style="border-radius: 0px;" name="companyName">
+                    </div>
+                  </div>
+                </div>
+                <!-- Grid row -->
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>Categories</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <select class="form-control" placeholder="company Category" value="{{account.companyCategory |default_if_none:''}}"
+                      style="border-radius: 0px;" name="companyCategory">
+                        {% for category in COMAPNY_CATEGORY %}
+                        <option value='{{category.0}}'>{{ category.1}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>About The Brand</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <input type="text" class="form-control" placeholder="About The Brand" value="{{account.companyAbout |default_if_none:''}}"
+                        style="border-radius: 0px;" name="companyAbout">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Horizontal material form -->
+              </div>
+              <div class="modal-footer"><button class="btn btn-light" data-dismiss="modal" style="padding: 7px 60px;"
+                  type="button">Close</button><button class="btn btn-primary" type="submit"
+                  style="margin-top: 4px;background: #091030; padding: 7px 50px;">Submit</button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" role="dialog" tabindex="-1" id="AddressModel">
+        <div class="modal-dialog" style="max-width: 95%;" role="document">
+          <div class="modal-content">
+            <form method="POST" action="/account/addressdetail/">
+              {% csrf_token %}
+              <div class="modal-header" style="padding: 2rem 3rem 1rem 3rem;">
+                <h2 style="color: black;font-family: 'Source Serif Pro', serif;"><strong>Add Details</strong>&nbsp;</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">×</span></button>
+              </div>
+
+              <div class="modal-body" style="padding: 5% 10%;">
+                <!-- Horizontal material form -->
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>Address</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <input type="text" class="form-control" placeholder="Address" value="{{ addressCompany.address |default_if_none:''}}"
+                        style="border-radius: 0px;" name="address">
+                    </div>
+                  </div>
+                </div>
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>City</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <input type="text" class="form-control" placeholder="City" value="{{addressCompany.city |default_if_none:''}}"
+                        style="border-radius: 0px;" name="city">
+                    </div>
+                  </div>
+                </div>
+                <!-- Grid row -->
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>State</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <select class="form-control" placeholder="State" value="{{addressCompany.state |default_if_none:''}}"
+                      style="border-radius: 0px;" name="state">
+                        {% for state_ in STATE_CHOICES %}
+                        <option value='{{state_.0}}'>{{ state_.1}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>Pin Code</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <input type="text" class="form-control" placeholder="Pin Code" value="{{addressCompany.pincode |default_if_none:''}}"
+                        style="border-radius: 0px;" pattern="^\d{6}$" name="pincode">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Horizontal material form -->
+              </div>
+              <div class="modal-footer"><button class="btn btn-light" data-dismiss="modal" style="padding: 7px 60px;"
+                  type="button">Close</button><button class="btn btn-primary" type="submit"
+                  style="margin-top: 4px;background: #091030; padding: 7px 50px;">Submit</button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" role="dialog" tabindex="-1" id="EntityModel">
+        <div class="modal-dialog" style="max-width: 95%;" role="document">
+          <div class="modal-content">
+            <form method="POST" action="/account/entitydetail/" enctype='multipart/form-data'>
+              {% csrf_token %}
+              <div class="modal-header" style="padding: 2rem 3rem 1rem 3rem;">
+                <h2 style="color: black;font-family: 'Source Serif Pro', serif;"><strong>Add Details</strong>&nbsp;</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">×</span></button>
+              </div>
+
+              <div class="modal-body" style="padding: 5% 10%;">
+                <!-- Horizontal material form -->
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>GST Number</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <input type="text" class="form-control" placeholder="GST Number" value="{{account.companyGSTNumber |default_if_none:''}}"
+                        style="border-radius: 0px;" name="companyGSTNumber">
+                    </div>
+                  </div>
+                </div>
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>Upload GST Document</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+
+                      <input type="file" class="form-control" placeholder="Upload Document" value="{{account.companyKYCDOC |default_if_none:''}}"
+                        style="border-radius: 0px;" name="GSTDoc">
+                    </div>
+                  </div>
+                </div>
+                <!-- Grid row -->
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>Document Used </strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <select class="form-control" placeholder="Document Used" value="{{account.companyKYCDocType |default_if_none:''}}"
+                      style="border-radius: 0px;" name="companyKYCDocType">
+                        {% for doc_ in DOC_TYPE_CHOIES %}
+                        <option value='{{doc_.0}}'>{{ doc_.1}}</option>
+                        {% endfor %}
+                      </select>
+                  </div>
+                </div>
+                </div>
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>Upload Document</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+
+                      <input type="file" class="form-control" placeholder="Upload Document" value="{{account.companyKYCDOC |default_if_none:''}}"
+                        style="border-radius: 0px;" name="companyKYCDOC">
+                    </div>
+                  </div>
+                </div>
+                <!-- Grid row -->
+
+                <!-- Horizontal material form -->
+              </div>
+              <div class="modal-footer"><button class="btn btn-light" data-dismiss="modal" style="padding: 7px 60px;"
+                  type="button">Close</button><button class="btn btn-primary" type="submit"
+                  style="margin-top: 4px;background: #091030; padding: 7px 50px;">Submit</button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" role="dialog" tabindex="-1" id="BankModel">
+        <div class="modal-dialog" style="max-width: 95%;" role="document">
+          <div class="modal-content">
+            <form method="POST" action="/account/bankdetail/">
+              {% csrf_token %}
+              <div class="modal-header" style="padding: 2rem 3rem 1rem 3rem;">
+                <h2 style="color: black;font-family: 'Source Serif Pro', serif;"><strong>Add Details</strong>&nbsp;</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">×</span></button>
+              </div>
+
+              <div class="modal-body" style="padding: 5% 10%;">
+                <!-- Horizontal material form -->
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>Account Holder Name </strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <input type="text" class="form-control" placeholder="Account Holder Name " value="{{bank.accountHolderName |default_if_none:''}}"
+                        style="border-radius: 0px;" name="accountHolderName">
+                    </div>
+                  </div>
+                </div>
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>Account Number</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <input type="text" class="form-control" placeholder="Account Number" value="{{bank.accountNumber |default_if_none:''}}"
+                        style="border-radius: 0px;" name="accountNumber">
+                    </div>
+                  </div>
+                </div>
+                <!-- Grid row -->
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>IFSC Code</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <input type="text" class="form-control" placeholder="IFSC Code" value="{{bank.ifsc |default_if_none:''}}"
+                        style="border-radius: 0px;" name="ifsc">
+                    </div>
+                  </div>
+                </div>
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>Bank Name</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <select class="form-control" placeholder="Bank Name" value="{{bank.bank |default_if_none:''}}"
+                      style="border-radius: 0px;" name="bank">
+                        {% for bank_ in BANK_CHOICES %}
+                        <option value='{{bank_.0}}'>{{ bank_.1}}</option>
+                        {% endfor %}
+                      </select>
+                  </div>
+                </div>
+                </div>
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>Branch</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <input type="text" class="form-control" placeholder="Branch" value="{{bank.branch |default_if_none:''}}"
+                        style="border-radius: 0px;" name="branch">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Horizontal material form -->
+              </div>
+              <div class="modal-footer"><button class="btn btn-light" data-dismiss="modal" style="padding: 7px 60px;"
+                  type="button">Close</button><button class="btn btn-primary" type="submit"
+                  style="margin-top: 4px;background: #091030; padding: 7px 50px;">Submit</button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" role="dialog" tabindex="-1" id="PickupModel">
+        <div class="modal-dialog" style="max-width: 95%;" role="document">
+          <div class="modal-content">
+            <form method="POST" action="/account/pickupdetail/">
+              {% csrf_token %}
+              <div class="modal-header" style="padding: 2rem 3rem 1rem 3rem;">
+                <h2 style="color: black;font-family: 'Source Serif Pro', serif;"><strong>Pickup Location</strong>&nbsp;</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">×</span></button>
+              </div>
+
+              <div class="modal-body" style="padding: 5% 10%;">
+                <!-- Horizontal material form -->
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>Plot/House No. </strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <input type="text" class="form-control" placeholder="" value="{{pickup.pickupPlotNo |default_if_none:''}}"
+                        style="border-radius: 0px;" name="pickupplotno">
+                    </div>
+                  </div>
+                </div>
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>Street Name</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <input type="text" class="form-control" placeholder="" value="{{pickup.pickupStreet |default_if_none:''}}"
+                        style="border-radius: 0px;" name="pickupstreet">
+                    </div>
+                  </div>
+                </div>
+                <!-- Grid row -->
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>City</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <select class="form-control" placeholder="" value="{{pickup.pickupCity |default_if_none:''}}"
+                      style="border-radius: 0px;" name="pickupcity">
+                        {% include "options.html" %}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>State</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <select class="form-control" placeholder="" value="{{pickup.pickupState |default_if_none:''}}"
+                      style="border-radius: 0px;" name="pickupstate">
+                        {% include "options.html" %}
+                      </select>
+                  </div>
+                </div>
+                </div>
+                <!-- Grid row -->
+                <div class="form-group row">
+                  <!-- Material input -->
+                  <label class="col-sm-2 col-form-label"><strong>Pin</strong></label>
+                  <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                      <input type="text" class="form-control" placeholder="" value="{{pickup.pickupPin |default_if_none:''}}"
+                        style="border-radius: 0px;" name="pickuppin">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Horizontal material form -->
+              </div>
+              <div class="modal-footer"><button class="btn btn-light" data-dismiss="modal" style="padding: 7px 60px;"
+                  type="button">Close</button><button class="btn btn-primary" type="submit"
+                  style="margin-top: 4px;background: #091030; padding: 7px 50px;">Submit</button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  
+  {% include "footer.html" %}
+
+  <script>
+    var l = window.location.pathname.split('/')[1];
+    document.getElementById('lastword').innerHTML = l;
+  </script>
+
+  <script src="/static/staticfiles/js/jquery.min.js"></script>
+  <script src="/static/staticfiles/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/static/staticfiles/js/Collapsible-sidebar-left-or-right--Content-overlay.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+  </body>
+
+</html>

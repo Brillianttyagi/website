@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+    
+        function register() {  
+            let alert_ = $('#alert')
+            alert_.removeClass('alert-danger')
+            alert_[0].innerHTML=''
+        
+            let input_ = document.getElementById("register_otp_mobile")
+            let y = input_.value;
+            let regexp=RegExp(/^[0-9]{10}$/)
+            if(regexp.test(y)==false){
+                input_.style.borderColor='red'
+                return
+            }
+            let x = document.getElementById("myDIV");
+            x.style.display = "block";
+            input_.style.borderColor='green'
+            let abc = $('#register_otp_mobile_submit')[0]
+            abc.style.color='black'
+            abc.style.padding = '0px 13px'
+            abc.disabled=true
+            let time=30
+            login_otp_setinterval_id = setInterval(() => {
+                abc.innerHTML=time
+                time-=1
+        
+            }, 1000);
+            let b = setTimeout(() => {
+                clearInterval(login_otp_setinterval_id)
+                abc.innerHTML='Resend OTP';
+                abc.disabled=false
+                
+            }, 30000);
+            $.post('/account/sendmobileotp/',{'mobileNumber':y}).done(()=>{
+                
+            }).fail(()=>{
+                let alert_ = $('#alert')
+                alert_.addClass('alert-danger')
+                alert_[0].innerHTML='Account does not exist'
+                clearInterval(login_otp_setinterval_id)
+                abc.innerHTML='Resed OTP';
+                abc.disabled=false
+            })
+        }
+        function verify_mobile_otp() {  
+            let alert_ = $('#alert')
+            alert_.removeClass('alert-danger')
+            alert_[0].innerHTML=''
+        
+            let input_ = document.getElementById("register_otp_mobile")
+            let y = input_.value;
+            let input_otp = document.getElementById("register_otp_input")
+            let z = input_otp.value;
+            console.log(input_otp)
+            let regexp=RegExp(/^\d{5}$/)
+            if(regexp.test(z)==false){
+                input_otp.style.borderColor='red'
+                return
+            }
+            input_otp.style.borderColor='yellow'
+            $.post('/account/verifymobileotp/',{'mobileNumber':y,'otp':z}).done(()=>{
+                input_otp.style.borderColor='green'
+                let alert_ = $('#register_otp_helper')
+                alert_[0].innerHTML=''
+                let sb= document.getElementById('register_submit_button')
+                sb.disabled=false
+            }).fail(()=>{
+                let alert_ = $('#register_otp_helper')
+                alert_[0].innerHTML='Invalid OTP'
+                input_otp.style.borderColor='red'
+            })
+        }
+        </script>
+        
+    <meta charset="UTF-8">
+    <title>Register Account</title>
+    <link rel="icon" href="/static/staticfiles/favicon.ico"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/staticfiles/css/style.css">
+    <link rel="stylesheet" href="/static/staticfiles/css/Registration.css">
+    <link rel="stylesheet" href="/static/staticfiles/css/responsive.css">
+    <link rel="stylesheet" href="/static/staticfiles/css/Login.css">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.0.0/mdb.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+    {% include "styles.html" %}
+    {% include "navigation.html" %}
+
+    <div id='alert' style="text-align: center;"></div>
+    {%if message is not none%}
+    <div class="alert alert-{{color}} text-center" style="margin:0">
+        <strong>{{message}}</strong>
+    </div>
+    {%endif%}
+    <section class="background SingleSec">
+        <div class="row film" style="margin:0px;">
+            <div class="col-12 col-md-1"></div>
+            
+            <div class="col-12 col-md-5 register">
+                <form class=" text-center" method="POST" action="" id="form-col">
+                    {%csrf_token%}
+                    <h3 class="text-capitalize text-center" id="form-head">
+                        Verify your GSTIN</h3>
+                    <div class="form-group"><input class="form-control"  style="background: rgb(256,256,256,0.5); border: solid 1px #6c757d;"type="text" required name="companyGSTNumber" pattern="\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1}" value="{{request.user.companyGSTNumber|default_if_none:''}}" placeholder="GST No.">
+                    </div>
+                    
+                    <div class="form-group"><button class="btn btn-primary btn-block" type="submit"
+                            style="background: #000; border-color: #4f4f4f;">Continue</button></div>
+                </form>
+            </div>
+            <div class="col-12 col-md-5" id = "content-col">
+                <p class="text-para" id = "content-head" >Congratulations!</p> 
+                <p style="font-size: 1.1rem;"> You're a step closer to selling on India's first Home Interiors & Construction Material marketplace. Reach out to consumers across the country and grow your business with us from your office. 
+                    Please enter your GSTIN to move forward.
+                </p>
+                <hr class="custom-black-bold">
+                <div style="font-size: 1.2rem; font-weight: 500; padding-top: 5px;">Frequently Asked Questions</div>
+                <div class="accordion accordion-flush new" id="accordionFlushExample">
+                    <div class="accordion-item ">
+                      <h2 class="accordion-header" id="flush-heading1">
+                        <button
+                          class="accordion-button collapsed"
+                          type="button"
+                          data-mdb-toggle="collapse"
+                          data-mdb-target="#flush-collapse1"
+                          aria-expanded="false"
+                          aria-controls="flush-collapse1"
+                          style="font-size: 1.1rem;text-align: left;"
+                        >
+                        Why do I need to give GSTIN?
+                        </button>
+                      </h2>
+                      <div
+                        id="flush-collapse1"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="flush-heading1"
+                        data-mdb-parent="#accordionFlushExample"
+                      >
+                        <div class="accordion-body" style="font-size: 1.1rem;text-align: left;">
+                            GSTIN helps us in tax accounting, invoicing as well as verification. It’s an essential for selling online in India.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="flush-heading2">
+                        <button
+                          class="accordion-button collapsed"
+                          type="button"
+                          data-mdb-toggle="collapse"
+                          data-mdb-target="#flush-collapse2"
+                          aria-expanded="false"
+                          aria-controls="flush-collapse2"
+                          style="font-size: 1.1rem;text-align: left;"
+                        >
+                        What if I do not have a GSTIN?
+                        </button>
+                      </h2>
+                      <div
+                        id="flush-collapse2"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="flush-heading2"
+                        data-mdb-parent="#accordionFlushExample"
+                      >
+                        <div class="accordion-body" style="font-size: 1.1rem;text-align: left;">
+                            You can register for GSTIN <a href="https://reg.gst.gov.in/registration/">here</a>.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="flush-heading3">
+                        <button
+                          class="accordion-button collapsed"
+                          type="button"
+                          data-mdb-toggle="collapse"
+                          data-mdb-target="#flush-collapse3"
+                          aria-expanded="false"
+                          aria-controls="flush-collapse3"
+                          style="font-size: 1.1rem;text-align: left;"
+                        >Can I create an account without GSTIN?
+                        </button>
+                      </h2>
+                      <div
+                        id="flush-collapse3"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="flush-heading3"
+                        data-mdb-parent="#accordionFlushExample"
+                      >
+                        <div class="accordion-body" style="font-size: 1.1rem;text-align: left;">
+                            No. Government of India has made it mandatory for all online sellers to share GSTIN to the admin or marketplace operator.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-12 col-md-1"></div>
+        </div>
+    </section>
+    {% include "footer.html" %}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.0.0/mdb.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
+</body>
+</html>
