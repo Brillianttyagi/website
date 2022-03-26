@@ -1,18 +1,17 @@
-
-
-
 {% load static %}
+{%if request.user.is_authenticated%}
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Edit | Seventh Square Seller</title>
+    <title>Add new product | Seventh Square Seller</title>
     <link rel="stylesheet" href="/static/staticfiles/css/Bootstrap-Tags-Input.css">
     <link rel="stylesheet"
         href="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css" />
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
     <style>
         .form-control:focus {
             -webkit-box-shadow: none;
@@ -30,6 +29,10 @@
             width: 600px;
             padding: 10px;
 
+        }
+
+        .requiredLabel {
+            top: 20px !important;
         }
 
         #featured {
@@ -336,7 +339,7 @@
         {%include "seller_sidebar.html"%}
         <div class="col mx-4">
             <h2 class="text-center" style="margin: 20px;font-family: 'Libre Baskerville', serif;color: black;">
-                <strong>Edit Your Product</strong>
+                <strong>Add New Product</strong>
             </h2>
             <div class="card mb-3">
                 <div class="card-header py-3 text-center" style="background-color: #f8f9fc;">
@@ -387,46 +390,78 @@
                             <div id="basic-info" class="content" role="tabpanel" aria-labelledby="basic-info-trigger">
 
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="">Product Title
+                                    <label class="col-sm-4 col-form-label requiredLabel" for="">Product Title
                                         <i style="font-size: 10px;" class="fas fa-question"><span
-                                                class="tooltiptext">Product Heading / Title will help your customers
-                                                discover your product on our platform. Read here to find out how to
-                                                write a
-                                                fitting product title</span></i>
+                                                class="tooltiptext">Tip: Brand Name + Product Type + Size/Quantity + Relevant Keywords (if any)</span></i>
                                     </label>
                                     <div class="col-sm-8">
+                                        
                                         <input class=" form-control" id="productTitle" type="text" placeholder=""
-                                        value='{{inventory.name|default_if_none:""}}' name="name">
+                                          value='{{inventory.name|default_if_none:""}}'  name="name" >
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="">Product Type<i
+                                <div class="row">
+                                <div class="form-group row col-md-7">
+                                    <label class="col-sm-6 col-form-label requiredLabel" for="">Product Type<i
                                             style="font-size: 10px;" class="fas fa-question"><span
                                                 style="margin-left:-110px;margin-top:-80px" class="tooltiptext">Type
                                                 in the category your product is a part of. If your
                                                 product is not listed in the dropdown list, please choose 'other'
                                                 and define
                                                 your product category</span></i></label>
-                                    <div class="col-sm-8">
-                                        <input class="form-control" list="datalistOptions" id="productType"
-                                        value='{{inventory.category|default_if_none:""}}'  placeholder="Type your Product Name" name="category">
+                                    <div class="col-sm-6">
+                                        
+                                        <input style="margin-left: 60px;" class="form-control" list="datalistOptions" id="productType"
+                                           value='{{inventory.category|default_if_none:""}}' placeholder="Type your Product Name" name="category" >
                                         <datalist id="datalistOptions">
                                             {%include "productType.html"%}
                                         </datalist>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="">HSN Code<i style="font-size: 10px;"
-                                            class="fas fa-question"><span class="tooltiptext">Please enter the relevant
-                                                HSN
-                                                Code to your Product. In case of any doubts, please check this
-                                                link.</span></i></label>
+                                <div class="form-group row col-md-5 " style="margin-left: 30px;">
+                                    <label style="margin-top: -20px;" class="col-sm-4 col-form-label requiredLabel" for="">Category<i
+                                            style="font-size: 10px;" class="fas fa-question"><span
+                                                style="margin-left:-110px;margin-top:-80px" class="tooltiptext">Select the segment your product is a part of</span></i></label>
                                     <div class="col-sm-8">
+                                        
+                                        
+                                        <select setvalue='{{inventory.subCategory}}'  class="form-select form-control " name="subCategory" id="subCategory" >
+                                            <option hidden selected>{{inventory.subCategory}}</option>>
+                                            <option value="Cement">Cement</option>
+                                            <option value="Bricks">Bricks</option>
+                                            <option value="Steel">Steel</option>
+                                            <option value="Aggregates">Aggregates</option>
+                                            <option value="Wood">Wood</option>
+                                            <option value="Glass">Glass</option>
+                                            <option value="Hardware">Hardware</option>
+                                            <option value="Roffing">Roffing</option>
+                                            <option value="Pipes & fittings">Pipes & fittings</option>
+                                            <option value="Sanitaryware">Sanitaryware</option>
+                                            <option value="Electricals">Electricals</option>
+                                            <option value="Flooring & wall">Flooring & wall</option>
+                                            <option value="Chemicals">Chemicals</option>
+                                            <option value="Paints & Finishes">Paints & Finishes</option>
+                                            <option value="Modular">Modular</option>
+                                            <option value="Doors & Windows">Doors & Windows</option>  
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                               
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label requiredLabel" for="">HSN Code<i
+                                            style="font-size: 10px;" class="fas fa-question"><span
+                                                class="tooltiptext">Please enter the relevant HSN Code to your Product..</span></i></label>
+                                    <div class="col-sm-8">
+                                        
                                         <input value='{{inventory.HSN|default_if_none:""}}' class="form-control block-centered ic-input type=" type="text"
                                             onchange="checkMyKad()" onKeyDown="validateNum(event, this)" maxlength="6"
-                                            max="6" min="6" placeholder="HSN" id="myKadA" data-max="6" name="HSN">
+                                            max="6" min="6" placeholder="HSN" id="myKadA" data-max="6" name="HSN"
+                                            >
                                         <span style="margin-top: 1px;  font-size: 12px !important;"><a
-                                                href="https://services.gst.gov.in/services/searchhsnsac">Find Relevant
+                                                href="https://services.gst.gov.in/services/searchhsnsac" target="_blank">Find Relevant
                                                 HSN Code</a></span>
                                     </div>
                                     <script>
@@ -445,18 +480,17 @@
                                     </script>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="">Product Description<i
+                                    <label class="col-sm-4 col-form-label requiredLabel" for="">Product Description<i
                                             style="font-size: 10px;" class="fas fa-question"><span
-                                                class="tooltiptext">Write
-                                                about your Product's key features, benefits & applications. Read here to
-                                                find out how to write a fitting Product Description.</span></i></label>
+                                                class="tooltiptext">Write about your Product's key features, benefits & applications..</span></i></label>
                                     <div class="col-sm-8">
-                                        <textarea class="form-control" id="productDescription" placeholder="" rows="3"
-                                            name="description"value='{{inventory.description|default_if_none:""}}'>{{inventory.description|default_if_none:""}}</textarea>
+                                        
+                                        <textarea class="form-control" value='{{inventory.description|default_if_none:""}}' id="productDescription" name="description"
+                                            rows="3"  maxlength=250 >{{inventory.description|default_if_none:""}}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="">Shipping
+                                    <label class="col-sm-4 col-form-label requiredLabel" for="">Shipping
                                         Method<i style="font-size: 10px;" class="fas fa-question"><span
                                                 class="tooltiptext">Self Shipping option will be enable after
                                                 Shipment
@@ -464,8 +498,9 @@
                                                 as
                                                 soon as possible.</span></i></label>
                                     <div class="col-sm-8">
-                                        <select class="form-control" name="" id="methodSelect" name="shippingMethod"
-                                            onchange="selectShipping()">
+                                        
+                                        <select class="form-control" id="methodSelect" value="" name="shippingMethod"
+                                            onchange="selectShipping()" >
                                             <option value="1">Seventh Square Shipping</option>
                                             <option value="0"> Self Shipping</option>
                                         </select>
@@ -489,22 +524,22 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="inputPassword" class="col-sm-4 col-form-label">Upload Images and
+                                    <label for="inputPassword" class="col-sm-4 col-form-label requiredLabel">Upload
+                                        Images and
                                         videos</label>
                                     <div class="col-sm-8">
                                         <div class="well" data-bind="fileDrag: multiFileData">
                                             <div class="">
                                                 <div class="">
-                                                    <input name="image" type="file" multiple data-bind="fileInput: multiFileData, customFileInput: {
+                                                    
+                                                    <input value='{{inventory.image|default_if_none:""}}' name="image" type="file" multiple data-bind="fileInput: multiFileData, customFileInput: {
                                               buttonClass: 'btn btn-warning',
                                               fileNameClass: 'disabled form-control',
                                               onClear: onClear,
                                               onInvalidFileDrop: onInvalidFileDrop
                                             }" accept="image/*" class="form-control"
-                                                        onchange="onProductImageChange(this)"
-
-                                                        
-                                                        id="productImage">
+                                                        onchange="onProductImageChange(this)" id="productImage"
+                                                        >
                                                 </div>
                                                 <div class="col-md-12 row">
                                                     <div id="imageShow" style="border: 1px solid lightgray">
@@ -543,7 +578,7 @@
                                                 Registrations, any other specialties</span></i></label>
                                     <div class="col-sm-8">
                                         <textarea class="form-control" name="aboutBrand" id="aboutProduct" cols="30"
-                                            rows="10"value='{{inventory.aboutBrand|default_if_none:""}}'>{{inventory.aboutBrand|default_if_none:""}}</textarea>
+                                            rows="10" value='{{inventory.aboutBrand|default_if_none:""}}'>{{inventory.aboutBrand|default_if_none:""}}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -556,7 +591,7 @@
                                                 etc.</span></i></label>
                                     <div class="col-sm-8">
                                         <textarea class="form-control" name="aboutStorage" id="productStorage" cols="30"
-                                            rows="10"value='{{inventory.aboutStorage|default_if_none:""}}'>{{inventory.aboutStorage|default_if_none:""}}</textarea>
+                                            rows="10" value='{{inventory.aboutStorage|default_if_none:""}}'>{{inventory.aboutStorage|default_if_none:""}}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -567,20 +602,16 @@
                                                 and where. </span></i></label>
                                     <div class="col-sm-8">
                                         <textarea name="aboutUsage" id="productUsage" cols="30" rows="10"
-                                            class="form-control"value='{{inventory.aboutUsage|default_if_none:""}}'>{{inventory.aboutUsage|default_if_none:""}}</textarea>
+                                            class="form-control" value='{{inventory.aboutUsage|default_if_none:""}}'>{{inventory.aboutUsage|default_if_none:""}}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label" for="">Installation <i
                                             style="font-size: 10px;" class="fas fa-question"><span
-                                                style="margin-left:-100px;" class="tooltiptext">If the Product needs to
-                                                be fitted somewhere,
-                                                please
-                                                explain here how customers should proceed about
-                                                it.</span></i></label>
+                                                style="margin-left:-100px;" class="tooltiptext">For fitting the product or applying it over a surface, please state the process here.</span></i></label>
                                     <div class="col-sm-8">
                                         <textarea name="aboutInstallation" id="productInstallation" cols="30" rows="10"
-                                            class="form-control" value='{{inventory.aboutInstallation|default_if_none:""}}'>{{inventory.aboutInstallation|default_if_none:""}}</textarea>
+                                            class="form-control"value='{{inventory.aboutInstallation|default_if_none:""}}'>{{inventory.aboutInstallation|default_if_none:""}}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -591,7 +622,7 @@
                                                 required for the product. </span></i></label>
                                     <div class="col-sm-8">
                                         <textarea name="aboutHandling" id="productHandling" cols="30" rows="10"
-                                            class="form-control"value='{{inventory.aboutHandling|default_if_none:""}}'>{{inventory.aboutHandling|default_if_none:""}}</textarea>
+                                            class="form-control" value='{{inventory.aboutHandling|default_if_none:""}}'>{{inventory.aboutHandling|default_if_none:""}}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -603,8 +634,8 @@
                                                     the manufacturer on the purchase of this product.</span></i></label>
 
                                         <div class="col-sm-8 col-md-4" style="margin-left: 5px;">
-                                            <input type="number" placeholder="Warranty" name="warranty"
-                                                class="form-control" id="productWarranty"value='{{inventory.warranty|default_if_none:""}}'>
+                                            <input type="number" placeholder="Months" name="warranty"
+                                                class="form-control" id="productWarranty" value='{{inventory.warranty|default_if_none:""}}'>
                                         </div>
                                     </div>
                                     <div class="col-md-5 row">
@@ -613,26 +644,32 @@
                                                     style="margin-left:-100px;" class="tooltiptext">Any Guarantee
                                                     provided by
                                                     the manufacturer on the purchase of this product.</span></i></label>
-
                                         <div class="col-sm-8 col-md-6" style="margin-left: 30px;">
-                                            <input class="form-control" type="number" placeholder="Guarantee"
+                                            <input class="form-control" type="number" placeholder="Months"
                                                 name="guarantee" id="productGuarantee" value='{{inventory.guarantee|default_if_none:""}}'>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="">Minimum Order
+                                    <label class="col-sm-4 col-form-label requiredLabel" for="">Minimum Order
                                         Quantity
                                         <i style="font-size: 10px;" class="fas fa-question"><span
                                                 class="tooltiptext">Mention the quantity as
                                                 per the unit button next to the field. </span></i></label>
-                                    <div class="col-sm-8" style="display: flex;flex-direction:row;">
-                                        <input class="form-control col-md-4" type="number" placeholder="" name="qty"setvalue='{{inventory.qtyUnit|default_if_none:""}}'>
-                                        <select class="form-select col-md-8" name="qtyUnit" setvalue="" id=""
-                                            placeholder="Choose Unit">
-                                            {% include "unitOptions.html"%}
-                                        </select>
+                                    <div class="col-sm-8">
+                                        
+                                        <div class="col" style="display: flex;flex-direction:row;">
+                                            <input class="form-control col-md-4" style="margin-left: -15px;" type="number" value='{{inventory.qty|default_if_none:""}}'
+                                                placeholder="" name="qty" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" >
+                                            <select value='{{inventory.qtyUnit}}' class="form-select col-md-8" name="qtyUnit" id=""
+                                                 >
+                                                <option hidden value="{{inventory.qtyUnit}}" style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                                                        " >{{inventory.qtyUnit}}</option>
+                                                {% include "unitOptions.html"%}
+                                            </select>
+                                        </div>
                                     </div>
+
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label" for="">Variant <i style="font-size: 10px;"
@@ -648,6 +685,7 @@
                                         <input type="text" name="variant" value="{{inventory.variant}}" hidden>
                                         <datalist id="datalistVariantTypeOptions">
                                             <option value="Size">
+                                            <option value="MilliMeter (MM)"></option>
                                             <option value="Material">
                                             <option value="Dimension">
                                             <option value="Shape">
@@ -656,7 +694,7 @@
                                             <option value="Weight">
                                             <option value="Quality">
                                             <option value="Quantity">
-                                            <option value="Packeging">
+                                            <option value="Packaging">
                                             <option value="Design">
                                         </datalist>
                                     </div>
@@ -671,31 +709,41 @@
                                 aria-labelledby="more-info-part-trigger">
                                 <div class="col-md-12 my-2" style="display: flex;flex-direction:row;">
                                     <div class="col-md-6 row">
-                                        <label class="col-md-6 col-form-label" for="">MRP<i style="font-size: 10px;"
-                                                class="fas fa-question"><span style="margin-left:-80px;"
-                                                    class="tooltiptext">Maximum Retail Price. This is not your sale
-                                                    price,
-                                                    just the market price of the product.</span></i></label>
+                                        <label class="col-md-6 col-form-label requiredLabel" for="">MRP<i
+                                                style="font-size: 10px;" class="fas fa-question"><span
+                                                    style="margin-left:-80px;" class="tooltiptext">Maximum Retail Price. Highest price that can be charged for a product sold to the consumer. Includes all taxes</span></i></label>
 
                                         <div class="col-md-6">
+                                         
                                             <input class="form-control" type="number" placeholder="₹" name="markedPrice"
-                                                id="productMRP"value='{{inventory.markedPrice|default_if_none:""}}'>
+                                                id="productMRP" value='{{inventory.markedPrice|default_if_none:""}}' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" >
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
-                                        <label class="col-md-6 col-form-label" for="">Sale Price<i
+                                        <label style="margin-top: -25px;" class="col-md-6 col-form-label requiredLabel" for="">Sale Price<i
                                                 style="font-size: 10px;" class="fas fa-question"><span
-                                                    class="tooltiptext">Sale Price is what the
-                                                    customer pays for the product. Check the breakdown to see what you
-                                                    get.</span></i>
+                                                    class="tooltiptext">Sale Price is the actual retail price (excluding taxes). Please check the breakdown using the link to see the platform's fee and services.</span></i>
                                             <p style="font-size: 12px; margin-top: -4px">( Exclusive of taxes )</p>
                                         </label>
 
                                         <div class="col-md-6">
                                             <div style="display: flex;flex-direction:column;height: 60px !important;"
                                                 class="sale--price__span">
-                                                <input type="number" placeholder="₹" name="sellingPrice"
-                                                    class="form-control" id="sale_price" onchange="selectData()"value='{{inventory.sellingPrice|default_if_none:""}}'>
+                                                
+
+                                                <input type="number" placeholder="₹"  placeholder="0.00"
+                                                    step="0.01" class="form-control floatsaleprice" id="sale_price"
+                                                    oninput="limitDecimalPlaces(event, 2)" onchange="selectData()" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" name="sellingPrice"
+                                                     value='{{inventory.sellingPrice|default_if_none:""}}'/>
+                                                <script type="text/javascript">
+                                                    function limitDecimalPlaces(e, count) {
+                                                        if (e.target.value.indexOf('.') == -1) { return; }
+                                                        if ((e.target.value.length - e.target.value.indexOf('.')) > count) {
+                                                            e.target.value = parseFloat(e.target.value).toFixed(count);
+                                                        }
+                                                    }
+                                                </script>
+
                                                 <span
                                                     style="margin-top: 1px; margin-left:72px; font-size: 12px !important;"><a
                                                         href="" data-toggle="modal" data-target="#showBreakdown"
@@ -772,12 +820,12 @@
                                                     </div>
                                                     <script>
                                                         function showBreakdown() {
-                                                            var sale_price = parseInt($('#sale_price').val());
+                                                            var sale_price = parseFloat($('#sale_price').val());
                                                             var showCommission = ((5 / 100) * sale_price).toFixed(3);
                                                             var showPayment = ((3 / 100) * sale_price).toFixed(3);
                                                             var showGst = ((18 / 100) * showCommission).toFixed(3);
                                                             var added = (((5 / 100) * sale_price) + ((3 / 100) * sale_price) + ((18 / 100) * showCommission));
-                                                            var showRecieve = (sale_price - added).toFixed(3);
+                                                           var showRecieve = (sale_price - added).toFixed(3);
                                                             $('#showSale').val(sale_price);
                                                             $('#showCommission').val(showCommission);
                                                             $('#showPayment').val(showPayment);
@@ -795,15 +843,17 @@
                                 </div>
                                 <div class="col-md-12 my-2" style="display: flex;flex-direction:row;">
                                     <div class="col-md-6 row">
-                                        <label class="col-md-6 col-form-label" for="">Tax Code<i
+                                        <label style="margin-top: -20px;" class="col-md-6 col-form-label requiredLabel" for="">Tax Code<i
                                                 style="font-size: 10px;" class="fas fa-question"><span
                                                     style="margin-left:-100px;" class="tooltiptext">Choose the GST Rate
                                                     applicable for your
                                                     product.</span></i></label>
 
                                         <div class="col-md-6">
+                                           
                                             <select class="form-control" id="sel1" name="gstRate"
-                                                onchange="selectData()"setvalue='{{inventory.gstRate|default_if_none:""}}'>
+                                                onchange="selectData()" value='{{inventory.gstRate|default_if_none:""}}' >
+                                                <option selected  hidden value="{{inventory.gstRate}}">{{inventory.gstRate}}%</option>
                                                 <option value="0">0%</option>
                                                 <option value="5">5%</option>
                                                 <option value="12">12%</option>
@@ -812,7 +862,8 @@
                                             </select>
                                             <script>
                                                 function selectData() {
-                                                    var sale_price = parseInt($('#sale_price').val());
+                                                    var sale_price = parseFloat($('#sale_price').val());
+                                                    var mrp_price = parseInt($('#productMRP').val());
                                                     var values = parseInt(document.getElementById("sel1").value);
                                                     var percentage;
                                                     var taxable_amount;
@@ -846,13 +897,17 @@
                                                             alert("The default case is true!");
                                                             break;
                                                     }
+                                                    if(sale_price <= mrp_price ){
                                                     if (isNaN(sale_price) || isNaN(percentage)) {
                                                         taxable_amount = " ";
                                                     } else {
                                                         taxable_amount = ((percentage / 100) * sale_price).toFixed(3);
                                                     }
                                                     $('#secondP').val(taxable_amount);
-
+                                                }
+                                                else{
+                                                    alert("Sale Price can't be greater than MRP")
+                                                }
                                                 }
                                             </script>
                                         </div>
@@ -861,13 +916,10 @@
                                     <div class="col-md-6 row">
                                         <label class="col-md-6  col-form-label" for="">Taxable amount<i
                                                 style="font-size: 10px;" class="fas fa-question"><span
-                                                    style="margin-left: -130px !important;" class="tooltiptext">Maximum
-                                                    Retail Price. This is not your sale price, just the market price of
-                                                    the
-                                                    product.</span></i></label>
+                                                    style="margin-left: -130px !important;" class="tooltiptext">Amount charged above the sale price as Tax (GST) from the customer .</span></i></label>
 
                                         <div class="col-md-6">
-                                            <input class="form-control" id="secondP" type="text" placeholder="₹"
+                                            <input class="form-control" id="secondP" type="text" placeholder="₹{{inventory.taxableAmount}}"
                                                 name="taxableAmount" value='{{inventory.taxableAmount|default_if_none:""}}' disabled>
                                         </div>
                                     </div>
@@ -876,12 +928,11 @@
                                     <div class="col-md-6 row">
                                         <label class="col-md-6  col-form-label" for="">Packaging size<i
                                                 style="font-size: 10px;" class="fas fa-question"><span
-                                                    class="tooltiptext">Sale Price is what the customer pays for the
-                                                    product. Check the breakdown to see what you get.</span></i></label>
+                                                    class="tooltiptext">If your product is a liquid mixture or a set of multiple pieces, please mention the size (weight/quantity) of per packet/set here. </span></i></label>
 
                                         <div class="col-md-6">
-                                            <input value='{{inventory.packagingSize|default_if_none:""}}' class="form-control" id="productPackaging" type="text" placeholder=""
-                                                name="packagingSize">
+                                            <input class="form-control" id="productPackaging" type="text" placeholder=""
+                                                name="packagingSize" value='{{inventory.packagingSize|default_if_none:""}}'>
                                         </div>
                                     </div>
                                 </div>
@@ -889,8 +940,7 @@
                                     <div class="col-md-12 row">
                                         <label class="col-md-3" for="">Components per unit<i style="font-size: 10px;"
                                                 class="fas fa-question"><span style="margin-left:-100px;"
-                                                    class="tooltiptext">Choose the GST Rate
-                                                    applicable for your product.</span></i></label>
+                                                    class="tooltiptext">List the unique items and their quantity included in your product set/unit per order.</span></i></label>
 
                                         <div class="col-md-9" style="margin-left: -5px;">
                                             <textarea class="form-control" id="productComponents" placeholder=""
@@ -918,22 +968,37 @@
                                 <div class="">
                                     <div class="">
                                         <div class="row my-2">
-                                            <div class="col col-md-6">
-                                                <label class="form-label" for="">Product
+                                            <div class="col col-md-4">
+                                                <label class="form-label " for="">Product
                                                     Weight<i style="font-size: 10px;" class="fas fa-question"><span
                                                             class="tooltiptext">Actual Product weight in
                                                             Kilograms</span></i></label>
-                                                <input value='{{inventory.weight|default_if_none:""}}' type="number" placeholder="In Kgs" name="weight"
-                                                    class="form-control" id="productWeight">
+                                               
+                                                <input type="number" placeholder="In Kgs" name="weight"
+                                                   value='{{inventory.weight|default_if_none:""}}' class="form-control" id="productWeight" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" >
                                             </div>
-                                            <div class="col col-md-6">
+                                            <div class="col col-md-4">
                                                 <label class="form-label">Country
                                                     of Origin<i style="font-size: 10px;" class="fas fa-question"><span
                                                             class="tooltiptext">State where the
                                                             Product was manufactured/ assembled</span></i></label>
-                                                <select class="form-control" id="country" name="countryOfOrigin">
+                                           
+                                                <select class="form-control" id="country" name="countryOfOrigin"
+                                                    value='{{inventory.countryOfOrigin|default_if_none:""}}'>
+                                                    <option hidden selected  >{{inventory.countryOfOrigin}}</option>
                                                     {% include "options.html" %}
                                                 </select>
+                                            </div>
+                                            <div class="col col-md-4">
+                                                <label class="form-label">Returnable Product<i style="font-size: 10px;" class="fas fa-question"><span
+                                                            class="tooltiptext">Choose whether your product can be returned by the customer. </span></i></label>
+                                                <select class="form-control" id="returnable" value='{{inventory.returnable|default_if_none:""}}'>
+                                                    <option value="">Yes</option>
+                                                    <option value="">No</option>
+                                                </select>
+                                                <span style="margin-top: 1px;  font-size: 12px !important;"><a
+                                                    href="https://seller.seventhsq.com/blog/Add-new-product-returns-in-ecommerce/" target="_blank">
+                                                Why is this here ?</a></span>
                                             </div>
 
 
@@ -954,14 +1019,14 @@
                                                         {% include "unitOptions.html"%}
 
                                                     </select></div>
-                                                <div class="col-md-3"><input class="form-control" type="number"
-                                                        placeholder="Length" name="length" id="productDimensionLength" value='{{inventory.length|default_if_none:""}}'>
+                                                <div class="col-md-3"><input value='{{inventory.length|default_if_none:""}}' class="form-control" type="number"
+                                                        placeholder="Length" name="length" id="productDimensionLength">
                                                 </div>
-                                                <div class="col-md-3"><input class="form-control" type="number"
-                                                        placeholder="Width" name="width" id="productDimensionWidth" value='{{inventory.width|default_if_none:""}}'>
+                                                <div class="col-md-3"><input value='{{inventory.width|default_if_none:""}}' class="form-control" type="number"
+                                                        placeholder="Width" name="width" id="productDimensionWidth">
                                                 </div>
-                                                <div class="col-md-3"><input class="form-control" type="number"
-                                                        placeholder="Height" name="height" id="productDimensionHeight" value='{{inventory.height|default_if_none:""}}'>
+                                                <div class="col-md-3"><input value='{{inventory.height|default_if_none:""}}' class="form-control" type="number"
+                                                        placeholder="Height" name="height" id="productDimensionHeight">
                                                 </div>
                                             </div>
 
@@ -984,14 +1049,14 @@
                                                 <div class="col-md-3"><input class="form-control" type="number"
                                                         placeholder="Length" name="packedLength" value='{{inventory.packedLength|default_if_none:""}}'></div>
                                                 <div class="col-md-3"><input class="form-control" type="number"
-                                                        placeholder="Width" name="packedWidth" value='{{inventory.packedWidth|default_if_none:""}}'></div>
+                                                        placeholder="Width" name="packedWidth" value='{{inventory.packedWidth|default_if_none:""}}' ></div>
                                                 <div class="col-md-3"><input class="form-control" type="number"
                                                         placeholder="Height" name="packedHeight" value='{{inventory.packedHeight|default_if_none:""}}'></div>
                                             </div>
                                         </div>
                                         <div class="row my-4">
                                             <div class="col-md-12  row">
-                                                <label class="col-md-3 col-form-label" for="">Material<i
+                                                <label style="margin-top: -20px;" class="col-md-3 col-form-label requiredLabel" for="">Material<i
                                                         style="font-size: 10px;" class="fas fa-question"><span
                                                             style="margin-left:-100px;" class="tooltiptext">Choose your
                                                             product's material(s). Use
@@ -1000,8 +1065,9 @@
                                                             Separate
                                                             multiple materials with a comma.</span></i></label>
                                                 <div class="col-md-9">
+                                                   
                                                     <input type="text" name="material" class="form-control"
-                                                        id="productMaterials" value='{{inventory.material|default_if_none:""}}'>
+                                                        id="productMaterials" value='{{inventory.material|default_if_none:""}}' >
                                                 </div>
                                             </div>
 
@@ -1019,8 +1085,8 @@
                                             </style>
                                             <div class="form-group" style="margin-left: 25px;">
 
-                                                <select class="mul-select form-select form-control" multiple="true" value='{{inventory.servicedRegions|default_if_none:""}}'>
-
+                                                <select name="servicedRegions[]" class="mul-select form-select form-control" multiple="true">
+                                                    <option value="PAN India">PAN India</option>
                                                     <option value="Andaman and Nicobar Islands">Andaman and Nicobar
                                                         Islands</option>
                                                     <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -1060,6 +1126,7 @@
                                                     <option value="West Bengal">West Bengal</option>
                                                 </select>
                                             </div>
+
                                         </div>
                                         <!-- Modal -->
 
@@ -1101,8 +1168,8 @@
                                                     <img id="slideLeft" class="arrow"
                                                         src="/static/staticfiles/img/preview/arrow-left.png">
                                                     <div id="slider">
-                                                        
-                                                        
+
+
                                                         <!-- <img id="sliderActive" class="thumbnail active"
                                                         src="#"> -->
                                                         <!-- 
@@ -1191,7 +1258,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row my-2">
-                                                            <label for="inputPassword"
+                                                            <label for="inputPassword" 
                                                                 class="col-sm-4 col-form-label">Installation</label>
                                                             <div class="col-sm-6">
                                                                 <p id="showProductInstallation" style="width:400px;">
@@ -1298,7 +1365,7 @@
                                     <h5 style="margin: 15px 20px; font-weight:600; font-size: 20px; color: black;">
                                         Add Variants</h5>
                                     <p style="margin: 5px 20px!important; font-size:14px; margin-top:-10px ">
-                                        Add your product's variants or diffrent versions, </p>
+                                        Add your product's variants or different versions, </p>
                                     <p style="margin: 0px 20px !important; font-size:14px; ">if
                                         any.(For
                                         Example, multiple sizes , colours)</p>
@@ -1313,7 +1380,7 @@
                                                 </div>
                                                 <div class="col-md-6" style="margin-left: -60px;">
                                                     <label for="inputEmail4" class="form-label"><b>Variable
-                                                            Otions</b></label>
+                                                            Options</b></label>
                                                 </div>
                                             </div>
                                             <div class="col g-3">
@@ -1332,7 +1399,7 @@
                                                     <a href="javascript:void(0);" class="add_button"
                                                         title="Add field"><img class="add__another--img"
                                                             src="https://www.freeiconspng.com/thumbs/plus-icon/plus-icon-black-2.png" />Add
-                                                        Variant</a>
+                                                            variants</a>
                                                 </div>
 
 
@@ -1403,6 +1470,15 @@
             if (e.form.checkValidity()) {
                 e.form.removeAttribute('onsubmit')
                 e.form.submit()
+                Swal.fire({
+                    height: '200px',
+                    width:'400px',
+                position: 'top',
+                icon: 'success',
+                title: 'Product is added sucessfully',
+                showConfirmButton: false,
+                timer: 1500
+                })
             }
         }
         $('select').selectpicker();
@@ -1502,49 +1578,49 @@
     <script>
         $(document).ready(function () {
             $(".mul-select").select2({
-                placeholder: "select service regions",
+                placeholder: "Select Service Regions",
                 class: "col-md-12",
                 tags: true,
                 tokenSeparators: ['/', ',', ';']
             });
         })
     </script>
-<script type="text/javascript">
+    <script type="text/javascript">
 
-    // let thumbnails = document.getElementsByClassName('thumbnail')
+        // let thumbnails = document.getElementsByClassName('thumbnail')
 
-    // let activeImages = document.getElementsByClassName('active');
-    
-    
-    // for (var i = 0; i < thumbnails.length; i++) {
-
-    //     thumbnails[i].addEventListener('mouseover', function () {
-    //         console.log(activeImages)
-
-    //         if (activeImages.length > 0) {
-    //             activeImages[0].classList.remove('active')
-    //         }
+        // let activeImages = document.getElementsByClassName('active');
 
 
-    //         this.classList.add('active')
-    //         document.getElementById('featured').src = this.src
-    //     })
-    // }
+        // for (var i = 0; i < thumbnails.length; i++) {
+
+        //     thumbnails[i].addEventListener('mouseover', function () {
+        //         console.log(activeImages)
+
+        //         if (activeImages.length > 0) {
+        //             activeImages[0].classList.remove('active')
+        //         }
 
 
-    let buttonRight = document.getElementById('slideRight');
-    let buttonLeft = document.getElementById('slideLeft');
-
-    buttonLeft.addEventListener('click', function () {
-        document.getElementById('slider').scrollLeft -= 180
-    })
-
-    buttonRight.addEventListener('click', function () {
-        document.getElementById('slider').scrollLeft += 180
-    })
+        //         this.classList.add('active')
+        //         document.getElementById('featured').src = this.src
+        //     })
+        // }
 
 
-</script>
+        let buttonRight = document.getElementById('slideRight');
+        let buttonLeft = document.getElementById('slideLeft');
+
+        buttonLeft.addEventListener('click', function () {
+            document.getElementById('slider').scrollLeft -= 180
+        })
+
+        buttonRight.addEventListener('click', function () {
+            document.getElementById('slider').scrollLeft += 180
+        })
+
+
+    </script>
     <script>
         function onProductImageChange(e) {
             a = e
@@ -1553,18 +1629,18 @@
             showDiv.innerHTML = "";
             var files = e.files;
             var index;
-            var url,firstImage;
+            var url, firstImage;
             for (index in files) {
                 url = URL.createObjectURL(files[index]);
-                showDiv.innerHTML = '<img style="height: 150px;" src="' + url + '" >' + showDiv.innerHTML;  
+                showDiv.innerHTML = '<img style="height: 150px;" src="' + url + '" >' + showDiv.innerHTML;
                 $('#featured').attr('src', URL.createObjectURL(files[index]));
                 firstImage = $('#sliderActive').attr('src', url);
-                slider.innerHTML ='<img class="thumbnail" src="' + URL.createObjectURL(files[index]) +  '" >' + slider.innerHTML;
+                slider.innerHTML = '<img class="thumbnail" src="' + URL.createObjectURL(files[index]) + '" >' + slider.innerHTML;
             }
-            
+
         }
     </script>
-        
+
     <script>
         function sided() {
             // var productImage = $('#productImage').html();
@@ -1583,7 +1659,7 @@
             var productWarranty = $('#productWarranty').val();
             var productGuarantee = $('#productGuarantee').val();
             var productMRP = "₹" + $('#productMRP').val();
-            var sale_price = "₹" + $('#sale_price').val();
+            var sale_price = "₹" + parseFloat($('#sale_price').val());
             var taxCode = $('#sel1').val();
             var productComponents = $('#productComponents').val();
             var productPackaging = $('#productPackaging').val();
@@ -1598,7 +1674,7 @@
             var mainDimension = productDimensionLength + " " + productDimensionWidth + " " + productDimensionHeight;
             $('#showProductUnit').val(productUnit);
             $('#showProductMRP').val(productMRP);
-            $('#showProductSalePrice').val(sale_price);
+            $('#showProductSalePrice').val(sale_price).toFixed(2);
             document.getElementById("showGSTTax").innerHTML = mainTaxCode;
             document.getElementById("showProductTitle").innerHTML = productTitle;
             document.getElementById("showProductInfo").innerHTML = productDescription;
@@ -1629,3 +1705,7 @@
     </body>
 
 </html>
+{%else%}
+
+{% include "login.html"%}
+{%endif%}

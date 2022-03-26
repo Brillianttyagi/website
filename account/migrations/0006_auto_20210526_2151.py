@@ -12,16 +12,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='account',
-            name='gstin_data',
-            field=models.CharField(blank=True, max_length=30, null=True),
-        ),
-        migrations.AddField(
-            model_name='account',
-            name='gstin_data_status',
-            field=models.CharField(blank=True, max_length=30, null=True),
-        ),
         migrations.AlterField(
             model_name='account',
             name='GSTDoc',

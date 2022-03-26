@@ -64,9 +64,27 @@ function myFunction_two() {
         let alert_ = $('.alert')
         alert_.addClass('alert-danger')
         if(exhr.status==400){
-            alert_[0].innerHTML='Account already registered Please Login'
+            
+            Swal.fire({
+                height: '200px',
+                width:'400px',
+            position: 'top',
+            icon: 'success',
+            title: 'Account already registered Please Login',
+            showConfirmButton: false,
+            timer: 1500
+            })
         }
-        else alert_[0].innerHTML='Failed to send OTP, Please retry'
+        else 
+        Swal.fire({
+            height: '200px',
+            width:'400px',
+        position: 'top',
+        icon: 'failed',
+        title: 'Failed to send OTP, Please retry',
+        showConfirmButton: false,
+        timer: 1500
+        })
         clearInterval(login_otp_setinterval_id)
         abc.innerHTML='Resend OTP';
         abc.disabled=false

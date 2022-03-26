@@ -1,0 +1,7 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.faq_view),
+    path('tag/<slug:slug>/', views.post, name="faqtag"),
+]

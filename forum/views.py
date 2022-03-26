@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from seller.models import New_sup, Products
 
-from .models import Comment, Discussion
+from .models import Comment, Discussion,TalkToUs
 
 
 def forum(request):
@@ -61,3 +61,5 @@ def addnewc(request,prod):
     return redirect('/forum/')
    
 
+
+   

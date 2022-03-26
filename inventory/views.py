@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from theseventhsquare.settings import MEDIA_URL
 
-from inventory.models import Inventory
+from inventory.models import Inventory,PostPicture
 
 # Create your views here.
 
@@ -14,16 +14,26 @@ class InventoryList(View):
     template_name='inventory/list.html'
     def get(self,request,*args,**kwargs):
         inventory = Inventory.objects.filter(account=request.user)
-        
         page_num = request.GET.get('page',1)
         try:
             paginated_inventory = Paginator(inventory,10).page(page_num)
         except EmptyPage:
             paginated_inventory = Paginator(inventory,10).page(1)
-        return render(request,self.template_name,context={'inventory':paginated_inventory})
+        return render(request,self.template_name,context={'inventory':paginated_inventory,'media':MEDIA_URL})
     def post(self,request,*args,**kwargs):
-        return render(request,self.name)
+        return render(request,self.template_name)
 
+class InventoryListSearch(View):
+    template_name='inventory/list.html'
+    def get(self,request,*args,**kwargs):
+        query = request.GET['query']
+        inventory = Inventory.objects.filter(account=request.user,name__icontains=query)
+        page_num = request.GET.get('page',1)
+        try:
+            paginated_inventory = Paginator(inventory,10).page(page_num)
+        except EmptyPage:
+            paginated_inventory = Paginator(inventory,10).page(1)
+        return render(request,self.template_name,context={'inventory':paginated_inventory,'media':MEDIA_URL})
 
 class InventoryAdd(View):
     template_name='inventory/add.html'
@@ -32,12 +42,17 @@ class InventoryAdd(View):
     def post(self,request,*args,**kwargs):
         #do somthing here save data
         print(request.POST)
+        print(request.FILES.get('image'))
+        images = request.FILES.getlist('image')
+        x = request.POST.get("markedPrice"),
+        y = request.POST.get("sellingPrice"),
+        discountper = 100-int((int(y[0])/int(x[0]))*100)
+        print(discountper)
         # return HttpResponse('ok')
         data={
             'account':request.user,
             'name':request.POST.get("name"),
             'description':request.POST.get("description"),
-            'image':request.FILES.get("image"),
             'category':request.POST.get("category"),
             'subCategory':request.POST.get("subCategory"),
             'HSN':request.POST.get("HSN"),
@@ -55,6 +70,7 @@ class InventoryAdd(View):
             'inventoryStatus': "Live"==True if request.POST.get("inventoryStatus")else "Inactive"==False,
             'markedPrice':request.POST.get("markedPrice"),
             'sellingPrice':request.POST.get("sellingPrice"),
+            'discount':discountper,
             'commercialPrice':request.POST.get("commercialPrice"),
             'aboutBrand':request.POST.get("aboutBrand"),
             'aboutStorage':request.POST.get("aboutStorage"),
@@ -75,9 +91,18 @@ class InventoryAdd(View):
             'servicedRegions':request.POST.get("servicedRegions"),
             'dimensionUnit':request.POST.get("dimensionUnit"),
             'variant':request.POST.get("variant"),
+            'brand_name':"Nice",
+            'incl_gst':True,
+            'incl_shipping':True,
             }
-        Inventory.objects.create(**data)
-  
+        x = Inventory.objects.create(**data)
+        for image in images:
+            print(image)
+            data1 = {
+                'postid':x,
+                'picture' : image
+            }
+            PostPicture.objects.create(**data1)
         return redirect('/inventory/add-new-product/')
 
 class InventoryEdit(View):
@@ -129,7 +154,7 @@ class InventoryEdit(View):
             inventory.packedWidth=request.POST.get("packedWidth")
             inventory.packedHeight=request.POST.get("packedHeight")
             inventory.pickupLocation=request.POST.get("pickupLocation")
-            inventory.servicedRegions=request.POST.get("servicedRegions")
+            inventory.servicedRegions=request.POST.get("servicedRegions[]")
             inventory.dimensionUnit=request.POST.get("dimensionUnit")
             inventory.variant=request.POST.get("variant")
             inventory.save()
@@ -138,9 +163,7 @@ class InventoryEdit(View):
              return redirect('/inventory/active-products/')
         
 class InventoryDelete(View):
-    def get(self,request,*args,**kwargs):
-        return redirect('/inventory/active-products/')
-    def post(self,request,id,*args,**kwargs):
+    def get(self,request,id):
         try:
             inventory = Inventory.objects.get(pk=id)
             inventory.delete()
@@ -148,12 +171,32 @@ class InventoryDelete(View):
             pass
         return redirect('/inventory/active-products/')
 
-
 class PreviewAct(View):
     template_name='previewact.html'
     def get(self,request,pk):
         inventory = Inventory.objects.filter(id=pk)
-        
+
         return render(request,self.template_name,context={'inventory':inventory[0]})
     def post(self,request,*args,**kwargs):
-        return render(request,self.name)
+        return render(request,self.name) 
+
+        
+class InventoryListOnline(View):
+    def get(self,request,id):
+        try:
+            inventory = Inventory.objects.get(pk=id)
+            inventory.inventoryStatus = True
+            inventory.save()
+        except(ObjectDoesNotExist):
+            pass
+        return redirect('/inventory/active-products/')
+
+class InventoryUnistOnline(View):
+    def get(self,request,id):
+        try:
+            inventory = Inventory.objects.get(pk=id)
+            inventory.inventoryStatus = False
+            inventory.save()
+        except(ObjectDoesNotExist):
+            pass
+        return redirect('/inventory/active-products/')

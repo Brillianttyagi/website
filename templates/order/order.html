@@ -1,0 +1,234 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Current Orders | Seventh Square Seller</title>
+  <style>
+  
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
+
+
+        .container {
+          background-color: #fff;
+          position: relative;
+          display: flex;
+          height: 265px !important;
+          width: 1100px !important;
+          margin-inline: 50px;
+          border-radius: 5px;
+          box-shadow: 0 15px 20px rgba(0, 0, 0, 0.356);
+          margin-top: 30px;
+        }
+        .container img {
+          width: 260px;
+          height: 260px;
+          border-radius: 5px 0 0 5px;
+        }
+        .container .btn {
+          position: absolute;
+          bottom: -20px;
+          right: -20px;
+          border: none;
+          outline: none;
+          display: flex;
+          align-items: center;
+          background-color: #fc9400;
+          color: #fff;
+          padding: 22px 45px;
+          font-size: 1rem;
+          text-transform: uppercase;
+          border-radius: 5px;
+          cursor: pointer;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.294);
+        }
+        .container .btn i {
+          margin-left: 20px;
+          font-size: 1.5rem;
+        }
+
+        .container__text {
+          padding: 40px 40px 0;
+        }
+        .container__text h2{
+          color: #020103;
+          font-weight: 400;
+          margin-bottom: 50px;
+        }
+        .container__text .container__text__star span {
+          font-size: 0.8rem;
+          color: #ffa800;
+          margin: -5px 0 20px;
+        }
+        .container__text p {
+          font-size: 0.9rem;
+        }
+        .container__text .container__text__timing {
+          display: flex;
+          margin: 20px 0 10px;
+        }
+        .container__text .container__text__timing .container__text__timing_time {
+          margin-right: 40px;
+        }
+        .container__text .container__text__timing h2 {
+          margin-bottom: 5px;
+          font-size: 1rem;
+          font-weight: 400;
+          color: #818189;
+        }
+        .container__text .container__text__timing p {
+          color: #351897;
+          font-weight: bold;
+          font-size: 1.2rem;
+        }
+
+         .search__input_container{
+           width: 500px;
+           margin: auto;
+           margin-top: 20px;
+         }
+        .search__input {
+        width: 100%;
+        padding: 12px 24px;
+
+        background-color: transparent;
+        transition: transform 250ms ease-in-out;
+        font-size: 14px;
+        line-height: 18px;
+        
+        color: #575756;
+        background-color: transparent;
+/*         background-image: url(http://mihaeltomic.com/codepen/input-search/ic_search_black_24px.svg); */
+ 
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-size: 18px 18px;
+        background-position: 95% center;
+        border-radius: 50px;
+        border: 1px solid #575756;
+        transition: all 250ms ease-in-out;
+        backface-visibility: hidden;
+        transform-style: preserve-3d;
+    }
+
+.search__input::placeholder {
+            color: rgba(87, 87, 86, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+.search__input:hover,
+        .search__input:focus {
+            padding: 12px 0;
+            outline: 0;
+            border: 1px solid transparent;
+            border-bottom: 1px solid #575756;
+            border-radius: 0;
+            background-position: 100% center;
+        }
+  </style>
+
+  {% include "styles.html" %}
+  {% include "navigation.html" %}
+
+  <div class="alert alert-{{col}} text-center" style="padding:0px; margin:0px; font-weight: 700;">
+    {{msg}}
+  </div>
+  <nav aria-label="breadcrumb" style="font-size: 14px;border-bottom: 1px solid rgb(245, 245, 245);">
+    <ol class="breadcrumb m-0" style="background-color: #fff;padding: 2px 20px;">
+      <li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page"><span id="lastword"></span></li>
+    </ol>
+  </nav>
+  <div class="row" style="margin: 0px;">
+  {%include 'seller_sidebar.html'%}
+  {% include "styles.html" %}
+    <div class="col">
+        <br/>
+        <br/>
+        <h3 class='text-muted'><center>Your Orders</center></h3>
+        <div class='search__input_container'>
+          <input class="search__input" type="text" placeholder="Search">
+        </div>
+       
+        <div>
+          {% for i,j in orders.items %}
+          
+          <div class="container">
+            <img
+             src="{{j.image.url}}"
+             alt="Pancake"
+            />
+            <div class="container__text">
+             <h2>{{j.name}}</h2> 
+             <h6>
+            {{j.address}} , {{j.place}}
+             </h6>
+             <h6>
+              Shipped By : {{j.shipped}}
+               </h6>
+
+             <div class="container__text__timing">
+              <div class="container__text__timing_time">
+               <h2>Order Id</h2>
+               <p>{{j.order_no}}</p>
+              </div>
+              <div class="container__text__timing_time">
+               <h2>Product Id</h2>
+               <p>{{j.product_no}}</p>
+              </div>
+              <div class="container__text__timing_time">
+               <h2>Price </h2>
+               <p>₹{{j.price}}</p>
+              </div>
+               <div class="container__text__timing_time">
+               <h2>Quantity</h2>
+               <p>{{j.quantity}}</p>
+              </div>
+               <div class="container__text__timing_time">
+               <h2>Order Time & Date</h2>
+               <p>{{j.created_at}}</p>
+              </div>
+               
+               <div class="container__text__timing_time">
+               <h2>Status</h2>
+               <p>{{j.status}}</p>
+               <p></p>
+              </div>
+             </div>
+             <!-- <button class="btn">view recipe <i class="fa fa-arrow-right"></i></button> -->
+            </div>
+          </div>
+          {% endfor %}
+
+
+        </div>
+
+  </div>
+
+  <body>
+  
+  {% include "styles.html" %}
+   
+
+  </body>
+  {% include "footer.html" %}
+
+  <script>
+    var l = window.location.pathname.split('/')[1];
+    document.getElementById('lastword').innerHTML = l;
+  </script>
+
+  <script src="/static/staticfiles/js/jquery.min.js"></script>
+  <script src="/static/staticfiles/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/static/staticfiles/js/Collapsible-sidebar-left-or-right--Content-overlay.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+  </body>
+
+</html>

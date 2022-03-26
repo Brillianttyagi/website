@@ -100,7 +100,7 @@ class Login(View):
                 login(request,account)
                 return redirect('/')
             else:
-                message='Password is incorrect' if not otp else "OTP is incorrect"
+                message=' Password is incorrect' if not otp else 'OTP is incorrect'
                 color = 'danger'
                 return render(request,template_name=self.template_name,context={'color':color,'message':message})
         except ObjectDoesNotExist:

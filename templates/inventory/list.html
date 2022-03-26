@@ -268,12 +268,14 @@
 
             <div class="container mt-5 px-2">
                 <div class="row" style="padding: 0px 2%;">
-                    <div class="col-6">
-                        <div id="dataTable_filter" class="dataTables_filter"><label><input type="search"
-                                    class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"
-                                    style="padding-right: 100px;background: transparent;border-width: 2px;border-style: solid;"></label>
-                        </div>
-                    </div>
+                    <div class="search">
+                        <form class="searchform"  method="GET" action="{% url 'inventorysearch' %}" >
+                          <input type="text" class="searchTerm" name="query" placeholder="What are you looking for?">
+                          <button type="submit" class="searchButton">
+                            <i class="fa fa-search"></i>
+                          </button>
+                        </form>
+                      </div>
 
                 </div>
                 <div class="table-responsive">
@@ -289,11 +291,10 @@
                                 <th scope="col" width="14%"><span>Action</span></th>
                             </tr>
                         </thead>
-                        {% load custom_tag %}
                         <tbody>{% for i in inventory %}{% if i.prod_status != "" %}
                             <tr class="bg-light text-dark text-center">
                                 <td width="9%">{{ forloop.counter0|add:inventory.start_index }}</td>
-                                <td width="25%"><a  href="{% url 'previewact' i.id %}" style="color: #858796;">{{ i.name }}</a></td>                                
+                                <td width="25%"><a  href="{% url 'previewact' i.id %}" style="color: #858796;">{{ i.name }}</a></td>  
                                 <td width="18%"> {{ i.category }}</td>
                                 <td width="13%">{{ i.date }}</td>
                                 <td width="12%">{{ i.sellingPrice |floatformat:2 }}</td>
@@ -302,8 +303,8 @@
                                     <select class="form-select activeSelect" id="activeProductAction" onchange="location = this.value;">
                                         <option value="" selected disabled hidden>Select</option>
                                         <option value="/inventory/active-products/{{ i.id }}/">Edit Product</option>
-                                        <form action="/inventory/inventorydelete/{{ i.id }}/" method="POST"> <option value="">Delete Product</option></form>
-                                        <option value="2">Unlist Product</option>
+                                        <option value="/inventory/inventorydelete/{{i.id}}/">Delete Product</option>
+                                        <option value="/inventory/unlist-online/{{ i.id }}">Unlist Product</option>
                                         <option value="/inventory/list-online/{{ i.id }}/">List Online</option>
                                 </td>
                             </tr>{% endif %}{% endfor %}
@@ -323,8 +324,8 @@
             </div>
         </div>
     </div>
-    <div class="modal fade"  tabindex="-1" id="myModal">
-        <div class="modal-display" style="max-width: 98%;" role="document">
+    <div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+        <div class="modal-dialog" style="max-width: 98%;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 style="text-align: center;font-family: 'Crimson Text', serif;">Preview
@@ -337,13 +338,13 @@
 
 
                         <div class="column">
-                            <img id="featured" src="{{ inventory.image}}" alt=" " />
+                            <img id="featured" src="#" alt="your image" />
                             <!-- <div id=featured></div> -->
 
                             <div id="slide-wrapper">
                                 <img id="slideLeft" class="arrow"
                                     src="/static/staticfiles/img/preview/arrow-left.png">
-                                 <div id="slider">
+                                <div id="slider">
                                     
                                     
                                     <!-- <img id="sliderActive" class="thumbnail active"
@@ -379,14 +380,9 @@
                                     <p class="showGSTTax" id="showGSTTax"></p>
                                 </div>
 
-                                        <div class="product-detail">
-                                        
-                                        <img src={{ inventory.image}}
-                                                Width="20px" height="20px"
-                                                alt="">
-                                        {%for inventory in inventory%}
-                                         <ul>
-                                            <li><img src="/static/staticfiles/img/preview/checked.webp"
+                                <div class="product-detail">
+                                    <ul>
+                                        <li><img src="/static/staticfiles/img/preview/checked.webp"
                                                 Width="20px" height="20px"
                                                 alt="">&nbsp;&nbsp;Product Type : <p
                                                 id="showProductType">{{ inventory.category }}</p>
@@ -399,26 +395,20 @@
                                         <li><img src="/static/staticfiles/img/preview/checked.webp"
                                                 Width="20px" height="20px"
                                                 alt="">&nbsp;&nbsp;Product Dimension : <p
-                                                id="showProductDimensions">{{ inventory.packedLength }}x{{ inventory.packedWidth }}x{{ inventory.packedHeight }}</p>
+                                                id="showProductDimensions">{{ inventory.packedLength }}{{ inventory.packedWidth }}{{ inventory.packedHeight }}</p>
                                         </li>
                                         <li><img src="/static/staticfiles/img/preview/checked.webp"
                                                 Width="20px" height="20px"
                                                 alt="">&nbsp;&nbsp;Product Materials : <p
                                                 id="showProductMaterials">{{ inventory.material }}</p>
                                         </li>
-                                         </ul>
-                                         {%endfor%}
-                                    </div>
-
-
-                                
+                                    </ul>
+                                </div>
                             </div>
 
                         </div>
 
                     </div>
-
-                    
 
                     <div class="product-info">
                         <div style="padding: 4%;">

@@ -27,14 +27,4 @@ class Migration(migrations.Migration):
             name='companyKYCDOC',
             field=models.FileField(blank=True, null=True, storage=django.core.files.storage.FileSystemStorage(location='C:\\Users\\pkpri\\Desktop\\Seller\\Main\\updated\\KYCDoc'), upload_to=account.models.get_file_path_company_doc),
         ),
-        migrations.AlterField(
-            model_name='account',
-            name='gstin_data',
-            field=models.CharField(blank=True, max_length=500, null=True),
-        ),
-        migrations.AlterField(
-            model_name='account',
-            name='gstin_data_status',
-            field=models.CharField(blank=True, max_length=5, null=True),
-        ),
     ]

@@ -49,7 +49,6 @@ class Migration(migrations.Migration):
                 ('companyCategory', models.CharField(blank=True, choices=[('Interior Items', 'Interior Items'), ('Construction', 'Construction')], max_length=20, null=True)),
                 ('companyGSTNumber', models.CharField(blank=True, max_length=30, null=True)),
                 ('companyPAN', models.CharField(blank=True, max_length=10, null=True)),
-                ('companyCIN', models.CharField(blank=True, max_length=30, null=True)),
                 ('companyKYCDocType', models.CharField(blank=True, choices=[('Certificate Of Incorporation', 'Certificate Of Incorporation'), ('GST Registration Certificate', 'GST Registration Certificate'), ('IT Return', 'IT Return'), ('Registration Certificate', 'Registration Certificate')], max_length=30, null=True)),
                 ('companyKYCDOC', models.FileField(blank=True, null=True, storage=django.core.files.storage.FileSystemStorage(location='C:\\Users\\renewedcart.com\\seventhsq\\KYCDoc'), upload_to=account.models.get_file_path_company_doc)),
                 ('notificationCount', models.PositiveIntegerField(default=0)),

@@ -27,6 +27,51 @@
   </style>
 <style>
 
+
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid white;
+  border-right: none;
+  padding: 5px;
+  height: 30px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.searchTerm:focus{
+  color: black;
+}
+
+.searchButton {
+  width: 40px;
+  height: 30px;
+  border: 1px solid white;
+  background: black;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+  float: right;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrap{
+  width: 30%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}  
+
+
   .ais-Hits{
     border-radius: 5px;
     width: 362px;
@@ -64,6 +109,10 @@ height:1.5em;
 .isSearchInput{
   border-radius: 5px 0 0 5px;
 }
+.searchform{
+  width: 100%;
+  display: flex;
+}
 
 @media  (max-width: 700px) {
   .isSearchRoot{
@@ -71,7 +120,7 @@ height:1.5em;
 }
 }
 @media  (max-width: 600px) {
- .searchBox{
+ .wrap{
   display:none;
 }
 
@@ -95,10 +144,23 @@ height:1.5em;
         class="fa fa-navicon"></i></button>
     <div class="container-fluid"><a href="/"><img src="/static/staticfiles/img/white%20png%20(1).png"
         height="40px" /></a>
-        <div class="mx-auto searchBox" style="max-width:300px; z-index:1000" >
-          <div  id="searchbox" style="min-width:300px;" ></div>
-          <div class="position-absolute" id="hits" style="background-color:white; max-width:inherit; border:1px solid lightgray; display:table;"></div>
-        </div>
+        
+          <!-- <form class="searchbox" method="GET" action="{% url 'search' %}" >
+            <input class="searchbox" type="search" > 
+            <button class="searchbox" type="submit"> Search </button>
+        </form> -->
+
+        <div class="wrap">
+          <div class="search">
+            <form class="searchform"  method="GET" action="{% url 'search' %}" >
+              <input type="text" class="searchTerm" name="query" placeholder="What are you looking for?">
+              <button type="submit" class="searchButton">
+                <i class="fa fa-search"></i>
+              </button>
+            </form>
+          </div>
+       </div>
+        
       <ul class="nav navbar-nav flex-nowrap ml-0">
         <li class="nav-item dropdown no-arrow mx-1">
           <div class="nav-item dropdown no-arrow"><a class="nav-link" data-toggle="dropdown"

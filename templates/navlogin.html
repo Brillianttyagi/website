@@ -23,8 +23,8 @@
         class="fa fa-navicon"></i></button>
     <div class="container-fluid"><a href="/"><img src="/static/staticfiles/img/white%20png%20(1).png"
         height="40px" /></a>
-      <form class="form-inline d-none d-sm-inline-block mr-auto navbar-search" style="margin-left: 100px;width: 30rem;">
-        <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search"
+      <form class="form-inline d-none d-sm-inline-block mr-auto navbar-search" style="margin-left: 100px;width: 30rem;" name="myform" method="GET" action="{% url 'search' %}">
+        <div class="input-group"><input class="bg-light form-control border-0 small" type="text " name="search"  placeholder="Searcho"
             style="border-radius: 0px;">
           <div class="input-group-append"><button class="btn btn-light py-0" style="border-radius: 0px;"
               type="button"><i class="fas fa-search" style="color: #858796;"></i></button></div>

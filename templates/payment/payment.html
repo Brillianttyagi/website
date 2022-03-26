@@ -6,7 +6,58 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <title>Payments | Seventh Square Seller</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Open+Sans&display=swap');
+.mainSummery{
+          display: flex;
+          flex-direction: row;
+          margin: 0;
+          padding: 0;
 
+      }
+      .mainSummery h2{
+          font-size: 24px;
+          font-weight: 600;
+          font-family: 'Merriweather', serif;
+      }
+      .mainSummery .upperPanel{
+          background-color: rgb(241, 241, 241);
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+          min-height: 50px;
+          width: 100%;
+      }  
+.mainSummery .card-header{
+display: flex;
+flex-direction: row;
+font-size: 14px;
+}     
+.mainSummery .leftPanel{
+    margin: 10px 20px;
+background-color: rgb(245, 245, 245);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+} 
+.mainSummery .card-header .downloadPanel{
+    margin-left: 350px;
+}
+.mainSummery table th {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+}
+.mainSummery table tr td{
+    font-family: 'Open Sans', sans-serif;
+font-size: 12px;
+}
+.mainSummery .Insights{
+    display: flex;
+    flex-direction: column;
+}
+
+</style>
   {% include "styles.html" %}
   {% include "navigation.html" %}
 
@@ -22,9 +73,105 @@
   <div class="row" style="margin: 0px;">
   {%include 'seller_sidebar.html'%}
     <div class="col">
-        <br/>
-        <br/>
-        <h3 class='text-muted'><center>No Payment History</center></h3>
+      <div>
+        <div class="container-fluid mainSummery">
+      <div class="row col-md-12">
+      <div class="col-12 col-md-12">
+      <div class="card">
+        <h2 className="mb-2">Your Payment Summary</h2>
+        <div className="upperPanel">
+            <tr>
+                <td width="230px">Settlement Amount</td>
+                <td width="230px">Account Balance</td>
+                <td width="230px">Next Transfer</td>
+            </tr>
+      
+        </div>
+        <div class="card-header">
+        <tr>
+                <td width="630px">Filter Transaction</td>
+                <td width="200px">Download Statement</td>
+        </tr>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive" id="proTeamScroll" tabindex="2" >
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>
+                                Payment Details</th>
+                            <th>Received</th>
+                            <th>Transferred</th>
+                            <th>Status</th>
+                            <th>Details</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <h6 class="mb-0 font-13">Amount Received for Order #110321 </h6>
+                            </td>
+                            <td>20-02-2018</td>
+                            <td class="text-truncate">
+                            20-02-2018
+                            </td>
+                            <td>
+                                <div class="badge-outline col-red">clear</div>
+                            </td>
+                            <td class="align-middle">
+                                <div class="progress-text">details</div>
+                                
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td class="table-img">1
+                            </td>
+                            <td>
+                                <h6 class="mb-0 font-13">Amount Received for Order #110321 </h6>
+                            </td>
+                            <td>20-02-2018</td>
+                            <td class="text-truncate">
+                            20-02-2018
+                            </td>
+                            <td>
+                                <div class="badge-outline col-red">clear</div>
+                            </td>
+                            <td class="align-middle">
+                                <div class="progress-text">details</div>
+                                
+                            </td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h2>Your Insights</h2>
+        <div className="Insights">
+        <div className="upperPanel">
+        <tr>
+                <td width="230px">Product Revenue</td>
+                <td width="230px">Taxes Collected</td>
+                <td width="230px">Shipping Charged</td>
+            </tr>
+        </div>
+        <div className="upperPanel">
+        <tr>
+                <td width="230px">Returns</td>
+                <td width="230px">Return Expenses</td>
+                <td width="230px">Marketplace Fee Paid</td>
+            </tr>
+        </div>
+        </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
     </div>
   </div>
   {% include "footer.html" %}

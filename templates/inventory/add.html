@@ -11,6 +11,7 @@
     <link rel="stylesheet"
         href="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css" />
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
     <style>
         .form-control:focus {
             -webkit-box-shadow: none;
@@ -391,10 +392,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label requiredLabel" for="">Product Title
                                         <i style="font-size: 10px;" class="fas fa-question"><span
-                                                class="tooltiptext">Product Heading / Title will help your customers
-                                                discover your product on our platform. Read here to find out how to
-                                                write a
-                                                fitting product title</span></i>
+                                                class="tooltiptext">Tip: Brand Name + Product Type + Size/Quantity + Relevant Keywords (if any)</span></i>
                                     </label>
                                     <div class="col-sm-8">
                                         <i class="fas fa-asterisk text-danger mx-2 mb-2" style="font-size: 8px;"></i>
@@ -402,30 +400,61 @@
                                             name="name" required>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label requiredLabel" for="">Product Type<i
+                                <div class="row">
+                                <div class="form-group row col-md-7">
+                                    <label class="col-sm-6 col-form-label requiredLabel" for="">Product Type<i
                                             style="font-size: 10px;" class="fas fa-question"><span
                                                 style="margin-left:-110px;margin-top:-80px" class="tooltiptext">Type
                                                 in the category your product is a part of. If your
                                                 product is not listed in the dropdown list, please choose 'other'
                                                 and define
                                                 your product category</span></i></label>
-                                    <div class="col-sm-8">
-                                        <i class="fas fa-asterisk text-danger mx-2 mb-2" style="font-size: 8px;"></i>
-                                        <input class="form-control" list="datalistOptions" id="productType"
+                                    <div class="col-sm-6">
+                                        <i class="fas fa-asterisk text-danger mx-2 mb-2" style="font-size: 8px;margin-left: 60px!important"></i>
+                                        <input style="margin-left: 60px;" class="form-control" list="datalistOptions" id="productType"
                                             placeholder="Type your Product Name" name="category" required>
                                         <datalist id="datalistOptions">
                                             {%include "productType.html"%}
                                         </datalist>
                                     </div>
                                 </div>
+                                <div class="form-group row col-md-5 " style="margin-left: 30px;">
+                                    <label class="col-sm-4 col-form-label requiredLabel" for="">Category<i
+                                            style="font-size: 10px;" class="fas fa-question"><span
+                                                style="margin-left:-110px;margin-top:-80px" class="tooltiptext">Select the segment your product is a part of</span></i></label>
+                                    <div class="col-sm-8">
+                                        <i class="fas fa-asterisk text-danger mx-2 mb-2" style="font-size: 8px;"></i>
+                                        
+                                        <select name="subCategory"  class="form-control" name="subCategory" id="subCategory" required="required">
+
+<option value=""  selected hidden>Select Category</option>                                           
+ <option value="Cement">Cement</option>
+                                            <option value="Bricks">Bricks</option>
+                                            <option value="Steel">Steel</option>
+                                            <option value="Aggregates">Aggregates</option>
+                                            <option value="Wood">Wood</option>
+                                            <option value="Glass">Glass</option>
+                                            <option value="Hardware">Hardware</option>
+                                            <option value="Roffing">Roffing</option>
+                                            <option value="Pipes & fittings">Pipes & fittings</option>
+                                            <option value="Sanitaryware">Sanitaryware</option>
+                                            <option value="Electricals">Electricals</option>
+                                            <option value="Flooring & wall">Flooring & wall</option>
+                                            <option value="Chemicals">Chemicals</option>
+                                            <option value="Paints & Finishes">Paints & Finishes</option>
+                                            <option value="Modular">Modular</option>
+                                            <option value="Doors & Windows">Doors & Windows</option>  
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                               
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label requiredLabel" for="">HSN Code<i
                                             style="font-size: 10px;" class="fas fa-question"><span
-                                                class="tooltiptext">Please enter the relevant
-                                                HSN
-                                                Code to your Product. In case of any doubts, please check this
-                                                link.</span></i></label>
+                                                class="tooltiptext">Please enter the relevant HSN Code to your Product..</span></i></label>
                                     <div class="col-sm-8">
                                         <i class="fas fa-asterisk text-danger mx-2 mb-2" style="font-size: 8px; "></i>
                                         <input class="form-control block-centered ic-input type=" type="text"
@@ -433,7 +462,7 @@
                                             max="6" min="6" placeholder="HSN" id="myKadA" data-max="6" name="HSN"
                                             required>
                                         <span style="margin-top: 1px;  font-size: 12px !important;"><a
-                                                href="https://services.gst.gov.in/services/searchhsnsac">Find Relevant
+                                                href="https://services.gst.gov.in/services/searchhsnsac" target="_blank">Find Relevant
                                                 HSN Code</a></span>
                                     </div>
                                     <script>
@@ -454,16 +483,12 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label requiredLabel" for="">Product Description<i
                                             style="font-size: 10px;" class="fas fa-question"><span
-                                                class="tooltiptext">Write
-                                                about your Product's key features, benefits & applications. Read here to
-                                                find out how to write a fitting Product Description.</span></i></label>
+                                                class="tooltiptext">Write about your Product's key features, benefits & applications..</span></i></label>
                                     <div class="col-sm-8">
                                         <i class="fas fa-asterisk text-danger mx-2 mb-2" style="font-size: 8px;"></i>
                                         <textarea class="form-control" id="productDescription" name="description"
-                                            rows="3" maxlength=250 required></textarea>
-                                        
+                                            rows="3"  maxlength=250 required="required"></textarea>
                                     </div>
-                                    
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label requiredLabel" for="">Shipping
@@ -585,11 +610,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label" for="">Installation <i
                                             style="font-size: 10px;" class="fas fa-question"><span
-                                                style="margin-left:-100px;" class="tooltiptext">If the Product needs to
-                                                be fitted somewhere,
-                                                please
-                                                explain here how customers should proceed about
-                                                it.</span></i></label>
+                                                style="margin-left:-100px;" class="tooltiptext">For fitting the product or applying it over a surface, please state the process here.</span></i></label>
                                     <div class="col-sm-8">
                                         <textarea name="aboutInstallation" id="productInstallation" cols="30" rows="10"
                                             class="form-control"></textarea>
@@ -640,10 +661,12 @@
                                     <div class="col-sm-8">
                                         <i class="fas fa-asterisk text-danger mx-2 mb-2" style="font-size: 8px;"></i>
                                         <div class="col" style="display: flex;flex-direction:row;">
-                                            <input class="form-control col-md-4" style="margin-left: -15px;" type="text"
-                                                placeholder="" name="qty" required>
-                                            <select class="form-select col-md-8" name="qtyUnit" setvalue="" id=""
+                                            <input class="form-control col-md-4" style="margin-left: -15px;" type="number"
+                                                placeholder="" name="qty" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required>
+                                            <select name="qtyUnit" class="form-select col-md-8" name="qtyUnit" setvalue="" id=""
                                                 placeholder="Choose Unit" required>
+                                                <option selected value="" style=" margin:0px!important;width:80px; border: 1px solid lightgray;border-radius: 1px;
+                                                                        ">Choose Unit</option>
                                                 {% include "unitOptions.html"%}
                                             </select>
                                         </div>
@@ -664,6 +687,7 @@
                                         <input type="text" name="variant" hidden>
                                         <datalist id="datalistVariantTypeOptions">
                                             <option value="Size">
+                                                <option value="MilliMeter (MM)"></option>
                                             <option value="Material">
                                             <option value="Dimension">
                                             <option value="Shape">
@@ -672,7 +696,7 @@
                                             <option value="Weight">
                                             <option value="Quality">
                                             <option value="Quantity">
-                                            <option value="Packeging">
+                                            <option value="Packaging">
                                             <option value="Design">
                                         </datalist>
                                     </div>
@@ -689,24 +713,19 @@
                                     <div class="col-md-6 row">
                                         <label class="col-md-6 col-form-label requiredLabel" for="">MRP<i
                                                 style="font-size: 10px;" class="fas fa-question"><span
-                                                    style="margin-left:-80px;" class="tooltiptext">Maximum Retail Price.
-                                                    This is not your sale
-                                                    price,
-                                                    just the market price of the product.</span></i></label>
+                                                    style="margin-left:-80px;" class="tooltiptext">Maximum Retail Price. Highest price that can be charged for a product sold to the consumer. Includes all taxes</span></i></label>
 
                                         <div class="col-md-6">
                                             <i class="fas fa-asterisk text-danger mx-2 mb-2"
                                                 style="font-size: 8px;"></i>
                                             <input class="form-control" type="number" placeholder="₹" name="markedPrice"
-                                                id="productMRP" required>
+                                                id="productMRP" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6 row">
                                         <label class="col-md-6 col-form-label requiredLabel" for="">Sale Price<i
                                                 style="font-size: 10px;" class="fas fa-question"><span
-                                                    class="tooltiptext">Sale Price is what the
-                                                    customer pays for the product. Check the breakdown to see what you
-                                                    get.</span></i>
+                                                    class="tooltiptext">Sale Price is the actual retail price (excluding taxes). Please check the breakdown using the link to see the platform's fee and services.</span></i>
                                             <p style="font-size: 12px; margin-top: -4px">( Exclusive of taxes )</p>
                                         </label>
 
@@ -716,28 +735,18 @@
                                                 <i class="fas fa-asterisk text-danger mx-2 mb-2"
                                                     style="font-size: 8px;"></i>
 
-                                                <input type="number" placeholder="₹" value="0.00" placeholder="0.00"
+                                                <input type="number" placeholder="₹"  placeholder="0.00"
                                                     step="0.01" class="form-control floatsaleprice" id="sale_price"
-                                                    oninput="limitDecimalPlaces(event, 2)" onchange="selectData()"
-                                                    required/>
-                                               <!-- <script>
-                                                function compare_input(){
-                                                 var mrp_input=document.getElementById('productMRP').value;
-                                                var sale_input=document.getElementById('sale_price').value;
-                                                    if(mrp_input<sale_input){
-                                                         alert('Sale price should be smaller than or equal to MRP');
-                                                         }
-                                                }
-                                                </script>-->
-
-                                                <!--<script type="text/javascript">
+                                                    oninput="limitDecimalPlaces(event, 2)" onchange="selectData()" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" name="sellingPrice"
+                                                    required />
+                                                <script type="text/javascript">
                                                     function limitDecimalPlaces(e, count) {
                                                         if (e.target.value.indexOf('.') == -1) { return; }
                                                         if ((e.target.value.length - e.target.value.indexOf('.')) > count) {
                                                             e.target.value = parseFloat(e.target.value).toFixed(count);
                                                         }
                                                     }
-                                                </script>*/-->
+                                                </script>
 
                                                 <span
                                                     style="margin-top: 1px; margin-left:72px; font-size: 12px !important;"><a
@@ -815,12 +824,12 @@
                                                     </div>
                                                     <script>
                                                         function showBreakdown() {
-                                                            var sale_price = parseInt($('#sale_price').val());
+                                                            var sale_price = parseFloat($('#sale_price').val());
                                                             var showCommission = ((5 / 100) * sale_price).toFixed(3);
                                                             var showPayment = ((3 / 100) * sale_price).toFixed(3);
                                                             var showGst = ((18 / 100) * showCommission).toFixed(3);
                                                             var added = (((5 / 100) * sale_price) + ((3 / 100) * sale_price) + ((18 / 100) * showCommission));
-                                                            var showRecieve = (sale_price - added).toFixed(3);
+                                                           var showRecieve = (sale_price - added).toFixed(3);
                                                             $('#showSale').val(sale_price);
                                                             $('#showCommission').val(showCommission);
                                                             $('#showPayment').val(showPayment);
@@ -857,7 +866,8 @@
                                             </select>
                                             <script>
                                                 function selectData() {
-                                                    var sale_price = parseInt($('#sale_price').val());
+                                                    var sale_price = parseFloat($('#sale_price').val());
+                                                    var mrp_price = parseInt($('#productMRP').val());
                                                     var values = parseInt(document.getElementById("sel1").value);
                                                     var percentage;
                                                     var taxable_amount;
@@ -891,13 +901,17 @@
                                                             alert("The default case is true!");
                                                             break;
                                                     }
+                                                    if(sale_price <= mrp_price ){
                                                     if (isNaN(sale_price) || isNaN(percentage)) {
                                                         taxable_amount = " ";
                                                     } else {
                                                         taxable_amount = ((percentage / 100) * sale_price).toFixed(3);
                                                     }
                                                     $('#secondP').val(taxable_amount);
-
+                                                }
+                                                else{
+                                                    alert("Sale Price can't be greater than MRP")
+                                                }
                                                 }
                                             </script>
                                         </div>
@@ -906,10 +920,7 @@
                                     <div class="col-md-6 row">
                                         <label class="col-md-6  col-form-label" for="">Taxable amount<i
                                                 style="font-size: 10px;" class="fas fa-question"><span
-                                                    style="margin-left: -130px !important;" class="tooltiptext">Maximum
-                                                    Retail Price. This is not your sale price, just the market price of
-                                                    the
-                                                    product.</span></i></label>
+                                                    style="margin-left: -130px !important;" class="tooltiptext">  Amount charged above the sale price as Tax (GST) from the customer .</span></i></label>
 
                                         <div class="col-md-6">
                                             <input class="form-control" id="secondP" type="text" placeholder="₹"
@@ -921,8 +932,7 @@
                                     <div class="col-md-6 row">
                                         <label class="col-md-6  col-form-label" for="">Packaging size<i
                                                 style="font-size: 10px;" class="fas fa-question"><span
-                                                    class="tooltiptext">Sale Price is what the customer pays for the
-                                                    product. Check the breakdown to see what you get.</span></i></label>
+                                                    class="tooltiptext">If your product is a liquid mixture or a set of multiple pieces, please mention the size (weight/quantity) of per packet/set here. </span></i></label>
 
                                         <div class="col-md-6">
                                             <input class="form-control" id="productPackaging" type="text" placeholder=""
@@ -934,8 +944,7 @@
                                     <div class="col-md-12 row">
                                         <label class="col-md-3" for="">Components per unit<i style="font-size: 10px;"
                                                 class="fas fa-question"><span style="margin-left:-100px;"
-                                                    class="tooltiptext">Choose the GST Rate
-                                                    applicable for your product.</span></i></label>
+                                                    class="tooltiptext">List the unique items and their quantity included in your product set/unit per order.</span></i></label>
 
                                         <div class="col-md-9" style="margin-left: -5px;">
                                             <textarea class="form-control" id="productComponents" placeholder=""
@@ -963,7 +972,7 @@
                                 <div class="">
                                     <div class="">
                                         <div class="row my-2">
-                                            <div class="col col-md-6">
+                                            <div class="col col-md-4">
                                                 <label class="form-label " for="">Product
                                                     Weight<i style="font-size: 10px;" class="fas fa-question"><span
                                                             class="tooltiptext">Actual Product weight in
@@ -971,9 +980,9 @@
                                                 <i class="fas fa-asterisk text-danger mx-2 mb-2"
                                                     style="font-size: 8px;"></i>
                                                 <input type="number" placeholder="In Kgs" name="weight"
-                                                    class="form-control" id="productWeight" required>
+                                                    class="form-control" id="productWeight" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required>
                                             </div>
-                                            <div class="col col-md-6">
+                                            <div class="col col-md-4">
                                                 <label class="form-label">Country
                                                     of Origin<i style="font-size: 10px;" class="fas fa-question"><span
                                                             class="tooltiptext">State where the
@@ -982,8 +991,22 @@
                                                     style="font-size: 8px;"></i>
                                                 <select class="form-control" id="country" name="countryOfOrigin"
                                                     required>
+                                                    <option value="" selected="selected">
+                                                        (please select a country)</option>
                                                     {% include "options.html" %}
                                                 </select>
+                                            </div>
+                                            <div class="col col-md-4">
+                                                <label class="form-label">Returnable Product<i style="font-size: 10px;" class="fas fa-question"><span
+                                                            class="tooltiptext">Choose whether your product can be returned by the customer. </span></i></label>
+        
+                                                <select class="form-control" id="returnable">
+                                                    <option value="">Yes</option>
+                                                    <option value="">No</option>
+                                                </select>
+                                                <span style="margin-top: 1px;  font-size: 12px !important;"><a
+                                                    href="https://seller.seventhsq.com/blog/Add-new-product-returns-in-ecommerce/" target="_blank">
+                                                Why is this here ?</a></span>
                                             </div>
 
 
@@ -1071,7 +1094,7 @@
                                             </style>
                                             <div class="form-group" style="margin-left: 25px;">
 
-                                                <select class="mul-select form-select form-control" multiple="true">
+                                                <select name="servicedRegions" class="mul-select form-select form-control" multiple="true">
                                                     <option value="PAN India">PAN India</option>
                                                     <option value="Andaman and Nicobar Islands">Andaman and Nicobar
                                                         Islands</option>
@@ -1112,12 +1135,8 @@
                                                     <option value="West Bengal">West Bengal</option>
                                                 </select>
                                             </div>
-                                        </div>
-                                            <div class="row d-flex justify-content-center align-item-center">
-                                            <input type="checkbox" name="field name" value="Initial value" checked="yes">
-                                            <label class="col-sm-4 col-form-label " for="">Want customer to return this product.
-                                        </div>
 
+                                        </div>
                                         <!-- Modal -->
 
 
@@ -1237,8 +1256,6 @@
                                                             href="#specifications">Specifications</a>
                                                     </li>
                                                 </ul>
-                                                
-
                                                 <div class="row">
                                                     <div class="col-md-6 mx-4">
                                                         <div class="form-group row my-2">
@@ -1250,7 +1267,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row my-2">
-                                                            <label for="inputPassword"
+                                                            <label for="inputPassword" 
                                                                 class="col-sm-4 col-form-label">Installation</label>
                                                             <div class="col-sm-6">
                                                                 <p id="showProductInstallation" style="width:400px;">
@@ -1283,6 +1300,7 @@
 
                                                             </div>
                                                         </div>
+
                                                         <div class="form-group row my-2">
                                                             <label for="inputPassword"
                                                                 class="col-sm-4 col-form-label">Tax Code</label>
@@ -1357,7 +1375,7 @@
                                     <h5 style="margin: 15px 20px; font-weight:600; font-size: 20px; color: black;">
                                         Add Variants</h5>
                                     <p style="margin: 5px 20px!important; font-size:14px; margin-top:-10px ">
-                                        Add your product's variants or diffrent versions, </p>
+                                        Add your product's variants or different versions, </p>
                                     <p style="margin: 0px 20px !important; font-size:14px; ">if
                                         any.(For
                                         Example, multiple sizes , colours)</p>
@@ -1372,7 +1390,7 @@
                                                 </div>
                                                 <div class="col-md-6" style="margin-left: -60px;">
                                                     <label for="inputEmail4" class="form-label"><b>Variable
-                                                            Otions</b></label>
+                                                            Options</b></label>
                                                 </div>
                                             </div>
                                             <div class="col g-3">
@@ -1391,7 +1409,7 @@
                                                     <a href="javascript:void(0);" class="add_button"
                                                         title="Add field"><img class="add__another--img"
                                                             src="https://www.freeiconspng.com/thumbs/plus-icon/plus-icon-black-2.png" />Add
-                                                        Variant</a>
+                                                            variants</a>
                                                 </div>
 
 
@@ -1462,6 +1480,15 @@
             if (e.form.checkValidity()) {
                 e.form.removeAttribute('onsubmit')
                 e.form.submit()
+                Swal.fire({
+                    height: '200px',
+                    width:'400px',
+                position: 'top',
+                icon: 'success',
+                title: 'Product is added sucessfully',
+                showConfirmButton: false,
+                timer: 1500
+                })
             }
         }
         $('select').selectpicker();
@@ -1561,7 +1588,7 @@
     <script>
         $(document).ready(function () {
             $(".mul-select").select2({
-                placeholder: "select service regions",
+                placeholder: "Select Service Regions",
                 class: "col-md-12",
                 tags: true,
                 tokenSeparators: ['/', ',', ';']
@@ -1627,6 +1654,7 @@
     <script>
         function sided() {
             // var productImage = $('#productImage').html();
+
 
             var productTitle = $('#productTitle').val();
             var productType = $('#productType').val();

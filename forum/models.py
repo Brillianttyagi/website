@@ -28,3 +28,10 @@ class Comment(models.Model):
     def __str__(self):
         return self.content
 
+class TalkToUs(models.Model):
+    contact = models.CharField(max_length=100)
+    desc = models.CharField(max_length=1000)
+
+class RequestACallback(models.Model):
+    name = models.CharField(max_length=100)
+    cont = models.CharField(max_length=1000)

@@ -18,6 +18,9 @@ from seller.models import (Bank_verify, Entity_verify, New_sup, Notify,
 
 from theseventhsquare.settings import ap
 from background_task import background
+from faq.models import Faq
+from blog.models import Blog
+from forum.models import TalkToUs,RequestACallback
 
 ottp = str()
 
@@ -26,6 +29,30 @@ def home(request):
         return render(request,'seller_index.html')
     else:
         return render(request,'dashboard.html')
+
+
+#search bar
+def search(request):
+    query = request.GET['query']
+    faq_posts = Faq.objects.all().filter(question__icontains=query)
+    blog_posts= Blog.objects.all().filter(title__icontains=query)
+    faq_bposts = Faq.objects.all().filter(answer__icontains=query)
+    blog_bposts= Blog.objects.all().filter(body__icontains=query)
+    li = []
+    blog_li = []
+    for i in faq_posts:
+        li.append(i)
+    for i in faq_bposts:
+        if i not in li:
+            li.append(i)
+    #for blog
+    for i in blog_posts:
+        blog_li.append(i)
+    for i in blog_bposts:
+        if i not in blog_li:
+            blog_li.append(i)
+    return render(request, 'search.html', {'faq' : li, 'blog': blog_li })   
+
 
 def notifica(a,b,sup_id):
     notif = Notify.objects.get(sup_id=sup_id)
@@ -102,8 +129,11 @@ def sendcallbackus(subject,message,*args,**kwargs):
     send_mail(subject,message,EMAILS['team'],EMAILS['no_reply'],fail_silently=False)
 
 def callbackus(request):
+
     email = request.POST.get('email')
     msg = request.POST.get('msg')
+    obj = TalkToUs.objects.create(contact=email,desc = msg)
+    obj.save()
     subject = "We have a query from seller"
     message = f"Email : {email}\nMessage : {msg}"
     to_email = "seller@seventhsq.com"
@@ -113,6 +143,8 @@ def callbackus(request):
 def requestacallback(request):
     mobile = request.POST.get('contact')
     name = request.POST.get('name')
+    obj = RequestACallback.objects.create(name=name,cont = mobile)
+    obj.save()
     subject = "We have a query from seller"
     message = f"Name : {name}\nConatact : {mobile}"
     to_email = "seller@seventhsq.com"
@@ -161,8 +193,6 @@ def coming(request):
     notif = Notify.objects.get(sup_id=request.session.get('sup_id'))
     return render(request,'coming-soon.html',{'notif':notif})
 
-def dash_faqs(request,f):
-    return render(request,'dash-faq{}.html'.format(f))
 
 def pricecalculator(request):
     return render(request,'price.html')

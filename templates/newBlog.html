@@ -1,6 +1,10 @@
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css'>
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css'>
 <script src="https://kit.fontawesome.com/ce664af958.js" crossorigin="anonymous"></script>
+<script src="/static/staticfiles/js/jquery.min.js"></script>
+<script src="/static/staticfiles/bootstrap/js/bootstrap.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js'></script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro&family=Mukta+Vaani:wght@300&display=swap" rel="stylesheet"> 
@@ -190,6 +194,7 @@
 
   .blog-grid .blog-img {
     position: relative;
+    height: auto;
   }
 
   .blog-grid .blog-img .date {
@@ -876,37 +881,23 @@
           <div class="container row container ">
             <h1 class="text-dark font_monda" ><a href="/blog/Industry/">Industry</a></h1>
             <hr class=" mx-2">
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto ">
-              <div class="ver_mas text-center">
-                <span><a href="/Industry/Trends_in_the_Building_Materials_Industry/">Read More</a> </span>
-              </div>
-              <article class="text-left">
-                <h2>Trends in the Building Materials </h2>
-                <h4>Industry</h4>
-              </article>
-              <img src="https://seller.seventhsq.com/static/staticfiles/img/blog/Seller Blog - Industry 2.png"
-                alt="">
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto">
-              <div class="ver_mas text-center">
-                <span><a href="/Industry/How_Cement_Manufacturers_can_grow_by_selling_online/">Read More</a></span>
-              </div>
-              <article class="text-left">
-                <h2>How Cement Manufacturers can grow by selling online?</h2>
-                <h4>Industry</h4>
-              </article>
-              <img src="/static/staticfiles/img/blog/Industry3.png" alt="">
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto">
-              <div class="ver_mas text-center">
-                <span><a href="/Industry/Construction_Steel_market_in_India_and_Emerging_Trends/">Read More</a></span>
-              </div>
-              <article class="text-left">
-                <h2>Construction Steel market in India and Emerging Trends</h2>
-                <h4>Industry</h4>
-              </article>
-              <img src="/static/staticfiles/img/blog/Industry4.png" alt="">
-            </div>
+            {% for post,tag in dic.items %}
+              {% load custom_tags %}
+              
+                {% if "Industry" in tag|to_str %}
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto ">
+                  <div class="ver_mas text-center">
+                    <span><a href="{% url 'detail' post.slug %}">Read More</a> </span>
+                  </div>
+                  <article class="text-left">
+                    <h2>{{post.title}} </h2>
+                    <h4>Industry</h4>
+                  </article>
+                  <img src="{{post.image.url}}"
+                    alt="">
+                </div>
+              {% endif %}
+              {% endfor %}
           </div>
         </div>
         <div class=" contenedor">
@@ -914,37 +905,23 @@
             <h1 class="text-dark font_monda" ><a href="/blog/Ecommerce/">Ecommerce</a></h1>
             <h1 class="text-dark font_monda" ></h1>
             <hr class=" mx-2">
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto ">
-              <div class="ver_mas text-center">
-                <span><a href="/ecommerce/Tips_&_Tricks_For_Selling_Online/">Read More</a></span>
-              </div>
-              <article class="text-left">
-                <h2>Tips for Selling online</h2>
-                <h4>Ecommerce</h4>
-              </article>
-              <img src="https://seller.seventhsq.com/static/staticfiles/img/b3.png"
-                alt="">
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto">
-              <div class="ver_mas text-center">
-                <span><a href="/ecommerce/Importance_of_Packaging_in_E-commerce/">Read More</a></span>
-              </div>
-              <article class="text-left">
-                <h2>Importance of Packaging in Ecommerce</h2>
-                <h4>E-commerce</h4>
-              </article>
-              <img src="https://seller.seventhsq.com/static/staticfiles/img/b6.png" alt="">
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto">
-              <div class="ver_mas text-center">
-                <span><a href="/ecommerce/Why_online_marketplaces_work/">Read More</a></span>
-              </div>
-              <article class="text-left">
-                <h2>Why sell on Online Marketplaces?</h2>
-                <h4>E-commerce</h4>
-              </article>
-              <img src="https://seller.seventhsq.com/static/staticfiles/img/blog/Seller Blog- Ecommerce 4.png" alt="">
-            </div>
+            {% for post,tag in dic.items %}
+              {% load custom_tags %}
+              
+                {% if "Ecommerce" in tag|to_str %}
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto ">
+                  <div class="ver_mas text-center">
+                    <span><a href="{% url 'detail' post.slug %}">Read More</a> </span>
+                  </div>
+                  <article class="text-left">
+                    <h2>{{post.title}} </h2>
+                    <h4>Ecommerce</h4>
+                  </article>
+                  <img src="{{post.image.url}}"
+                    alt="">
+                </div>
+              {% endif %}
+              {% endfor %}
           </div>
         </div>
         <div class=" contenedor">
@@ -952,37 +929,23 @@
             <h1 class="text-dark font_monda " ><a href="/blog/Seller-help/">Seller Help</a></h1>
             
             <hr class=" mx-2">
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto ">
-              <div class="ver_mas text-center">
-                <span><a href="/seller-help/Seventh_Square_Seller/">Read More</a></span>
-              </div>
-              <article class="text-left">
-                <h2>Why sell with Seventh Square</h2>
-                <h4>Seller Help</h4>
-              </article>
-              <img src="https://seller.seventhsq.com/static/staticfiles/img/b1.png"
-                alt="">
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto">
-              <div class="ver_mas text-center">
-                <span><a href="/seller-help/write_Product_Title_and_Product_Description/">Read More</a></span>
-              </div>
-              <article class="text-left">
-                <h2>How to write Product Title </h2>
-                <h4>Seller Help</h4>
-              </article>
-              <img src="https://seller.seventhsq.com/static/staticfiles/img/blog/Seller Blog - Seller Help 3.png" alt="">
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto">
-              <div class="ver_mas text-center">
-                <span><a href="/seller-help/HSN_Code_&_Ecommerce/">Read More</a></span>
-              </div>
-              <article class="text-left">
-                <h2>HSN Code and E-commerce</h2>
-                <h4>Seller Help</h4>
-              </article>
-              <img src="https://seller.seventhsq.com/static/staticfiles/img/blog/Seller Blog- Seller Help 4.png" alt="">
-            </div>
+            {% for post,tag in dic.items %}
+              {% load custom_tags %}
+              
+                {% if "Seller_Help" in tag|to_str %}
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto ">
+                  <div class="ver_mas text-center">
+                    <span><a href="{% url 'detail' post.slug %}">Read More</a> </span>
+                  </div>
+                  <article class="text-left">
+                    <h2>{{post.title}} </h2>
+                    <h4>Seller Help</h4>
+                  </article>
+                  <img src="{{post.image.url}}"
+                    alt="">
+                </div>
+              {% endif %}
+            {% endfor %}
           </div>
         </div>
         <!--Main layout-->
@@ -997,148 +960,30 @@
          
           
           <div class="widget-body">
-            <div class="latest-post-aside media">
-              
-              <div class="lpa-left media-body">
-                <div class="lpa-title">
-                  <h5><a href="/Industry/Green_Buildings_India_Build_back_better/">Green Buildings & India : Build back better</a></h5>
+            {% for p in popular_blog %}
+              <div class="latest-post-aside media">
+                <div class="lpa-left media-body">
+                  <div class="lpa-title">
+                    <h5><a href="{% url 'detail' p.slug %}">{{p.title}}</a></h5>
+                  </div>
+                  <div class="lpa-meta">
+                    <a class="name" href="{% url 'detail' p.slug %}">
+                      {{p.tags.all|firstone}}
+                    </a>
+                    <a class="date" href="{% url 'detail' p.slug %}">
+                      {{p.created}}
+                    </a>
+                  </div>
                 </div>
-                <div class="lpa-meta">
-                  <a class="name" href="/Industry/Green_Buildings_India_Build_back_better/">
-                    E-commerce
-                  </a>
-                  <a class="date" href="/Industry/Green_Buildings_India_Build_back_better/">
-                    26 FEB 2020
-                  </a>
-                </div>
-              </div>
-              <div class="lpa-right">
-                <a href="/Industry/Green_Buildings_India_Build_back_better/">
-                  <img src="/static/staticfiles/img/blog/Industry5.jpg" title="" alt="">
-                </a>
-              </div>
-            </div>
-            <div class="latest-post-aside media">
-              <div class="lpa-left media-body">
-                <div class="lpa-title">
-                  <h5><a href="/Industry/How_Cement_Manufacturers_can_grow_by_selling_online/">How Cement Manufacturers can grow by selling online?</a></h5>
-                </div>
-                <div class="lpa-meta">
-                  <a class="name" href="/Industry/How_Cement_Manufacturers_can_grow_by_selling_online/">
-                    E-commerce
-                  </a>
-                  <a class="date" href="/Industry/How_Cement_Manufacturers_can_grow_by_selling_online/">
-                    26 FEB 2020
+                <div class="lpa-right">
+                  <a href="{% url 'detail' p.slug %}">
+                    <img src="{{p.image.url}}" title="" alt="">
                   </a>
                 </div>
               </div>
-              <div class="lpa-right">
-                <a href="/Industry/How_Cement_Manufacturers_can_grow_by_selling_online/">
-                  <img src="/static/staticfiles/img/blog/Industry3.png" title="" alt="">
-                </a>
-              </div>
-            </div>
-            <div class="latest-post-aside media">
-              <div class="lpa-left media-body">
-                <div class="lpa-title">
-                  <h5><a href="/Industry/Construction_Steel_market_in_India_and_Emerging_Trends/">Construction Steel market in India and Emerging Trends</a></h5>
-                </div>
-                <div class="lpa-meta">
-                  <a class="name" href="/Industry/Construction_Steel_market_in_India_and_Emerging_Trends/">
-                    E-commerce
-                  </a>
-                  <a class="date" href="/Industry/Construction_Steel_market_in_India_and_Emerging_Trends/">
-                    26 FEB 2020
-                  </a>
-                </div>
-              </div>
-              <div class="lpa-right">
-                <a href="/ecommerce/Sell_online_to_build_Brand_Awareness/">
-                  <img src="/static/staticfiles/img/blog/Industry4.png" title="" alt="">
-                </a>
-              </div>
-            </div>
-            <div class="latest-post-aside media">
-              <div class="lpa-left media-body">
-                <div class="lpa-title">
-                  <h5><a href="/ecommerce/Why_online_marketplaces_work/">Why sell on Online Marketplaces?</a></h5>
-                </div>
-                <div class="lpa-meta">
-                  <a class="name" href="/ecommerce/Why_online_marketplaces_work/">
-                    E-commerce
-                  </a>
-                  <a class="date" href="/ecommerce/Why_online_marketplaces_work/">
-                    26 FEB 2020
-                  </a>
-                </div>
-              </div>
-              <div class="lpa-right">
-                <a href="/ecommerce/Why_online_marketplaces_work/">
-                  <img src="https://seller.seventhsq.com/static/staticfiles/img/blog/Seller Blog- Ecommerce 4.png" title="" alt="">
-                </a>
-              </div>
-            </div>
+            {% endfor %}
+            
 
-            <div class="latest-post-aside media">
-              <div class="lpa-left media-body">
-                <div class="lpa-title">
-                  <h5><a href="/ecommerce/Sell_online_to_build_Brand_Awareness/">How selling online helps you build ‘Brand Awareness’</a></h5>
-                </div>
-                <div class="lpa-meta">
-                  <a class="name" href="/ecommerce/Sell_online_to_build_Brand_Awareness/">
-                    E-commerce
-                  </a>
-                  <a class="date" href="/ecommerce/Sell_online_to_build_Brand_Awareness/">
-                    26 FEB 2020
-                  </a>
-                </div>
-              </div>
-              <div class="lpa-right">
-                <a href="/ecommerce/Sell_online_to_build_Brand_Awareness/">
-                  <img src="https://seller.seventhsq.com/static/staticfiles/img/blog/Seller Blog- Ecommerce 5.png" title="" alt="">
-                </a>
-              </div>
-            </div>
-            <div class="latest-post-aside media">
-              <div class="lpa-left media-body">
-                <div class="lpa-title">
-                  <h5><a href="/seller-help/Adding_new_product_Serviced_Regions/">Adding new product: Serviced Regions</a></h5>
-                </div>
-                <div class="lpa-meta">
-                  <a class="name" href="/seller-help/Adding_new_product_Serviced_Regions/">
-                    Seller Help
-                  </a>
-                  <a class="date" href="/seller-help/Adding_new_product_Serviced_Regions/">
-                    26 FEB 2020
-                  </a>
-                </div>
-              </div>
-              <div class="lpa-right">
-                <a href="/seller-help/Adding_new_product_Serviced_Regions/">
-                  <img src="/static/staticfiles/img/blog/Seller-Help5.png" title="" alt="">
-                </a>
-              </div>
-            </div>
-            <div class="latest-post-aside media">
-              <div class="lpa-left media-body">
-                <div class="lpa-title">
-                  <h5><a href="/seller-help/Seventh_Square_Seller/">Why sell with Seventh Square</a></h5>
-                </div>
-                <div class="lpa-meta">
-                  <a class="name" href="/seller-help/Seventh_Square_Seller/">
-                    Seller Help
-                  </a>
-                  <a class="date" href="/seller-help/Seventh_Square_Seller/">
-                    26 FEB 2020
-                  </a>
-                </div>
-              </div>
-              <div class="lpa-right">
-                <a href="/seller-help/Seventh_Square_Seller/">
-                  <img src="https://seller.seventhsq.com/static/staticfiles/img/b1.png" title="" alt="">
-                </a>
-              </div>
-            </div>
           </div>
         </div>
         <!-- End Latest Post -->
@@ -1204,25 +1049,10 @@
           </div>
           <div class="widget-body">
             <div class="nav tag-cloud">
-                      <a href="#">Add new product</a>
-                      <a href="#">HSN Code</a>
-                      <a href="#">GST</a>
-                      <a href="#">Products</a>
-                      <a href="#">Sell Online</a>
-                      <a href="#">Product Title</a>
-                      <a href="#"> Product Description</a>
-                      <a href="#"> Copywriting</a>
-                      <a href="#"> Covid-19</a>
-                      <a href="#"> Building Material Manufacturer</a>
-                      <a href="#"> Rural Demand, </a>
-                      <a href="#"> Tier 2/3/4 Markets</a>
-                      <a href="#"> Ecommerce</a>
-                      <a href="#"> Branding</a>
-                      <a href="#"> Brand Awareness</a>
-                      <a href="#"> marketing</a>
-                      <a href="#"> Online sales</a>
-                      <a href="#"> Brand Value</a>
-                      <a href="#"> growth</a>
+              {% load custom_tags %}
+              {% for i in common_tags %}
+                      <a href="{% url 'post' i.slug %}">{{ i }}</a>
+              {% endfor %}
             </div>
           </div>
         </div>
@@ -1231,8 +1061,7 @@
     </div>
   </div>
 </div>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js'></script>
+
 
 <script>
   $('.owl-carousel').owlCarousel({

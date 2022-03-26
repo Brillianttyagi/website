@@ -1,0 +1,99 @@
+{% load static %}
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>search result</title>
+
+    <style>
+        h1{
+            text-align: center;
+            padding-top: 10px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .card-holder{
+            display: flex;
+            flex-wrap: wrap;
+
+        }
+        .card {
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: -1px 2px 4px rgba(0,0,0,.25), 1px 1px 3px rgba(0,0,0,.1);
+  margin: 0 auto;
+  max-width: 340px;
+  max-height: fit-content;
+  
+}
+
+.card-media {
+  width: 100%;
+}
+
+.card-details {
+  padding: 5px 15px;
+}
+
+.card-head {
+  font-weight: 400;
+}
+
+.card-head {
+  font-size: 26px;
+  margin-bottom: 15px;
+}
+
+.card-action-button {
+  border-radius: 2px;
+  color: #FFAB40;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 500;
+  margin: 0;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.card-action-button:hover {
+  background-color: rgba(255 ,168 ,58, .2);
+}
+    </style>
+</head>
+<body>
+    {% include "styles.html" %}
+    {% include "navigation.html" %}
+    <h1>Blog Result</h1>
+    <div class="card-holder">
+      {% for i in blog  %}
+        <div class="card">
+          <img src="{{i.image.url}}"
+          alt="">
+          <div class="card-details">
+            <h2 class="card-head">{{i.title}}</h2>
+            <p class="ptext">{{i.body|slice:"3:60"}}...</p>
+            <a href="/blog/{{i.slug}}" class="card-action-button">Read more</a>
+          </div>
+        </div>
+        {%endfor%}
+    </div>
+    
+      
+
+    <h1>Faq result</h1>
+    {% for i in faq  %}
+    <div class="card">
+      <img src="{{i.image.url}}"
+      alt="">
+      <div class="card-details">
+        <h2 class="card-head">{{i.question}}</h2>
+        <p class="ptext">{{i.answer|slice:"3:10"}}...</p>
+        <a href="/blog/{{i.slug}}" class="card-action-button">Read more</a>
+      </div>
+    </div>
+    {%endfor%}
+</body>
+{% include "footer.html" %}
+</html>

@@ -51,7 +51,7 @@ class Account(AbstractUser):
     RepresentativeDOB = models.DateField(null=True,blank=True)
     # Mobile related Field
     mobilenovalidation = RegexValidator(regex=r'^[6-9]\d{9}$', message="Invalid mobile number")
-    mobileNumber = models.CharField(validators=[mobilenovalidation], max_length=13, blank=False,unique=True)
+    mobileNumber = models.TextField(validators=[mobilenovalidation], max_length=13, blank=False,unique=True)
     mobileVerificationCode = models.CharField(max_length=10,blank=True)
     isMobileNumberVerified = models.BooleanField(default=False)
     # Email related Field
